@@ -16,6 +16,8 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
 
     public Transform origin;        // Where the bullets originate from
     public CameraController cameraController;
+    public CameraRecoil cameraRecoil;
+    public WeaponRecoil weaponRecoil;
     public GameObject scopeOverlay;      // The crosshair image that appears when scoped
     public Camera mainCamera;
     public GameObject rifleCamera;
@@ -67,6 +69,8 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     {
         audioSource.Play();
         StartCoroutine(FireCooldown());
+        cameraRecoil.AddRecoil();
+        weaponRecoil.Fire();
         RaycastHit hit;
         if (Physics.Raycast(origin.position, origin.forward, out hit, range))
         {
@@ -85,6 +89,8 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
                 entity.TakeDamage(new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this));
             }
         }
+        // add recoil
+        
     }
 
     /// <summary>
@@ -92,7 +98,10 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     /// </summary>
     public void Aim(bool state)
     {
+        weaponRecoil.aiming = state;
+        cameraRecoil.aiming = state;
         anim.SetBool("isScoped", state);
+        cameraController.SetSensitivity(state ? scopedSensitivity : 1f);
         if (isScoped)
         {
             if (state)
@@ -120,7 +129,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         scopeOverlay.SetActive(true);
         rifleCamera.SetActive(false);
         mainCamera.fieldOfView = scopedFOV;
-        cameraController.SetSensitivity(scopedSensitivity);
+        
 
         //HUD.SetActive(false);
     }

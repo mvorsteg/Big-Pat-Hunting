@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour
     private PlayerMovement playerMovement;
     private Player player;
 
-    public bool toggleAim = true;
+    public bool toggleAim = false;
     public bool aiming = false;
 
     private void Awake()

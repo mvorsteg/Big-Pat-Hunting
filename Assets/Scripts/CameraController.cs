@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     private float scopedSensitivity = 1f;
 
     public Transform playerBody;
+    public CameraRecoil recoil;
 
     private float xRotation = 0f;
 
@@ -23,7 +24,7 @@ public class CameraController : MonoBehaviour
         scopedSensitivity = val;
     }
 
-    // Update is called once per frame
+
     public void Rotate(float x, float y)
     {
         x *= mouseSensitivity * scopedSensitivity * Time.deltaTime;
@@ -35,4 +36,5 @@ public class CameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * x);
     }
+   
 }
