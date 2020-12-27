@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour
     private PlayerMovement playerMovement;
     private Player player;
 
-    public bool toggleAim = false;
+    public bool toggleAim = true;
     public bool aiming = false;
 
     private void Awake()
@@ -36,8 +36,8 @@ public class PlayerInput : MonoBehaviour
     {
         if (toggle)
         {
-            controls.Gameplay.Aim.performed += ctx => player.Aim(aiming);
             controls.Gameplay.Aim.performed += ctx => aiming = !aiming;
+            controls.Gameplay.Aim.performed += ctx => player.Aim(aiming);
         }
         else
         {

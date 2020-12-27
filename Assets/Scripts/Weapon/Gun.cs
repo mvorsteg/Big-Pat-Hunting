@@ -3,22 +3,26 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Recoil))]
 public class Gun : MonoBehaviour, IWeapon, IDamageSource
 {
+
     public float damage = 10f;      // The damage per shot fired from the gun
     public float force = 1f;        // The amount of force applied when a shot kills an entity
     public float fireRate = 1f;     // How many shots the gun can fire per second
     public float range = 100f;      // How far (in meters) the gun can shoot before bullets deal no damage
     public bool isScoped = true;    // If true, the gun will provide a scope overlay when aimed
-    public float recoil = 1f;       // How much displacement is applied after firing
     public int maxAmmo = 3;         // The maximum ammo this gun can hold before reloading
     public float reloadSpeed = 5f;  // How long (in seconds) it takes to reload the gun
+    private Recoil recoil;
+
+    public ParticleSystem muzzleFlash;
 
     public Transform origin;        // Where the bullets originate from
     public CameraController cameraController;
-    public CameraRecoil cameraRecoil;
-    public WeaponRecoil weaponRecoil;
-    public GameObject scopeOverlay;      // The crosshair image that appears when scoped
+    public GameObject scopeOverlay;     // The crosshair overlay that appears when scoped
+    public Image crosshairOverlay;      // The crosshair image that will be changed
+    public Sprite crosshairSprite;      // The specific crosshair sprite that will be used
     public Camera mainCamera;
     public GameObject rifleCamera;
     public float scopedFOV = 15f;
@@ -26,7 +30,10 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     private float normalFOV;
 
     private bool isReadyToShoot = true; // The gun can only shoot when this is true
+    private bool isAiming = false;
     private int currAmmo;               // How much ammo currently in the gun
+
+    
 
     private AudioSource audioSource;
     private Animator anim;
@@ -35,12 +42,15 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     {
         audioSource = GetComponent<AudioSource>();
         anim = GetComponentInParent<Animator>();
+        recoil = GetComponent<Recoil>();
+        recoil.cameraController = cameraController;
     }
 
     private void Start()
     {
         currAmmo = maxAmmo;
         normalFOV = mainCamera.fieldOfView;
+        crosshairOverlay.sprite = crosshairSprite;
     }
 
     /// <summary>
@@ -67,12 +77,17 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     /// </summary>
     public void Shoot()
     {
+        currAmmo--;
         audioSource.Play();
         StartCoroutine(FireCooldown());
-        cameraRecoil.AddRecoil();
-        weaponRecoil.Fire();
+        recoil.AddRecoil(isAiming);
+        muzzleFlash.Play();
         RaycastHit hit;
-        if (Physics.Raycast(origin.position, origin.forward, out hit, range))
+        float turn = 0.5f;
+        Vector3 offset = isAiming ? Vector3.zero : new Vector3(Random.Range(-turn, turn), Random.Range(-turn, turn), Random.Range(-turn, turn));
+        Debug.DrawRay(origin.position, origin.forward + offset, Color.blue, 10f);
+        Debug.DrawRay(origin.position, origin.forward, Color.black, 10f);
+        if (Physics.Raycast(origin.position, origin.forward + offset, out hit, range))
         {
             Debug.Log(hit.transform.name);
             // check if we hit a weak point
@@ -98,8 +113,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     /// </summary>
     public void Aim(bool state)
     {
-        weaponRecoil.aiming = state;
-        cameraRecoil.aiming = state;
+        isAiming = state;
         anim.SetBool("isScoped", state);
         cameraController.SetSensitivity(state ? scopedSensitivity : 1f);
         if (isScoped)
@@ -141,13 +155,28 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     {
         isReadyToShoot = false;
         yield return new WaitForSeconds(1f / fireRate);
-        isReadyToShoot = true;
+        if (currAmmo > 0)
+        {
+            isReadyToShoot = true;
+        }
+        else
+        {
+            StartCoroutine(Reload());
+        }
+    
     }
 
+    /// <summary>
+    /// Triggers the reload animation and restores the gun's ammo
+    /// </summary>
     private IEnumerator Reload()
     {
+        anim.SetBool("isReloading", true);
         isReadyToShoot = false;
-        yield return new WaitForSeconds(reloadSpeed);
-
+        yield return new WaitForSeconds(reloadSpeed - 0.35f); // account for animation transition time
+        anim.SetBool("isReloading", false);
+        yield return new WaitForSeconds(0.35f);
+        currAmmo = maxAmmo;
+        isReadyToShoot = true;
     }
 }

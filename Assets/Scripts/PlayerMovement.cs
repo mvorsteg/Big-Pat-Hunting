@@ -6,12 +6,14 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 move;
     public Vector2 look;
 
-    private float speed = 12f;
+    public float speed = 12f;
     public float jumpHeight = 3f;
     private CharacterController cc;
     public CameraController cameraController;
+    private AudioSource audioSource;
 
     private Vector3 velocity;
+    private float timeToFootstep;
 
     public Transform groundCheck;
     private bool isGrounded;
@@ -19,9 +21,13 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
+    public AudioClip[] footstepSounds;
+    public float footstepDelay;
+
     private void Awake()
     {
         cc = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -34,10 +40,19 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 inputMovement = transform.right * move.x + transform.forward * move.y;    
-        cc.Move(inputMovement * speed * Time.deltaTime);
+        //cc.Move(inputMovement * speed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
-        cc.Move(velocity * Time.deltaTime);
+        cc.Move(((inputMovement * speed) + velocity) * Time.deltaTime);
+
+        timeToFootstep -= Time.deltaTime;
+        if (isGrounded && cc.velocity.magnitude > 2f && timeToFootstep <= 0)
+        {
+            AudioClip sound = footstepSounds[Random.Range(0, footstepSounds.Length)];
+            audioSource.clip = sound;
+            audioSource.Play();
+            timeToFootstep = footstepDelay;
+        }
     }    
 
     public void Jump()
