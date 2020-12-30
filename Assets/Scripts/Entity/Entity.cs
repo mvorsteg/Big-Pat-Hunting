@@ -4,13 +4,26 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    public float maxHealth = 100;
+    public enum AIState
+    {
+        Idle,       // No movement
+        Wander,     // Wandering aimlessly
+        Flee,      // Running away from immediate danger
+        Follow,     // Following another entity
+        Attack,     // Attacking another entity
+    }
 
-    private float health;
+    public float maxHealth = 100;
+    public EntityType type;
+
+    protected bool isAlive = true;
+    protected float health;
+    
+    protected Animator anim;
 
     protected virtual void Awake()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -25,6 +38,11 @@ public abstract class Entity : MonoBehaviour
         
     }
 
+    public virtual void SenseEntity(Entity other)
+    {
+
+    }
+
     /// <summary>
     /// Deals damage to the entity from the source specified.
     /// If the damage causes the entity, to drop below 0 health, it will die
@@ -32,6 +50,7 @@ public abstract class Entity : MonoBehaviour
     /// <param name="info">The HitInfo struct that contains data for this hit.</param>
     public virtual void TakeDamage(HitInfo info)
     {
+        Debug.Log(transform.name + " took " + info.damage + " damage");
         health -= info.damage;
         if (health <= 0)
         {
@@ -41,6 +60,6 @@ public abstract class Entity : MonoBehaviour
 
     protected virtual void Die(HitInfo info)
     {
-        
+        isAlive = false;
     }
 }

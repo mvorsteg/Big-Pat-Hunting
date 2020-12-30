@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDamageSource
 {
-    
+    Vector3 GetPosition();
 }

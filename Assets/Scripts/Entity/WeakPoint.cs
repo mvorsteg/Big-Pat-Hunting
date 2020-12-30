@@ -18,6 +18,7 @@ public class WeakPoint : MonoBehaviour
     public void TakeDamage(HitInfo info)
     {
         info.damage *= damageMultiplier;
+        Debug.Log("damageMultiplier " + damageMultiplier);
         parent.TakeDamage(info);
     }
 }

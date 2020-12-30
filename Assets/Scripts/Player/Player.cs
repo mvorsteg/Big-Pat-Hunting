@@ -4,6 +4,7 @@ public class Player : Entity
 {
 
     public IWeapon weapon;
+    public NoiseGenerator noiseGenerator;
 
     protected override void Awake()
     {
@@ -28,6 +29,7 @@ public class Player : Entity
         if (weapon.CanShoot())
         {
             weapon.Shoot();
+            noiseGenerator.GenerateNoise();
         }
     }
 

@@ -25,6 +25,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     public Sprite crosshairSprite;      // The specific crosshair sprite that will be used
     public Camera mainCamera;
     public GameObject rifleCamera;
+    public PlayerUI playerUI;
     public float scopedFOV = 15f;
     public float scopedSensitivity = 0.5f;
     private float normalFOV;
@@ -49,6 +50,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     private void Start()
     {
         currAmmo = maxAmmo;
+        playerUI.AddBullet(maxAmmo);
         normalFOV = mainCamera.fieldOfView;
         crosshairOverlay.sprite = crosshairSprite;
     }
@@ -72,40 +74,49 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetPosition()
+    {
+        return origin.position;
+    }
+
+    /// <summary>
     /// Causes the gun to fire a raycast from its origin outward
     /// If it hits any entity that can take damage, it applies damage to it
     /// </summary>
     public void Shoot()
     {
         currAmmo--;
+        playerUI.DisableBullet();
         audioSource.Play();
         StartCoroutine(FireCooldown());
         recoil.AddRecoil(isAiming);
         muzzleFlash.Play();
+
         RaycastHit hit;
         float turn = 0.5f;
+        LayerMask mask = 1 << 9;
         Vector3 offset = isAiming ? Vector3.zero : new Vector3(Random.Range(-turn, turn), Random.Range(-turn, turn), Random.Range(-turn, turn));
-        Debug.DrawRay(origin.position, origin.forward + offset, Color.blue, 10f);
-        Debug.DrawRay(origin.position, origin.forward, Color.black, 10f);
-        if (Physics.Raycast(origin.position, origin.forward + offset, out hit, range))
+        // do 2 raycasts- first check for a hit on vital organs, then check for a hit on regular body parts
+        if (Physics.Raycast(origin.position, origin.forward + offset, out hit, range, 1 << 10))
         {
-            Debug.Log(hit.transform.name);
+            Debug.Log(hit.collider.transform.name + " " + hit.collider.transform.gameObject.layer);
             // check if we hit a weak point
-            WeakPoint weakPoint = hit.transform.GetComponent<WeakPoint>();
+            WeakPoint weakPoint = hit.collider.GetComponent<WeakPoint>();
             if (weakPoint != null)
             {
                 weakPoint.TakeDamage(new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this));
             }
 
-            // otherwise, check for an entity and apply damage to it
-            Entity entity = hit.transform.GetComponent<Entity>();
-            if (entity != null)
-            {
-                entity.TakeDamage(new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this));
-            }
-        }
-        // add recoil
-        
+            // // otherwise, check for an entity and apply damage to it
+            // Entity entity = hit.transform.GetComponent<Entity>();
+            // if (entity != null)
+            // {
+            //     entity.TakeDamage(new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this));
+            // }
+        }        
     }
 
     /// <summary>
@@ -178,5 +189,6 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         yield return new WaitForSeconds(0.35f);
         currAmmo = maxAmmo;
         isReadyToShoot = true;
+        playerUI.Reload();
     }
 }
