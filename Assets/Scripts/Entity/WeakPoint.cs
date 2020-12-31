@@ -11,7 +11,7 @@ public class WeakPoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        parent = GetComponentInParent<Entity>();
     }
 
     /*  applies damage to the entity after applying the multiplier */

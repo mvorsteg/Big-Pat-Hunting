@@ -43,6 +43,11 @@ public abstract class Entity : MonoBehaviour
 
     }
 
+    public virtual Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
     /// <summary>
     /// Deals damage to the entity from the source specified.
     /// If the damage causes the entity, to drop below 0 health, it will die

@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         cameraController.Rotate(look.x, look.y);
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        //hitColliders = Physics.OverlapSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;

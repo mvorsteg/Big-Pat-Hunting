@@ -77,9 +77,9 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     /// 
     /// </summary>
     /// <returns></returns>
-    public Vector3 GetPosition()
+    public Transform GetTransform()
     {
-        return origin.position;
+        return origin;
     }
 
     /// <summary>

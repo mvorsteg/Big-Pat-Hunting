@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IDamageSource
 {
-    Vector3 GetPosition();
+    //Vector3 GetPosition();
+    Transform GetTransform();
 }

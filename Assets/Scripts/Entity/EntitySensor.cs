@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class EntitySensor : MonoBehaviour
 {
-    private Entity entity;
+    private Entity owner;
 
     private void Start() 
     {
-        entity = GetComponentInParent<Entity>();
+        owner = GetComponentInParent<Entity>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -14,7 +14,7 @@ public class EntitySensor : MonoBehaviour
         Entity e = other.GetComponent<Entity>();
         if (e != null)
         {
-            entity.SenseEntity(e);
+            owner.SenseEntity(e);
         }
 
     }    
