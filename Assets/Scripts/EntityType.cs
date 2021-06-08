@@ -7,6 +7,9 @@ public class EntityType : ScriptableObject
 {
     public EntityType[] attacks;
     public EntityType[] runsFrom;
+    public float baseWeight;
+    public float baseValue = 100;
+    // public string ;
 
     public bool RunsFrom(EntityType other)
     {

@@ -27,6 +27,10 @@ public class PlayerInput : MonoBehaviour
 
         controls.Gameplay.Shoot.performed += ctx => player.Shoot();
 
+        controls.Gameplay.Reload.performed += ctx => player.Reload();
+
+        controls.Gameplay.Use.performed += ctx => Interaction.Go();
+
         SetAimControls(toggleAim);
 
         controls.Gameplay.Enable();

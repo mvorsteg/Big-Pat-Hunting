@@ -55,13 +55,7 @@ public class DamageIndicator : MonoBehaviour
         this.Target = t;
         this.player = p;
         this.unRegister = unRegister;
-        StartTimer();
         StartCoroutine(RotateToTarget());
-    }
-
-    public void Restart()
-    {
-        timer = maxTimer;
         StartTimer();
     }
 
@@ -73,6 +67,12 @@ public class DamageIndicator : MonoBehaviour
         }
         countdown = Countdown();
         StartCoroutine(countdown);
+    }
+
+    public void Restart()
+    {
+        timer = maxTimer;
+        StartTimer();
     }
 
     private IEnumerator RotateToTarget()

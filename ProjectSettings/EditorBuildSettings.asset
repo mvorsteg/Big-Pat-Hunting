@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 1f0613e830a6df44180279eac488f0d5
+  - enabled: 1
+    path: Assets/Scenes/GreenRidge.unity
+    guid: a7966adaf6bb573468fdfccaaaeadd10
   m_configObjects: {}

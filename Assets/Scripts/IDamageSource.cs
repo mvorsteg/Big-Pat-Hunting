@@ -6,4 +6,5 @@ public interface IDamageSource
 {
     //Vector3 GetPosition();
     Transform GetTransform();
+    bool IsPlayer();
 }

@@ -1,9 +1,15 @@
 using UnityEngine;
 
-public class Zombie : Animal
+public class Zombie : Animal, IDamageSource
 {
     public Entity target;
     public Collider attackTrigger;
+    public Transform attackPoint;
+    public float attackRange;
+    public LayerMask mask;
+
+    public float attackDamage = 25f;
+    public float force = 100f;
 
     protected override void Awake()
     {
@@ -31,6 +37,16 @@ public class Zombie : Animal
         base.Update();
     }
 
+    public Transform GetTransform()
+    {
+        return transform;
+    }
+
+    public bool IsPlayer()
+    {
+        return false;
+    }
+
     /// <summary>
     /// If an entity walks close to the zombie, attack it
     /// </summary>
@@ -49,7 +65,18 @@ public class Zombie : Animal
     /// </summary>
     public void Attack()
     {
-        attackTrigger.enabled = true;
+        //attackTrigger.enabled = true;
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, mask);
+
+        foreach (Collider col in hitEnemies)
+        {
+            Entity e = col.GetComponent<Entity>();
+            if (e != null && e != this && type.Attacks(e.type))
+            {
+                HitInfo info = new HitInfo(attackDamage, 0f, force, (col.transform.position - transform.position).normalized, this);
+                e.TakeDamage(info);
+            }
+        }
     }
 
     /// <summary>

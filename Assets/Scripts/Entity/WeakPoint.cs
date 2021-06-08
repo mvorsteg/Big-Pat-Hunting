@@ -7,6 +7,7 @@ public class WeakPoint : MonoBehaviour
 
     public Entity parent;                   // entity this weak point is attached to 
     public float damageMultiplier = 1.0f;    // damage multiplier when damaged from this point
+    public BodyArea bodyArea = BodyArea.Body;
     
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class WeakPoint : MonoBehaviour
     public void TakeDamage(HitInfo info)
     {
         info.damage *= damageMultiplier;
+        info.bodyArea = bodyArea;
         Debug.Log("damageMultiplier " + damageMultiplier);
         parent.TakeDamage(info);
     }

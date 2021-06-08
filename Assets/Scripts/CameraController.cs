@@ -37,6 +37,7 @@ public class CameraController : MonoBehaviour
 
     public void AddRecoil(float x, float y, float z)
     {
+        //Debug.Log(x + " " + y + " " + z);
         currentRotation += new Vector3(x, y, z);
     }
 

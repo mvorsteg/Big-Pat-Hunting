@@ -26,6 +26,8 @@ public class Animal : Entity
     protected NavMeshAgent agent;   
     protected NavMeshPath path;
 
+    protected TerrainDetector detector;
+
     protected int pathIter = 1;
     protected Vector3 agentPosition;
     protected Vector3 destination = new Vector3(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity);
@@ -135,7 +137,7 @@ public class Animal : Entity
                 anim.SetBool("idle", true);
                 maxSpeed = 0;
                 StartCoroutine(IdleStateSwitch(Random.Range(2, 3)));
-                StartCoroutine(GenerateRandomDestinations(Random.Range(2, 8), Random.Range(5, 10), transform.position));
+                StartCoroutine(GenerateRandomDestinations(Random.Range(2, 8), Random.Range(6, 10), transform.position));
                 if (followers != null)
                 {
                     foreach (Animal f in followers)
@@ -148,6 +150,19 @@ public class Animal : Entity
                 maxSpeed = walkSpeed;
                 agent.speed = walkSpeed;
                 NextDestination();
+                // have followers tag along
+                if (followers != null)
+                {
+                    foreach (Animal f in followers)
+                    {
+                        f.SetState(AIState.Follow);
+                    }
+                }
+                break;
+            case AIState.Investigate :
+                maxSpeed = walkSpeed;
+                agent.speed = walkSpeed;
+                //NextDestination();
                 // have followers tag along
                 if (followers != null)
                 {
@@ -199,15 +214,41 @@ public class Animal : Entity
         }
         // find position to run to
         NavMeshHit navHit;
-        if (NavMesh.SamplePosition(transform.position + safeDistance * direction, out navHit, 5f, NavMesh.AllAreas))
+        Vector3 worldPos = transform.position + safeDistance * direction;
+        Vector3 terrainPos = new Vector3(worldPos.x, detector.Terrain.SampleHeight(worldPos), worldPos.z);
+        
+        if (NavMesh.SamplePosition(terrainPos, out navHit, 5f, NavMesh.AllAreas))
         {
             //agent.SetDestination(navHit.position);
             destinationQueue.Enqueue(navHit.position);
             NextDestination();
             StartCoroutine(GenerateRandomDestinations(3, safeDistance * 2, navHit.position));
-        }
+        }        
+    }
 
+    /// <summary>
+    /// Causes the animal to go investigate a position
+    /// </summary>
+    /// <param name="source">The position of the thing the animal is going to</param>
+    protected void Investigate(Vector3 source)
+    {
+        destinationQueue.Clear();
+        //ArriveAtDestination();
         
+        
+        // find position to run to
+        NavMeshHit navHit;
+        if (NavMesh.SamplePosition(source, out navHit, 5f, NavMesh.AllAreas))
+        {
+            SetState(AIState.Investigate);
+            //agent.SetDestination(navHit.position);
+            destinationQueue.Enqueue(navHit.position);
+            NextDestination();
+        }        
+        else
+        {
+            Debug.LogError("NO NAVA");
+        }
     }
 
     /// <summary>
@@ -244,6 +285,11 @@ public class Animal : Entity
             followers = new List<Animal>();
         }
         followers.Add(follower);
+    }
+
+    public void AssignTerrainDetector(TerrainDetector detector)
+    {
+        this.detector = detector;
     }
 
     /// <summary>
@@ -347,46 +393,13 @@ public class Animal : Entity
     }
 
     /// <summary>
-    /// Switches the animal between different idle states
+    /// 
     /// </summary>
-    protected IEnumerator IdleStateSwitch(int maxStates)
+    /// <param name="maxStates"></param>
+    /// <returns></returns>
+    protected virtual IEnumerator IdleStateSwitch(int maxStates)
     {
-        int state = Random.Range(0, 4);
-        int count = 0;
-        float duration;
-        while (this.state == AIState.Idle && count < maxStates)
-        {
-            anim.SetInteger("idleState", state);
-            switch (state)
-            {   
-                case 0 :
-                    duration = Random.Range(3.9f, 12.2f);
-                    break;
-                case 1 :
-                    duration = Random.Range(5.9f, 14.4f);
-                    break;
-                case 2 :
-                    duration = Random.Range(2.9f, 5.9f);
-                    break;
-                case 3 : 
-                    duration = Random.Range(10f, 20f);
-                    break;
-                default :
-                    // shouldnt be reached tbh
-                    duration = 2f;
-                    break;
-            }
-            //Debug.Log("state : " + state + " duration : " + duration);
-            yield return new WaitForSeconds(duration);
-            state = (state + Random.Range(1, 4)) % 4;   // ensures a new state
-            if (leader == null)
-                count++;
-        }
-        // if still idle, do some wandering
-        if (this.state == AIState.Idle)
-        {
-            SetState(AIState.Wander);
-        }
+        yield return null;
     }
 
     /// <summary>

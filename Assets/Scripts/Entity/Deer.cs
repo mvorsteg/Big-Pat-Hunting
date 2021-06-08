@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Deer : Animal, INoiseListener
 {
@@ -81,6 +82,61 @@ public class Deer : Animal, INoiseListener
             {
                 Flee(info.source.GetTransform().position);
             }
+        }
+    }
+
+    /// <summary>
+    /// Calls the IdleStateSwitch Coroutine
+    /// </summary>
+    // protected override void IdleStateSwitch()
+    // {
+    //     StartCoroutine(IdleStateSwitch())
+    // }
+
+    /// <summary>
+    /// Switches the animal between different idle states
+    /// </summary>
+    /// <param name="maxStates">The max number of idle states that will be visited</param>
+    protected override IEnumerator IdleStateSwitch(int maxStates)
+    {
+        int state = Random.Range(0, 4);
+        int count = 0;
+        float duration;
+        while (this.state == AIState.Idle && count < maxStates)
+        {
+            anim.SetInteger("idleState", state);
+            switch (state)
+            {   
+                case 0 :
+                    duration = Random.Range(3.9f, 12.2f);
+                    break;
+                case 1 :
+                    duration = Random.Range(5.9f, 14.4f);
+                    break;
+                case 2 :
+                    duration = Random.Range(2.9f, 5.9f);
+                    break;
+                case 3 : 
+                    duration = Random.Range(10f, 20f);
+                    break;
+                default :
+                    // shouldnt be reached tbh
+                    duration = 2f;
+                    break;
+            }
+            //Debug.Log("state : " + state + " duration : " + duration);
+            yield return new WaitForSeconds(duration);
+            if (isAlive)
+            {
+                state = (state + Random.Range(1, 4)) % 4;   // ensures a new state
+                if (leader == null)
+                    count++;
+            }
+        }
+        // if still idle, do some wandering
+        if (this.state == AIState.Idle)
+        {
+            SetState(AIState.Wander);
         }
     }    
 }

@@ -58,7 +58,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     /// <summary>
     /// Determines if the gun is cooled down, loaded, and otherwise able to shoot
     /// </summary>
-    /// <returns>True if the gun can shoot, otherwise false</returns>
+    /// <returns>True if the gun can shoot, otherwise False</returns>
     public bool CanShoot()
     {
         return isReadyToShoot && currAmmo > 0;
@@ -67,10 +67,19 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     /// <summary>
     /// Determines whether the gun uses a scope overlay when aimed
     /// </summary>
-    /// <returns>True if the gun has a scope, otherwise false</returns>
+    /// <returns>True if the gun has a scope, otherwise False</returns>
     public bool IsScoped()
     {
         return isScoped;
+    }
+
+    /// <summary>
+    /// Determines whether the gun can reload at the current moment
+    /// </summary>
+    /// <returns>True if the gun is not full and not currently reloading or cooling down, otherwise False</returns>
+    public bool CanReload()
+    {
+        return isReadyToShoot && currAmmo < maxAmmo;
     }
 
     /// <summary>
@@ -80,6 +89,15 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     public Transform GetTransform()
     {
         return origin;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public bool IsPlayer()
+    {
+        return true;
     }
 
     /// <summary>
@@ -117,6 +135,14 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
             //     entity.TakeDamage(new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this));
             // }
         }        
+    }
+    
+    /// <summary>
+    /// Causes the gun to reload and restore its full ammo
+    /// </summary>
+    public void Reload()
+    {
+        StartCoroutine(ReloadCoroutine());
     }
 
     /// <summary>
@@ -172,7 +198,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         }
         else
         {
-            StartCoroutine(Reload());
+            StartCoroutine(ReloadCoroutine());
         }
     
     }
@@ -180,7 +206,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     /// <summary>
     /// Triggers the reload animation and restores the gun's ammo
     /// </summary>
-    private IEnumerator Reload()
+    private IEnumerator ReloadCoroutine()
     {
         anim.SetBool("isReloading", true);
         isReadyToShoot = false;

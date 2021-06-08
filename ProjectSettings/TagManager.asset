@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Stone
+  - Wood
+  - Metal
   layers:
   - Default
   - TransparentFX
@@ -18,8 +21,8 @@ TagManager:
   - WeakPoint
   - NoiseGenerator
   - Sensor
-  - 
-  - 
+  - TerrainDetector
+  - PostProcessing
   - 
   - 
   - 

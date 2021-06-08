@@ -10,7 +10,8 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
-/[Aa]ssets/[Pp]aid/
+/[Aa]ssets/**/[Pp]aid/
+/[Aa]ssets/**/[Uu]ntracked/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta

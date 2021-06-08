@@ -19,6 +19,11 @@ public class AttackTrigger : MonoBehaviour, IDamageSource
         return owner.transform;
     }
 
+    public bool IsPlayer()
+    {
+        return false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("sensor");

@@ -1,28 +1,57 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Player : Entity
 {
 
     public IWeapon weapon;
+    [SerializeField]
+    private WeaponSwitcher weaponSwitcher;
     public NoiseGenerator noiseGenerator;
 
     public Transform groundCheck;
     public Vector3 navPosition;
+
+    public float healthRegenRate = 5f;
+
+    private RaycastHit hit;
+    private Interaction interaction;
     
     protected override void Awake()
     {
-
+        base.Awake();
     }
 
     protected override void Start()
     {
-        weapon = GetComponentInChildren<IWeapon>();
+        base.Start();
+        weapon = weaponSwitcher.SetWeapon(0);
+        Application.targetFrameRate = 60;
     }
 
     protected override void Update()
     {
         //SetAgentPosition();
+        // check if anything interactible is right in front of the player
+        //Debug.DrawRay(transform.position, 2 * transform.forward, Color.green, 2f);
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1.5f, ~0))
+        {
+            interaction = hit.transform.GetComponent<Interaction>();
+            if (interaction != null)
+            {
+                Interaction.LoadInteraction(interaction);
+            }
+            else
+            {
+                Interaction.Reset();
+            }
+        }
+        else
+        {
+            Interaction.Reset();
+        }
     }
 
     /// <summary>
@@ -45,7 +74,14 @@ public class Player : Entity
     public override void TakeDamage(HitInfo info)
     {
         base.TakeDamage(info);
-        DamageSystem.CreateIndicator(info.source.GetTransform());
+        if (!(info.source is FallDamage))
+        {
+            DamageSystem.CreateIndicator(info.source.GetTransform());
+        }
+        DamageSystem.SetVignette(1 - health / maxHealth);
+        // using string name because we need that to interrupt
+        StopCoroutine("HealthRegen");
+        StartCoroutine("HealthRegen");
     }
 
     /// <summary>
@@ -67,5 +103,28 @@ public class Player : Entity
     public void Aim(bool state)
     {
         weapon.Aim(state);
+    }
+
+    /// <summary>
+    /// Calls the weapon's Reload() method if available
+    /// </summary>
+    public void Reload()
+    {
+        if (weapon.CanReload())
+        {
+            weapon.Reload();
+        }
+    }
+
+    private IEnumerator HealthRegen()
+    {
+        yield return new WaitForSeconds(5f);
+        while (health < maxHealth)
+        {
+            health += healthRegenRate * Time.deltaTime;
+            DamageSystem.SetVignette(1 - health / maxHealth);
+            yield return null;
+        }
+        health = maxHealth;
     }
 }

@@ -8,7 +8,8 @@ public abstract class Entity : MonoBehaviour
     {
         Idle,       // No movement
         Wander,     // Wandering aimlessly
-        Flee,      // Running away from immediate danger
+        Flee,       // Running away from immediate danger
+        Investigate,// Investigating a noise or something
         Follow,     // Following another entity
         Attack,     // Attacking another entity
     }
@@ -20,6 +21,8 @@ public abstract class Entity : MonoBehaviour
     protected float health;
     
     protected Animator anim;
+
+    public bool IsAlive { get => isAlive; }
 
     protected virtual void Awake()
     {
@@ -66,5 +69,10 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Die(HitInfo info)
     {
         isAlive = false;
+        if (info.source.IsPlayer())
+        {
+            //Player p = (Player)info.source;
+            QuestManager.RegisterKill(this, info);
+        }
     }
 }

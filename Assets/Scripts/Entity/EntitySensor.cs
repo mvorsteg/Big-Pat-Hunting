@@ -4,7 +4,7 @@ public class EntitySensor : MonoBehaviour
 {
     private Entity owner;
 
-    private void Start() 
+    private void Awake() 
     {
         owner = GetComponentInParent<Entity>();
     }
@@ -17,5 +17,5 @@ public class EntitySensor : MonoBehaviour
             owner.SenseEntity(e);
         }
 
-    }    
+    }
 }
