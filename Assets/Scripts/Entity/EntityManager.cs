@@ -5,7 +5,6 @@ using System.Linq;
 public class EntityManager : MonoBehaviour
 {
     public int activeSpawnPoints = 3;
-    public KillQuest quest;
 
     private Dictionary<EntityType, int> entityCount;
     private AnimalSpawner[] spawnPoints;
@@ -25,7 +24,7 @@ public class EntityManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnBaseAnimals(activeSpawnPoints, quest.GetRequiredEntities());
+        SpawnBaseAnimals(activeSpawnPoints, QuestManager.GetRequiredEntities());
     }
 
     /// <summary>

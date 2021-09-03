@@ -6,12 +6,18 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 move;
     public Vector2 look;
 
-    public float speed = 12f;
+    public float weaponAnimationSpeed;
+
+    public float walkSpeed = 12f;
+    public float sprintSpeed = 16f;
+    private bool isSprinting = false;
     public float jumpHeight = 3f;
     public float slopeLimit = 45;
     public float slideFriction = 0.3f;
     private CharacterController cc;
     public CameraController cameraController;
+    public WeaponSwitcher weaponHolder;
+    public Animator weaponAnimator;
     private AudioSource audioSource;
     private TerrainDetector terrainDetector;
 
@@ -36,7 +42,10 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip[] woodFootsteps;
     public AudioClip[] metalFootsteps;
 
-    public float footstepDelay;
+    public float footstepDelayWalking = 0.6f;
+    public float footstepDelaySprinting = 0.4f;
+
+    public float Speed { get => isSprinting ? sprintSpeed : walkSpeed; }
 
     private void Awake()
     {
@@ -48,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     {
         prevVelocityY = velocity.y;
         cameraController.Rotate(look.x, look.y);
+        weaponHolder.Rotate(look.x, look.y);
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);// && (Vector3.Angle (Vector3.up, hitNormal) <= slopeLimit);
         //hitColliders = Physics.OverlapSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
@@ -89,12 +99,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (isSliding)
         {
-            cc.Move(((slidingDirection * speed) + velocity) * Time.deltaTime);
+            cc.Move(((slidingDirection * Speed) + velocity) * Time.deltaTime);
         }
         else
         {
-            cc.Move(((inputMovement * speed) + velocity) * Time.deltaTime);
+            cc.Move(((inputMovement * Speed) + velocity) * Time.deltaTime);
         }
+
+        // do animation
+        weaponAnimationSpeed = cc.velocity.magnitude / Speed;
+        weaponAnimator.SetFloat("weaponSpeed", weaponAnimationSpeed);
+        weaponAnimator.SetBool("isGrounded", isGrounded);
 
         timeToFootstep -= Time.deltaTime;
         if (isGrounded && cc.velocity.magnitude > 2f && timeToFootstep <= 0)
@@ -102,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
             AudioClip sound = GetRandomFootstepClip();
             audioSource.clip = sound;
             audioSource.Play();
-            timeToFootstep = footstepDelay;
+            timeToFootstep = isSprinting ? footstepDelaySprinting : footstepDelayWalking;
         }
     }    
 
@@ -111,7 +126,14 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && Vector3.Angle(Vector3.up, hitNormal) <= slopeLimit)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            weaponAnimator.SetTrigger("jump");
         }
+    }
+
+    public void Sprint(bool val)
+    {
+        isSprinting = val;
+        weaponAnimator.SetBool("isSprinting", val);
     }
 
     public void AssignTerrainDetector(TerrainDetector detector)

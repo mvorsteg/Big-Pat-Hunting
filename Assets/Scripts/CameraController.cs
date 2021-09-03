@@ -18,10 +18,25 @@ public class CameraController : MonoBehaviour
     private float rotationSpeed = 6f;
     private float returnSpeed = 25f;
 
+    private Rigidbody rb;
+    private Collider coll;
+    [SerializeField]
+    private WeaponSwitcher weaponHolder;
+    [SerializeField]
+    private GameObject[] dummyWeapons;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        coll = GetComponent<Collider>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         Cursor.lockState = CursorLockMode.Locked;
+        EnableCameraGravity(false); 
     }
 
     public void SetSensitivity(float val)
@@ -45,7 +60,7 @@ public class CameraController : MonoBehaviour
     {
         x *= mouseSensitivity * scopedSensitivity * Time.deltaTime;
         y *= mouseSensitivity * scopedSensitivity * Time.deltaTime;
-        
+        //Debug.Log("X: " + x + " Y: " + y);
         xRotation -= y;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
@@ -55,6 +70,26 @@ public class CameraController : MonoBehaviour
         currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, returnSpeed * Time.deltaTime);
         rot = Vector3.Slerp(rot, currentRotation, rotationSpeed * Time.deltaTime);
         recoilTransform.localRotation = Quaternion.Euler(rot);
+    }
+
+    public void EnableCameraGravity(bool enabled)
+    {
+        rb.isKinematic = !enabled;
+        coll.enabled = enabled;
+        if (enabled)
+        {
+            Rigidbody rb = Instantiate(dummyWeapons[weaponHolder.GetCurrWeaponId()], weaponHolder.transform.position, weaponHolder.transform.rotation).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * 25f);
+            weaponHolder.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Default") || other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            EnableCameraGravity(false);
+        }
     }
    
 }

@@ -51,6 +51,11 @@ public abstract class Entity : MonoBehaviour
         return transform.position;
     }
 
+    public virtual string GetName()
+    {
+        return transform.name;
+    }
+
     /// <summary>
     /// Deals damage to the entity from the source specified.
     /// If the damage causes the entity, to drop below 0 health, it will die

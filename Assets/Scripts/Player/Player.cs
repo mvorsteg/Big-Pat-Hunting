@@ -18,17 +18,25 @@ public class Player : Entity
 
     private RaycastHit hit;
     private Interaction interaction;
-    
+
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip fallDamageSound;
+    [SerializeField]
+    private CameraController cameraController;
+    public PlayerUI playerUI;
+
     protected override void Awake()
     {
         base.Awake();
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected override void Start()
     {
         base.Start();
         weapon = weaponSwitcher.SetWeapon(0);
-        Application.targetFrameRate = 60;
+        cameraController.EnableCameraGravity(false);        
     }
 
     protected override void Update()
@@ -74,14 +82,28 @@ public class Player : Entity
     public override void TakeDamage(HitInfo info)
     {
         base.TakeDamage(info);
+        audioSource.PlayOneShot(fallDamageSound);
         if (!(info.source is FallDamage))
         {
             DamageSystem.CreateIndicator(info.source.GetTransform());
+
         }
         DamageSystem.SetVignette(1 - health / maxHealth);
-        // using string name because we need that to interrupt
         StopCoroutine("HealthRegen");
-        StartCoroutine("HealthRegen");
+        if (isAlive)
+        {
+            // using string name because we need that to interrupt
+            StartCoroutine("HealthRegen");
+        }
+    }
+
+    protected override void Die(HitInfo info)
+    {
+        base.Die(info);
+        GetComponent<PlayerInput>().SetUserControl(false);
+        cameraController.EnableCameraGravity(true);
+        playerUI.SetDeathScreen(true, info.source.GetName());
+        
     }
 
     /// <summary>

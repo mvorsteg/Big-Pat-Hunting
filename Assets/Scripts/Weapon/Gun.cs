@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Gun : MonoBehaviour, IWeapon, IDamageSource
 {
 
+    public string realName;         // The name that will be displayed when the gun is referenced- not its game object name
     public float damage = 10f;      // The damage per shot fired from the gun
     public float force = 1f;        // The amount of force applied when a shot kills an entity
     public float fireRate = 1f;     // How many shots the gun can fire per second
@@ -37,12 +38,12 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     
 
     private AudioSource audioSource;
-    private Animator anim;
+    public Animator anim;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        anim = GetComponentInParent<Animator>();
+        //anim = GetComponentInParent<Animator>();
         recoil = GetComponent<Recoil>();
         recoil.cameraController = cameraController;
     }
@@ -101,6 +102,15 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public string GetName()
+    {
+        return realName;
+    }
+
+    /// <summary>
     /// Causes the gun to fire a raycast from its origin outward
     /// If it hits any entity that can take damage, it applies damage to it
     /// </summary>
@@ -126,6 +136,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
             if (weakPoint != null)
             {
                 weakPoint.TakeDamage(new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this));
+                playerUI.HitMarker();
             }
 
             // // otherwise, check for an entity and apply damage to it

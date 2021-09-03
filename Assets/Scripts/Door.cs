@@ -24,12 +24,12 @@ public class Door : Interaction
 
     private IEnumerator SwingDoor(Quaternion endRot)
     {
-        Quaternion startRot = transform.rotation;   
+        Quaternion startRot = transform.localRotation;   
         float elapsedTime = 0;
         while (elapsedTime < swingTime)
         {
             elapsedTime += Time.deltaTime;
-            transform.rotation = Quaternion.Lerp(startRot, endRot, elapsedTime / swingTime);
+            transform.localRotation = Quaternion.Lerp(startRot, endRot, elapsedTime / swingTime);
             yield return null;
         }
         isOpen = !isOpen;

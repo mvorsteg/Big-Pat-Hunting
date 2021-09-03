@@ -79,6 +79,11 @@ public class Wolf : Animal, INoiseListener, IDamageSource
         return false;
     }
 
+    public override string GetName()
+    {
+        return "Wolf";
+    }
+
     /// <summary>
     /// Hears a noise and runs away
     /// </summary>

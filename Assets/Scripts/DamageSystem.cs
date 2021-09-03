@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class DamageSystem : MonoBehaviour
 {
@@ -10,7 +12,9 @@ public class DamageSystem : MonoBehaviour
     public RectTransform holder = null;
     public Camera cam;
     public Transform player;
-    public Image vignette;
+    
+    public PostProcessVolume volume;
+    private Vignette vignette;
 
     private Dictionary<Transform, DamageIndicator> indicators = new Dictionary<Transform, DamageIndicator>();
 
@@ -20,6 +24,8 @@ public class DamageSystem : MonoBehaviour
     
     private void Start()
     {
+        volume.profile.TryGetSettings(out vignette);
+        vignette.enabled.value = true;
         Vignette(0f);   
     }
 
@@ -38,7 +44,8 @@ public class DamageSystem : MonoBehaviour
 
     public void Vignette(float amount)
     {
-        vignette.color = new Color(vignette.color.r, vignette.color.g, vignette.color.b, amount);
+        //vignette.color = new Color(vignette.color.r, vignette.color.g, vignette.color.b, amount);
+        vignette.intensity.value = amount * 0.5f;
     }
 
     void Create(Transform target)

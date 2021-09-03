@@ -35,7 +35,7 @@ public class QuestManager : MonoBehaviour
 
     public Color disableColor;
 
-    public KillQuest[] debugQuests;         // we're gonna get rid of these
+    public HuntingTrip huntingTrip;
 
     private List<IQuest> quests;            // list of quests that will be tracked
     private List<TextMeshProUGUI> texts;    // list of description texts associated with these quests
@@ -50,16 +50,20 @@ public class QuestManager : MonoBehaviour
         {
             instance = this;
         }   
-    }
-
-    private void Start()
-    {
         quests = new List<IQuest>();
         texts = new List<TextMeshProUGUI>();
         killLog = new List<KillInfo>();
         scoreText = scoreTextParent.GetComponent<TextMeshProUGUI>();
+    }
 
-        foreach (IQuest q in debugQuests)
+    private void Start()
+    {
+        StartDay(huntingTrip.days[0]);
+    }
+
+    public static void StartDay(HuntingTrip.Day day)
+    {
+        foreach (IQuest q in day.GetQuests())
         {
             AddQuest(q);
         }
@@ -109,8 +113,8 @@ public class QuestManager : MonoBehaviour
     {   
         float score = CalculateScore(entity, info, 1.0f);
         instance.killLog.Add(new KillInfo(entity.type, score, entity.transform.localScale.x, info.distance, info.bodyArea));
-        instance.scoreText.text = "+" + score.ToString("F0");
-        instance.StartCoroutine(instance.ScoreTextFade());
+        //instance.scoreText.text = "+" + score.ToString("F0");
+        //instance.StartCoroutine(instance.ScoreTextFade());
         for (int i = 0; i < instance.quests.Count; i++)
         {
             if (instance.quests[i] is KillQuest)
@@ -126,6 +130,28 @@ public class QuestManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Congregates a list of all required entities from all active quests
+    /// </summary>
+    /// <returns>A Dictionary &lt;EntityType, int&gt; containing all entities required for quests</returns>
+    public static Dictionary<EntityType, int> GetRequiredEntities()
+    {
+        Dictionary<EntityType, int> reqs = new Dictionary<EntityType, int>();
+        foreach (IQuest q in instance.quests)
+        {
+            Dictionary<EntityType, int> qReqs = q.GetRequiredEntities();
+            foreach (EntityType k in qReqs.Keys)
+            {
+                if (!reqs.ContainsKey(k))
+                {
+                    reqs[k] = 0;
+                }
+                reqs[k] += qReqs[k];
+            }
+        }
+        return reqs;
     }
 
     /// <summary>

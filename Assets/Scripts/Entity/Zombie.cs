@@ -47,6 +47,11 @@ public class Zombie : Animal, IDamageSource
         return false;
     }
 
+    public override string GetName()
+    {
+        return "Zombie";
+    }
+
     /// <summary>
     /// If an entity walks close to the zombie, attack it
     /// </summary>

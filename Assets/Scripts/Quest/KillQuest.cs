@@ -9,6 +9,11 @@ public class KillQuest : ScriptableObject, IQuest
 
     private float totalKills = 0;   // number of kills currently counted toward the goal
 
+    // private void Start()
+    // {
+    //     totalKills = 0;
+    // }
+
     /// <summary>
     /// registers an entity kill that counts toward
     /// </summary>
@@ -33,7 +38,7 @@ public class KillQuest : ScriptableObject, IQuest
     public string GetShortDescription()
     {
         // return "Kill " + (requiredKills - totalKills) + " " + target.name + (requiredKills - totalKills == 1 ? "" : "s");
-        return "Kill " + target.name + (requiredKills - totalKills == 1 ? "" : "s") + " (" + totalKills + "/" + requiredKills + ")";
+        return "Kill " + target.name + (requiredKills == 1 ? "" : "s") + " (" + totalKills + "/" + requiredKills + ")";
     }
 
     /// <summary>

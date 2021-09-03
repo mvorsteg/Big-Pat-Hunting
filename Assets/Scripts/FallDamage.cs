@@ -5,7 +5,7 @@ using UnityEngine;
 public class FallDamage : MonoBehaviour, IDamageSource
 {
     public static FallDamage instance;
-    public static float minVelocity = -15f;
+    public static float minVelocity = -18f;
 
     private Transform hitPositon;
 
@@ -32,5 +32,10 @@ public class FallDamage : MonoBehaviour, IDamageSource
     public bool IsPlayer()
     {
         return false;
+    }
+
+    public string GetName()
+    {
+        return "Gravity";
     }
 }

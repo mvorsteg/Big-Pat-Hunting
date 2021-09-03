@@ -25,6 +25,9 @@ public class PlayerInput : MonoBehaviour
 
         controls.Gameplay.Jump.performed += ctx => playerMovement.Jump();
 
+        controls.Gameplay.Sprint.performed += ctx => playerMovement.Sprint(true);
+        controls.Gameplay.Sprint.canceled += ctx => playerMovement.Sprint(false);
+
         controls.Gameplay.Shoot.performed += ctx => player.Shoot();
 
         controls.Gameplay.Reload.performed += ctx => player.Reload();
@@ -47,6 +50,18 @@ public class PlayerInput : MonoBehaviour
         {
             controls.Gameplay.Aim.performed += ctx => player.Aim(true);
             controls.Gameplay.Aim.canceled += ctx => player.Aim(false);
+        }
+    }
+
+    public void SetUserControl(bool toggle)
+    {
+        if (toggle)
+        {
+            controls.Gameplay.Enable();
+        }
+        else
+        {
+            controls.Gameplay.Disable();
         }
     }
 

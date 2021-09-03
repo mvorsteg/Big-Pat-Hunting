@@ -24,6 +24,11 @@ public class AttackTrigger : MonoBehaviour, IDamageSource
         return false;
     }
 
+    public string GetName()
+    {
+        return owner.GetName();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("sensor");
