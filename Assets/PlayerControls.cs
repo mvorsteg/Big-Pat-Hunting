@@ -65,6 +65,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""626198d3-9534-4fc4-843c-4c7bd4d89f51"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""21f8ca59-cfc4-4962-bb24-463a3d5669f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -170,11 +186,82 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6b1fe23d-56dc-45ef-a763-551725d2136b"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6f4e858-0cbf-4870-9596-7d51def4c62e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""438f8895-242e-4547-9d10-7f81741749cf"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""AnyKey"",
+            ""id"": ""af6b064b-8ba3-4b16-9148-bd473b652639"",
+            ""actions"": [
+                {
+                    ""name"": ""AnyKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""a19cc95e-bc56-449c-afca-d754fde2bc6c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a3ec82f0-0569-4cb6-9b62-fb933ef735c7"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnyKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b570638-ef14-4e7d-a7ea-8eb2b3751ade"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnyKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7585efb7-2fc6-43c8-97b0-c8590ec3ad73"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnyKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -191,6 +278,11 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
         m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
         m_Gameplay_Reload = m_Gameplay.FindAction("Reload", throwIfNotFound: true);
+        m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
+        m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
+        // AnyKey
+        m_AnyKey = asset.FindActionMap("AnyKey", throwIfNotFound: true);
+        m_AnyKey_AnyKey = m_AnyKey.FindAction("AnyKey", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -246,6 +338,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Shoot;
     private readonly InputAction m_Gameplay_Aim;
     private readonly InputAction m_Gameplay_Reload;
+    private readonly InputAction m_Gameplay_Use;
+    private readonly InputAction m_Gameplay_Sprint;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -256,6 +350,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
         public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
         public InputAction @Reload => m_Wrapper.m_Gameplay_Reload;
+        public InputAction @Use => m_Wrapper.m_Gameplay_Use;
+        public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -283,6 +379,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Reload.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReload;
+                @Use.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
+                @Use.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
+                @Use.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
+                @Sprint.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -305,10 +407,49 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @Use.started += instance.OnUse;
+                @Use.performed += instance.OnUse;
+                @Use.canceled += instance.OnUse;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // AnyKey
+    private readonly InputActionMap m_AnyKey;
+    private IAnyKeyActions m_AnyKeyActionsCallbackInterface;
+    private readonly InputAction m_AnyKey_AnyKey;
+    public struct AnyKeyActions
+    {
+        private @PlayerControls m_Wrapper;
+        public AnyKeyActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @AnyKey => m_Wrapper.m_AnyKey_AnyKey;
+        public InputActionMap Get() { return m_Wrapper.m_AnyKey; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(AnyKeyActions set) { return set.Get(); }
+        public void SetCallbacks(IAnyKeyActions instance)
+        {
+            if (m_Wrapper.m_AnyKeyActionsCallbackInterface != null)
+            {
+                @AnyKey.started -= m_Wrapper.m_AnyKeyActionsCallbackInterface.OnAnyKey;
+                @AnyKey.performed -= m_Wrapper.m_AnyKeyActionsCallbackInterface.OnAnyKey;
+                @AnyKey.canceled -= m_Wrapper.m_AnyKeyActionsCallbackInterface.OnAnyKey;
+            }
+            m_Wrapper.m_AnyKeyActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @AnyKey.started += instance.OnAnyKey;
+                @AnyKey.performed += instance.OnAnyKey;
+                @AnyKey.canceled += instance.OnAnyKey;
+            }
+        }
+    }
+    public AnyKeyActions @AnyKey => new AnyKeyActions(this);
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -317,5 +458,11 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnUse(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
+    }
+    public interface IAnyKeyActions
+    {
+        void OnAnyKey(InputAction.CallbackContext context);
     }
 }
