@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 47eb20297bbf85a44a4c3fda8af97d7b
+guid: 70ec02637cc0a384e8913a073ac4ccf6
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
   - first:
-      74: 909836601693898461
-    second: SwitchA
-  - first:
       74: -3100369314251171874
-    second: IdleA
+    second: Idle
+  - first:
+      74: 909836601693898461
+    second: Switch
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -38,11 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: SwitchA
-      takeName: Switch
+      name: Idle
+      takeName: Idle
       internalID: 0
       firstFrame: 0
-      lastFrame: 45
+      lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -67,11 +67,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: IdleA
-      takeName: Idle
+      name: Switch
+      takeName: Switch
       internalID: 0
       firstFrame: 0
-      lastFrame: 120
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -6,10 +6,10 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ArmsOverride
+  m_Name: TEST
   m_Controller: {fileID: 9100000, guid: 44dcafd23ecaa2b42a4993a32f61f7c6, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 9cf08de53df46664eb0810de1e95e5c8, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: eb2e5b14ea05402479731615ad1b93e9, type: 2}
+    m_OverrideClip: {fileID: -3100369314251171874, guid: 70ec02637cc0a384e8913a073ac4ccf6, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 8df74ea5982bf504e9324243cb33cdc8, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 11d96f66c1db6fd48a72f77b88664614, type: 2}
+    m_OverrideClip: {fileID: 909836601693898461, guid: 70ec02637cc0a384e8913a073ac4ccf6, type: 3}
