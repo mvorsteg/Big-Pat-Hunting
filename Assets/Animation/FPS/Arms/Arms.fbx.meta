@@ -1,20 +1,14 @@
 fileFormatVersion: 2
-guid: 7c71f763e1c80fa4484ef7d5e60ade38
+guid: 70ec02637cc0a384e8913a073ac4ccf6
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
   - first:
-      74: 885944232402757753
-    second: Idle
-  - first:
       74: -6201834280730877740
     second: Armature|Armature|Armature|Armature|mixamo.com|Layer0|Armature|Armature|
   - first:
-      74: 4106399916549189888
-    second: Armature|Idle.001
-  - first:
-      74: -1907300251559774843
-    second: Armature|LibArms
+      74: -8945691123924629249
+    second: Armature|Idle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -44,11 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
-      takeName: Armature|Action
+      name: Armature|Armature|Armature|Armature|mixamo.com|Layer0|Armature|Armature|
+      takeName: Armature|Armature|Armature|Armature|mixamo.com|Layer0|Armature|Armature|
       internalID: 0
       firstFrame: 0
-      lastFrame: 120
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -73,76 +67,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Armature|Armature|Armature|mixamo.com|Layer0|Armature|Armature|
-      takeName: Armature|Armature|Armature|Armature|mixamo.com|Layer0|Armature|Armature|
+      name: Armature|Idle
+      takeName: Armature|Idle
       internalID: 0
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|Idle.001
-      takeName: Armature|Idle.001
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|LibArms
-      takeName: Armature|LibArms
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
