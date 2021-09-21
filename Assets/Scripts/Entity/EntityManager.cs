@@ -12,19 +12,17 @@ public class EntityManager : MonoBehaviour
     private Utility.DictEntry<EntityType, GameObject>[] entityTypePrefabsSerializable;
     private Dictionary<EntityType, GameObject> entityTypePrefabs;
 
+    private List<GameObject> currentAnimals;
+
     private void Awake()
     {
         entityCount = new Dictionary<EntityType, int>();
+        currentAnimals = new List<GameObject>();
         for (int i = 0; i < entityTypePrefabsSerializable.Length; i++)
         {
             entityCount[entityTypePrefabsSerializable[i].key] = 0;
         }
         entityTypePrefabs = Utility.GetDict(entityTypePrefabsSerializable);
-    }
-
-    private void Start()
-    {
-        SpawnBaseAnimals(activeSpawnPoints, QuestManager.GetRequiredEntities());
     }
 
     /// <summary>
@@ -61,8 +59,9 @@ public class EntityManager : MonoBehaviour
     /// </summary>
     /// <param name="numSpawnPoints">The number of spawn points that will spawn animals</param>
     /// <param name="requiredSpawns">An EntityType-int dictionary, defining the types (and amounts) of animals that must be instantiated
-    private void SpawnBaseAnimals(int numSpawnPoints, Dictionary<EntityType, int> requiredSpawns)
+    public void SpawnBaseAnimals(Dictionary<EntityType, int> requiredSpawns)
     {
+        DeleteAllAnimals();
         // put spawnpoints in random order
         spawnPoints = GetComponentsInChildren<AnimalSpawner>();
         List<AnimalSpawner> spawnLst = spawnPoints.ToList();
@@ -70,9 +69,11 @@ public class EntityManager : MonoBehaviour
 
         // spawn natural animals at n spawn points
         int i = 0;  // need this later
-        for (i = 0; i < numSpawnPoints; i++)
+        for (i = 0; i < activeSpawnPoints; i++)
         {
-            LogEntitySpawn(spawnLst[i].SpawnAnimalNatural());   
+            GameObject animal = spawnLst[i].SpawnAnimalNatural();
+            currentAnimals.Add(animal);
+            LogEntitySpawn(animal.GetComponent<Entity>().type);   
         }
         
         // ensure we have our required entities spawned in
@@ -81,9 +82,23 @@ public class EntityManager : MonoBehaviour
             while (entityCount[key] < requiredSpawns[key])
             {
                 // must spawn more!
-                LogEntitySpawn(spawnLst[i].SpawnAnimal(entityTypePrefabs[key], spawnLst[i].transform, 1));
+                GameObject animal = spawnLst[i].SpawnAnimal(entityTypePrefabs[key], spawnLst[i].transform, 1);
+                LogEntitySpawn(animal.GetComponent<Entity>().type);
                 Debug.Log("spawning " + key + " manually"); 
             }
         }
+    }
+
+    private void DeleteAllAnimals()
+    {
+        for (int i = 0; i < entityTypePrefabsSerializable.Length; i++)
+        {
+            entityCount[entityTypePrefabsSerializable[i].key] = 0;
+        }
+        foreach (GameObject animal in currentAnimals)
+        {
+            Destroy(animal);
+        }
+
     }
 }

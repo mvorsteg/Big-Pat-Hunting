@@ -24,10 +24,12 @@ public class HuntingTrip : ScriptableObject
         }
     }
 
-    private int numDays;
-    private int currDay;
+    public int numDays;
+    public int currDay;
 
     public Day[] days;
+
+    public string Location;
 
     
 }

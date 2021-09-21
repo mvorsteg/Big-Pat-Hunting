@@ -26,6 +26,9 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    public GameObject tripTextObj;
+    private TextMeshProUGUI tripDayText;
+    private TextMeshProUGUI tripLocationText;
 
     public Transform questTextParent;
     public GameObject questTextPrefab;
@@ -41,6 +44,9 @@ public class QuestManager : MonoBehaviour
     private List<TextMeshProUGUI> texts;    // list of description texts associated with these quests
 
     private List<KillInfo> killLog;         // list of every animal the player has killed
+    
+    private EntityManager entityManager;
+
 
     public static QuestManager instance;    // there can only be one
 
@@ -54,19 +60,33 @@ public class QuestManager : MonoBehaviour
         texts = new List<TextMeshProUGUI>();
         killLog = new List<KillInfo>();
         scoreText = scoreTextParent.GetComponent<TextMeshProUGUI>();
+        tripDayText = tripTextObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        tripLocationText = tripTextObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        entityManager = GetComponent<EntityManager>();
+        
     }
 
     private void Start()
     {
-        StartDay(huntingTrip.days[0]);
+        huntingTrip.currDay = 0;
+        StartDay(huntingTrip, 0);
     }
 
-    public static void StartDay(HuntingTrip.Day day)
+    public static void StartDay(HuntingTrip trip, int day)
     {
-        foreach (IQuest q in day.GetQuests())
+        foreach (IQuest q in trip.days[day].GetQuests())
         {
             AddQuest(q);
         }
+        instance.StartCoroutine(instance.ShowTripScreen(trip, day));
+        instance.entityManager.SpawnBaseAnimals(GetRequiredEntities());
+    }
+
+    public static void EndDay()
+    {
+        // instance.StartCoroutine(instance.EndDay());
+        instance.huntingTrip.currDay++;
+        StartDay(instance.huntingTrip, instance.huntingTrip.currDay);
     }
 
     /// <summary>
@@ -102,6 +122,10 @@ public class QuestManager : MonoBehaviour
         instance.quests.Remove(quest);
         instance.texts[idx].color = instance.disableColor;
         instance.texts.RemoveAt(idx);
+        if (instance.quests.Count == 0)
+        {
+            instance.StartCoroutine(instance.EndDayCoroutine());
+        }
     }
 
     /// <summary>
@@ -227,4 +251,53 @@ public class QuestManager : MonoBehaviour
             yield return null;
         }
     }
+
+    private IEnumerator ShowTripScreen(HuntingTrip trip, int day)
+    {
+        tripDayText.text = "Day " + (day + 1) + " of " + trip.days.Length;
+        tripLocationText.text = trip.Location;
+        tripTextObj.SetActive(true);
+        tripDayText.color = new Color(tripDayText.color.r, tripDayText.color.g, tripDayText.color.b, 1);
+        tripLocationText.color = new Color(tripLocationText.color.r, tripLocationText.color.g, tripLocationText.color.b, 1);
+        
+
+        Image textDayBg = tripTextObj.GetComponent<Image>();
+        textDayBg.color = new Color(textDayBg.color.r, textDayBg.color.g, textDayBg.color.b, 1);
+
+        float elapsedTime = 0f;
+        float displayTime = 3f;
+        float fadeTime = 2f;
+
+        yield return null;
+
+        Time.timeScale = 0f;
+
+        yield return new WaitForSecondsRealtime(displayTime);
+
+        Time.timeScale = 1f;
+        while (elapsedTime < fadeTime)
+        {
+            elapsedTime += Time.deltaTime;
+            textDayBg.color = new Color(textDayBg.color.r, textDayBg.color.g, textDayBg.color.b, 1 - (elapsedTime / fadeTime));
+            yield return null;
+        }
+        elapsedTime = 0;
+        while (elapsedTime < fadeTime)
+        {
+            elapsedTime += Time.deltaTime;
+            tripDayText.color = new Color(tripDayText.color.r, tripDayText.color.g, tripDayText.color.b, 1 - (elapsedTime / fadeTime));
+            tripLocationText.color = new Color(tripLocationText.color.r, tripLocationText.color.g, tripLocationText.color.b, 1 - (elapsedTime / fadeTime));
+            yield return null;
+        }
+    }
+
+    private IEnumerator EndDayCoroutine()
+    {
+        yield return new WaitForSeconds(2);
+
+        
+        
+        EndDay();
+    }
+
 }

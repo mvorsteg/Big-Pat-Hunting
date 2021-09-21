@@ -6,14 +6,17 @@ public class PlayerInput : MonoBehaviour
     private PlayerControls controls;
     private PlayerMovement playerMovement;
     private Player player;
+    private PauseMenu pauseMenu;
 
     public bool toggleAim = true;
+    public bool paused = false;
     public bool aiming = false;
 
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         player = GetComponent<Player>();
+        pauseMenu = GetComponentInChildren<PauseMenu>();
 
         controls = new PlayerControls();
 
@@ -37,6 +40,11 @@ public class PlayerInput : MonoBehaviour
         SetAimControls(toggleAim);
 
         controls.Gameplay.Enable();
+
+        controls.PauseMenu.Pause.performed += ctx => TogglePause();
+
+        controls.PauseMenu.Enable();
+
     }
 
     public void SetAimControls(bool toggle)
@@ -62,6 +70,26 @@ public class PlayerInput : MonoBehaviour
         else
         {
             controls.Gameplay.Disable();
+        }
+    }
+
+    public void TogglePause()
+    {
+        paused = !paused;
+        pauseMenu.EnablePauseMenu(paused);
+        if (paused)
+        {
+            Time.timeScale = 0f;
+            SetUserControl(false);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            SetUserControl(true);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 

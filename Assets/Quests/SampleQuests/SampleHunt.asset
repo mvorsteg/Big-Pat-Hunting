@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d4e630a698ac04bb69deb44224fefd, type: 3}
   m_Name: SampleHunt
   m_EditorClassIdentifier: 
+  numDays: 2
+  currDay: 2
   days:
   - day: 0
     questObjs:
     - {fileID: 11400000, guid: f58811c0c55912e49a6de30846f274fd, type: 2}
-  - day: 0
-    questObjs: []
+  - day: 1
+    questObjs:
+    - {fileID: 11400000, guid: fd7668d571a45504d8dc7abb6a7aa114, type: 2}
+  Location: Green Ridge State Forest

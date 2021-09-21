@@ -8,4 +8,5 @@ public interface IWeapon
     void Shoot();
     void Reload();
     void Aim(bool state);
+    void PlayMiscAudio(AudioClip clip);
 }

@@ -34,7 +34,7 @@ public class AnimalSpawner : MonoBehaviour
     /// Spawns an animal from the list of this Spawner's possible spawns, with weights
     /// </summary>
     /// <returns>The type of the animal spawned</returns>
-    public EntityType SpawnAnimalNatural()
+    public GameObject SpawnAnimalNatural()
     {
         float rand = Random.Range(0f, 1f);
         for (int i = 0; i < possibleSpawns.Length; i++)
@@ -54,12 +54,12 @@ public class AnimalSpawner : MonoBehaviour
     /// <param name="spawnPoint">The position, in world space, that the animal will be spawned at</param>
     /// <param name="scaleRange">How much variability there can be in the animal's scale, so that (1 - scaleRange) < 1 < (1 + scaleRange)</param>
     /// <returns>The type of the animal spawned</returns>
-    public EntityType SpawnAnimal(GameObject prefab, Transform spawnPoint, float scaleRange)
+    public GameObject SpawnAnimal(GameObject prefab, Transform spawnPoint, float scaleRange)
     {
         GameObject animal = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
         float scale = Random.Range(1 - scaleRange, 1 + scaleRange);
         animal.transform.localScale = new Vector3(scale, scale, scale);
-        return animal.GetComponent<Entity>().type;
+        return animal;
     }
 
     private void OnDrawGizmos() {

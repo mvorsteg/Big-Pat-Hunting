@@ -35,9 +35,13 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     private bool isAiming = false;
     private int currAmmo;               // How much ammo currently in the gun
 
-    
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip fire, dry, boltDown, boltUp, reload;
 
     private AudioSource audioSource;
+
+
     public Animator anim;
 
     private void Awake()
@@ -118,6 +122,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     {
         currAmmo--;
         playerUI.DisableBullet();
+        audioSource.clip = fire;
         audioSource.Play();
         StartCoroutine(FireCooldown());
         recoil.AddRecoil(isAiming);
@@ -153,7 +158,8 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     /// </summary>
     public void Reload()
     {
-        StartCoroutine(ReloadCoroutine());
+        anim.SetTrigger("reload");
+        isReadyToShoot = false;
     }
 
     /// <summary>
@@ -209,23 +215,22 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         }
         else
         {
-            StartCoroutine(ReloadCoroutine());
+            Reload();
         }
     
     }
 
-    /// <summary>
-    /// Triggers the reload animation and restores the gun's ammo
-    /// </summary>
-    private IEnumerator ReloadCoroutine()
+    public void ReloadCallback()
     {
-        anim.SetBool("isReloading", true);
-        isReadyToShoot = false;
-        yield return new WaitForSeconds(reloadSpeed - 0.35f); // account for animation transition time
-        anim.SetBool("isReloading", false);
-        yield return new WaitForSeconds(0.35f);
         currAmmo = maxAmmo;
         isReadyToShoot = true;
         playerUI.Reload();
+    }
+    
+    public void PlayMiscAudio(AudioClip clip)
+    {
+        audioSource.Stop();
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }
