@@ -35,7 +35,7 @@ ModelImporter:
     second: Walk
   - first:
       74: -8123788006590636648
-    second: Fire_2
+    second: Fire_Rifle
   - first:
       74: 1245882690682072010
     second: Idle_2
@@ -50,10 +50,34 @@ ModelImporter:
     second: Run_2
   - first:
       74: -7511126517262362730
-    second: Switch_2
+    second: Switch_Rifle
   - first:
       74: 2640540564348733779
     second: Walk_2
+  - first:
+      74: -2562237340249845683
+    second: Fall_Rifle
+  - first:
+      74: -8100277991235416647
+    second: Idle_Rifle
+  - first:
+      74: -3424458678958202570
+    second: Jump_Rifle
+  - first:
+      74: 9153483368740205781
+    second: Land_Rifle
+  - first:
+      74: -963677172368922360
+    second: Reload_Rifle
+  - first:
+      74: -6097406420610019576
+    second: Run_Rifle
+  - first:
+      74: 589068287782291385
+    second: Scope_Rifle
+  - first:
+      74: 6759713573801612212
+    second: Walk_Rifle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -83,7 +107,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Fall_2
+      name: Fall_Rifle
       takeName: Fall
       internalID: 0
       firstFrame: 0
@@ -112,7 +136,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Fire_2
+      name: Fire_Rifle
       takeName: Fire
       internalID: 0
       firstFrame: 0
@@ -141,7 +165,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Idle_2
+      name: Idle_Rifle
       takeName: Idle
       internalID: 0
       firstFrame: 0
@@ -170,7 +194,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Jump_2
+      name: Jump_Rifle
       takeName: Jump
       internalID: 0
       firstFrame: 0
@@ -199,7 +223,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Land_2
+      name: Land_Rifle
       takeName: Land
       internalID: 0
       firstFrame: 0
@@ -228,7 +252,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Reload_2
+      name: Reload_Rifle
       takeName: Reload
       internalID: 0
       firstFrame: 0
@@ -257,7 +281,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Run_2
+      name: Run_Rifle
       takeName: Run
       internalID: 0
       firstFrame: 0
@@ -286,7 +310,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Scope_2
+      name: Scope_Rifle
       takeName: Scope
       internalID: 0
       firstFrame: 0
@@ -315,7 +339,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Switch_2
+      name: Switch_Rifle
       takeName: Switch
       internalID: 0
       firstFrame: 0
@@ -344,7 +368,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walk_2
+      name: Walk_Rifle
       takeName: Walk
       internalID: 0
       firstFrame: 0
