@@ -29,6 +29,8 @@ public class QuestManager : MonoBehaviour
     public GameObject tripTextObj;
     private TextMeshProUGUI tripDayText;
     private TextMeshProUGUI tripLocationText;
+    
+    public TextMeshProUGUI dayCompleteText;
 
     public Transform questTextParent;
     public GameObject questTextPrefab;
