@@ -26,6 +26,9 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    public Player player;
+    public GameObject playerSpawn;
+
     public GameObject tripTextObj;
     private TextMeshProUGUI tripDayText;
     private TextMeshProUGUI tripLocationText;
@@ -87,6 +90,8 @@ public class QuestManager : MonoBehaviour
     public static void EndDay()
     {
         // instance.StartCoroutine(instance.EndDay());
+        instance.player.transform .position = instance.playerSpawn.transform.position;
+        instance.player.transform.rotation = instance.playerSpawn.transform.rotation;
         instance.huntingTrip.currDay++;
         StartDay(instance.huntingTrip, instance.huntingTrip.currDay);
     }
@@ -297,8 +302,6 @@ public class QuestManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
 
-        
-        
         EndDay();
     }
 

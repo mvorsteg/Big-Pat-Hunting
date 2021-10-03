@@ -238,6 +238,52 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ]
         },
         {
+            ""name"": ""CameraOnly"",
+            ""id"": ""6f1b1db1-58f3-4f7a-9520-3d177ca92f63"",
+            ""actions"": [
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""d8e2d5c7-6677-426d-b121-e6444cb10b8e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""3865e3ce-07ca-4a24-a1f8-d2c0d9697b55"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""544914ac-d474-40de-ac61-ae797d47f7ae"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ece5f57-ae31-4dc7-92b8-4832230639ea"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""AnyKey"",
             ""id"": ""af6b064b-8ba3-4b16-9148-bd473b652639"",
             ""actions"": [
@@ -327,6 +373,10 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
         m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
         m_Gameplay_Inventory = m_Gameplay.FindAction("Inventory", throwIfNotFound: true);
+        // CameraOnly
+        m_CameraOnly = asset.FindActionMap("CameraOnly", throwIfNotFound: true);
+        m_CameraOnly_Look = m_CameraOnly.FindAction("Look", throwIfNotFound: true);
+        m_CameraOnly_Inventory = m_CameraOnly.FindAction("Inventory", throwIfNotFound: true);
         // AnyKey
         m_AnyKey = asset.FindActionMap("AnyKey", throwIfNotFound: true);
         m_AnyKey_AnyKey = m_AnyKey.FindAction("AnyKey", throwIfNotFound: true);
@@ -476,6 +526,47 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
 
+    // CameraOnly
+    private readonly InputActionMap m_CameraOnly;
+    private ICameraOnlyActions m_CameraOnlyActionsCallbackInterface;
+    private readonly InputAction m_CameraOnly_Look;
+    private readonly InputAction m_CameraOnly_Inventory;
+    public struct CameraOnlyActions
+    {
+        private @PlayerControls m_Wrapper;
+        public CameraOnlyActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Look => m_Wrapper.m_CameraOnly_Look;
+        public InputAction @Inventory => m_Wrapper.m_CameraOnly_Inventory;
+        public InputActionMap Get() { return m_Wrapper.m_CameraOnly; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CameraOnlyActions set) { return set.Get(); }
+        public void SetCallbacks(ICameraOnlyActions instance)
+        {
+            if (m_Wrapper.m_CameraOnlyActionsCallbackInterface != null)
+            {
+                @Look.started -= m_Wrapper.m_CameraOnlyActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_CameraOnlyActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_CameraOnlyActionsCallbackInterface.OnLook;
+                @Inventory.started -= m_Wrapper.m_CameraOnlyActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_CameraOnlyActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_CameraOnlyActionsCallbackInterface.OnInventory;
+            }
+            m_Wrapper.m_CameraOnlyActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
+            }
+        }
+    }
+    public CameraOnlyActions @CameraOnly => new CameraOnlyActions(this);
+
     // AnyKey
     private readonly InputActionMap m_AnyKey;
     private IAnyKeyActions m_AnyKeyActionsCallbackInterface;
@@ -551,6 +642,11 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
+    }
+    public interface ICameraOnlyActions
+    {
+        void OnLook(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
     }
     public interface IAnyKeyActions

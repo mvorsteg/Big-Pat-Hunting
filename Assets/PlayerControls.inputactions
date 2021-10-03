@@ -225,6 +225,52 @@
             ]
         },
         {
+            "name": "CameraOnly",
+            "id": "6f1b1db1-58f3-4f7a-9520-3d177ca92f63",
+            "actions": [
+                {
+                    "name": "Look",
+                    "type": "PassThrough",
+                    "id": "d8e2d5c7-6677-426d-b121-e6444cb10b8e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "3865e3ce-07ca-4a24-a1f8-d2c0d9697b55",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "544914ac-d474-40de-ac61-ae797d47f7ae",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ece5f57-ae31-4dc7-92b8-4832230639ea",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "AnyKey",
             "id": "af6b064b-8ba3-4b16-9148-bd473b652639",
             "actions": [
