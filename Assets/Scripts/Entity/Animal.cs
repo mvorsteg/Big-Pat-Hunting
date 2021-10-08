@@ -47,6 +47,7 @@ public class Animal : Entity
     protected override void Start()
     {
         base.Start();
+        agent.updatePosition = false;
         agent.isStopped = true;
         path = new NavMeshPath();
         
@@ -67,6 +68,10 @@ public class Animal : Entity
     /// </summary>
     protected void Move()
     {
+        //SetAgentPosition();
+        Debug.Log("desired : " + agent.desiredVelocity + " actual : " + agent.velocity + " rb : " + rb.velocity);
+        rb.velocity = new Vector3(agent.desiredVelocity.x, rb.velocity.y, agent.desiredVelocity.z);
+        agent.nextPosition = transform.position;
         SetAgentPosition();
         // if there was a problem making the path, get out
         if (path.corners == null || path.corners.Length == 0)
@@ -96,8 +101,9 @@ public class Animal : Entity
             float distance = Vector3.Distance(agentPosition, destination);
             if (distance > agent.radius + stoppingDistance)
             {
-                Vector3 movement = currentSpeed * transform.forward * Time.deltaTime;
-                agent.Move(movement);
+                //Vector3 movement = currentSpeed * transform.forward * Time.deltaTime;
+                //agent.Move(movement);
+                
             }
             // if close, incremenet pathIter to go to next waypoint, or finish if the path is over
             else
@@ -320,6 +326,7 @@ public class Animal : Entity
         agent.CalculatePath(endDestination, path);
         pathIter = 1;
         agent.isStopped = false;
+        agent.destination = endDestination;
     }
     
     /// <summary>
@@ -434,5 +441,10 @@ public class Animal : Entity
                 prev = path.corners[i];
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log(other);
     }
 }
