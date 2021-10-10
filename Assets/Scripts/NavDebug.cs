@@ -27,8 +27,10 @@ public class NavDebug : MonoBehaviour
     void Update()
     {
         Debug.Log("desired " + agent.desiredVelocity + " actual " + agent.velocity);
+        rb.velocity = Vector3.Lerp(rb.velocity, transform.forward * agent.velocity.magnitude, Time.deltaTime * 8f);
 
-        rb.velocity = new Vector3(agent.velocity.x, rb.velocity.y, agent.velocity.z);
+        Quaternion newRot = Quaternion.LookRotation(agent.velocity.normalized);
+        rb.rotation = Quaternion.Lerp(transform.rotation, newRot, Time.deltaTime * 2f);
         agent.nextPosition = transform.position;
     }
 }

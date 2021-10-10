@@ -48,6 +48,7 @@ public class Animal : Entity
     {
         base.Start();
         agent.updatePosition = false;
+        agent.updateRotation = false;
         agent.isStopped = true;
         path = new NavMeshPath();
         
@@ -68,11 +69,17 @@ public class Animal : Entity
     /// </summary>
     protected void Move()
     {
-        //SetAgentPosition();
-        Debug.Log("desired : " + agent.desiredVelocity + " actual : " + agent.velocity + " rb : " + rb.velocity);
-        rb.velocity = new Vector3(agent.desiredVelocity.x, rb.velocity.y, agent.desiredVelocity.z);
-        agent.nextPosition = transform.position;
+        // rotate how navmesh agent wants to
+        Quaternion newRot = Quaternion.LookRotation(agent.velocity.normalized);
+        transform.rotation = Quaternion.Lerp(transform.rotation, newRot, Time.deltaTime * 2f);
+
+        // move foward according to current speed
+        Vector3 newVelocity = currentSpeed * transform.forward;
+        rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+
+        // update agent position
         SetAgentPosition();
+
         // if there was a problem making the path, get out
         if (path.corners == null || path.corners.Length == 0)
             return;
@@ -92,21 +99,9 @@ public class Animal : Entity
         // check to make sure we have valid data
         if (destination.x < float.PositiveInfinity)
         {
-            // look at destination
-            Vector3 direction = destination - agentPosition;
-            var newDir = Vector3.RotateTowards(transform.forward, direction, rotationSpeed * Time.deltaTime, 0.0f);
-            var newRot = Quaternion.LookRotation(newDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, newRot, Time.deltaTime * 2f);
-            // if not close to next destination, set movement to go that direction
-            float distance = Vector3.Distance(agentPosition, destination);
-            if (distance > agent.radius + stoppingDistance)
-            {
-                //Vector3 movement = currentSpeed * transform.forward * Time.deltaTime;
-                //agent.Move(movement);
-                
-            }
             // if close, incremenet pathIter to go to next waypoint, or finish if the path is over
-            else
+            float distance = Vector3.Distance(agentPosition, destination);
+            if (distance <= agent.radius + stoppingDistance)
             {
                 pathIter++;
                 if (pathIter >= path.corners.Length)
@@ -303,6 +298,7 @@ public class Animal : Entity
     /// </summary>
     protected void SetAgentPosition()
     {
+        agent.nextPosition = transform.position;
         NavMeshHit hit;
         if(NavMesh.SamplePosition(transform.position, out hit, 1.0f, NavMesh.AllAreas))
         {
@@ -441,10 +437,5 @@ public class Animal : Entity
                 prev = path.corners[i];
             }
         }
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log(other);
     }
 }

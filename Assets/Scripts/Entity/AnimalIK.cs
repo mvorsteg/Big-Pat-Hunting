@@ -94,12 +94,6 @@ public class AnimalIK : MonoBehaviour
         }
     }
 
-    private void AdjustAgentOffset()
-    {
-        RaycastHit armHitL, armHitR, legHitL, legHitR;
-
-    }
-
     private void SolveLegIK()
     {
         RaycastHit toeHit;
