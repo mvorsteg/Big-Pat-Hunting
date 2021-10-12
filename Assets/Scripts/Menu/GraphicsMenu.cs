@@ -19,7 +19,7 @@ public class GraphicsMenu : MonoBehaviour
 
     void Awake()
     {
-        Application.targetFrameRate = 60;
+        
     }
 
     // Start is called before the first frame update

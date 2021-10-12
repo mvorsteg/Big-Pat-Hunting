@@ -70,8 +70,11 @@ public class Animal : Entity
     protected void Move()
     {
         // rotate how navmesh agent wants to
-        Quaternion newRot = Quaternion.LookRotation(agent.velocity.normalized);
-        transform.rotation = Quaternion.Lerp(transform.rotation, newRot, Time.deltaTime * 2f);
+        if (agent.velocity != Vector3.zero)
+        {
+            Quaternion newRot = Quaternion.LookRotation(agent.desiredVelocity.normalized);
+            transform.rotation = Quaternion.Lerp(transform.rotation, newRot, Time.deltaTime * 2f);
+        }
 
         // move foward according to current speed
         Vector3 newVelocity = currentSpeed * transform.forward;
@@ -421,6 +424,7 @@ public class Animal : Entity
         {
             return navHit.position;
         }
+        Debug.Log("COULD NOT FIND RANDOM POINT");
         return origin;
     }
 

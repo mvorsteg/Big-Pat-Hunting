@@ -34,6 +34,7 @@ public class QuestManager : MonoBehaviour
     private TextMeshProUGUI tripLocationText;
     
     public TextMeshProUGUI dayCompleteText;
+    public DebriefBoard debriefBoard;
 
     public Transform questTextParent;
     public GameObject questTextPrefab;
@@ -93,7 +94,14 @@ public class QuestManager : MonoBehaviour
         instance.player.transform .position = instance.playerSpawn.transform.position;
         instance.player.transform.rotation = instance.playerSpawn.transform.rotation;
         instance.huntingTrip.currDay++;
-        StartDay(instance.huntingTrip, instance.huntingTrip.currDay);
+        //StartDay(instance.huntingTrip, instance.huntingTrip.currDay);
+        instance.debriefBoard.gameObject.SetActive(true);
+        foreach (KillInfo info in instance.killLog)
+        {
+            instance.debriefBoard.AddRow(info);
+        }
+
+
     }
 
     /// <summary>

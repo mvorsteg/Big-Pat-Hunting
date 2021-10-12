@@ -133,6 +133,46 @@ public class Utility {
         }
     }
 
+    /// <summary>
+    /// converts pounds (lb) to kilograms (kg)
+    /// </summary>
+    /// <param name="lb">weight in pounds</param>
+    /// <returns>weight in kilograms</returns>
+    public static float PoundsToKg(float lb)
+    {
+        return lb / 2.205f;
+    }
+
+    /// <summary>
+    /// converts kilograms (kg) to pounds (lb)
+    /// </summary>
+    /// <param name="kg">weight in kilograms</param>
+    /// <returns>weight in pounds</returns>
+    public static float KgToPounds(float kg)
+    {
+        return kg * 2.205f;
+    }
+
+    /// <summary>
+    /// converts feet (ft) to meters (m)
+    /// </summary>
+    /// <param name="ft">distance in feet</param>
+    /// <returns>distance in meters</returns>
+    public static float FeetToMeters(float ft)
+    {
+        return ft / 3.281f;
+    }
+
+    /// <summary>
+    /// converts meters (m) to feet (ft)
+    /// </summary>
+    /// <param name="m">distance in meters</param>
+    /// <returns>distance in feet</returns>
+    public static float MetersToFeet(float m)
+    {
+        return m * 3.281f;
+    }
+
 #if (UNITY_EDITOR) 
     [MenuItem("Assets/Save RenderTexture to file")]
     public static void SaveRTToFile()
