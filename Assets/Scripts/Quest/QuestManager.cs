@@ -52,6 +52,7 @@ public class QuestManager : MonoBehaviour
     private List<KillInfo> killLog;         // list of every animal the player has killed
     
     private EntityManager entityManager;
+    private CutsceneManager cutsceneManager;
 
 
     public static QuestManager instance;    // there can only be one
@@ -69,6 +70,7 @@ public class QuestManager : MonoBehaviour
         tripDayText = tripTextObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         tripLocationText = tripTextObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         entityManager = GetComponent<EntityManager>();
+        cutsceneManager = GetComponent<CutsceneManager>();
         
     }
 
@@ -90,18 +92,28 @@ public class QuestManager : MonoBehaviour
 
     public static void EndDay()
     {
-        // instance.StartCoroutine(instance.EndDay());
-        instance.player.transform .position = instance.playerSpawn.transform.position;
-        instance.player.transform.rotation = instance.playerSpawn.transform.rotation;
-        instance.huntingTrip.currDay++;
-        //StartDay(instance.huntingTrip, instance.huntingTrip.currDay);
         instance.debriefBoard.gameObject.SetActive(true);
+        instance.cutsceneManager.PlayNightCutscene();
         foreach (KillInfo info in instance.killLog)
         {
             instance.debriefBoard.AddRow(info);
         }
 
+    }
 
+    public static void NextDay()
+    {   
+        instance.killLog.Clear();
+        instance.player.transform .position = instance.playerSpawn.transform.position;
+        instance.player.transform.rotation = instance.playerSpawn.transform.rotation;
+        instance.huntingTrip.currDay++;
+
+        for (int i = 0; i < instance.questTextParent.childCount; i++)
+        {
+            Destroy(instance.questTextParent.GetChild(0).gameObject);
+        }
+
+        StartDay(instance.huntingTrip, instance.huntingTrip.currDay);
     }
 
     /// <summary>
@@ -123,7 +135,6 @@ public class QuestManager : MonoBehaviour
     public static void UpdateQuest(IQuest quest)
     {
         int idx = instance.quests.IndexOf(quest);
-        Debug.Log(idx);
         instance.texts[idx].text = quest.GetShortDescription();
     }
 
@@ -169,6 +180,32 @@ public class QuestManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Returns true if and only if dealing a certain amount of damage to a certain entity
+    /// will end the day. This requires exactly 1 kill quest to be active.
+    /// </summary>
+    /// <param name="entity">The entity in question</param>
+    /// <param name="damage">The damage being dealt to the entity</param>
+    /// <returns>If the shot will end the day</returns>
+    public static bool IsGoingToBeLastShot(Entity entity, float damage)
+    {
+        return true;
+        if (instance.quests.Count == 1)
+        {
+            if (instance.quests[0] is KillQuest)
+            {
+                if (((KillQuest)instance.quests[0]).target == entity.type)
+                {
+                    if (entity.Health <= damage)
+                    {
+                        return true;
+                    }
+                }
+            }   
+        }
+        return false;
     }
 
     /// <summary>
@@ -280,7 +317,7 @@ public class QuestManager : MonoBehaviour
         textDayBg.color = new Color(textDayBg.color.r, textDayBg.color.g, textDayBg.color.b, 1);
 
         float elapsedTime = 0f;
-        float displayTime = 3f;
+        float displayTime = 0f;
         float fadeTime = 2f;
 
         yield return null;

@@ -39,12 +39,20 @@ public class PlayerInput : MonoBehaviour
 
         SetAimControls(toggleAim);
 
-        controls.Gameplay.Enable();
-
         controls.PauseMenu.Pause.performed += ctx => TogglePause();
 
-        controls.PauseMenu.Enable();
+    }
 
+    private void OnEnable()
+    {
+        controls.Gameplay.Enable();
+        controls.PauseMenu.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
+        controls.PauseMenu.Disable();
     }
 
     public void SetAimControls(bool toggle)

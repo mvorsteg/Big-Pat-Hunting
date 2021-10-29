@@ -159,6 +159,8 @@ public class PlayerMovement : MonoBehaviour
                     return woodFootsteps[Random.Range(0, woodFootsteps.Length)];
                 if (hit.transform.tag == "Metal")
                     return metalFootsteps[Random.Range(0, metalFootsteps.Length)];
+                if (hit.transform.tag == "Cloth")
+                    return snowFootsteps[Random.Range(0, snowFootsteps.Length)];
             }
         }
         

@@ -29,6 +29,11 @@ public class PlayerUI : MonoBehaviour
         SetDeathScreen(false, "");
     }
 
+    private void OnDisable()
+    {
+        hitMarker.color = new Color(hitMarker.color.r, hitMarker.color.g, hitMarker.color.b, 0);
+    }
+
     public void AddBullet(int count)
     {
         bullets = new Image[count];

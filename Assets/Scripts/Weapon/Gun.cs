@@ -18,8 +18,10 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     private Recoil recoil;
 
     public ParticleSystem muzzleFlash;
+    public GameObject bulletPrefab;
 
     public Transform origin;        // Where the bullets originate from
+    public Transform gunBarrel;     // Where bullets and muzzle flashes come from
     public CameraController cameraController;
     public GameObject scopeOverlay;     // The crosshair overlay that appears when scoped
     public Image crosshairOverlay;      // The crosshair image that will be changed
@@ -140,8 +142,18 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
             WeakPoint weakPoint = hit.collider.GetComponent<WeakPoint>();
             if (weakPoint != null)
             {
-                weakPoint.TakeDamage(new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this));
-                playerUI.HitMarker();
+                HitInfo info = new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this);
+                if (QuestManager.IsGoingToBeLastShot(weakPoint.parent, damage * weakPoint.damageMultiplier))
+                {
+                    // cinematic shot
+                    FindObjectOfType<BulletTime>().StartShot(bulletPrefab, gunBarrel.position, hit.point, Quaternion.LookRotation(hit.point - gunBarrel.position), weakPoint, info);                
+                }
+                else
+                {
+                    // just deal damage
+                    weakPoint.TakeDamage(info);
+                    playerUI.HitMarker();
+                }
             }
 
             // // otherwise, check for an entity and apply damage to it

@@ -23,6 +23,7 @@ public abstract class Entity : MonoBehaviour
     protected Animator anim;
 
     public bool IsAlive { get => isAlive; }
+    public float Health { get => health; }
 
     protected virtual void Awake()
     {
