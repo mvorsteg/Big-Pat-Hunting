@@ -9,6 +9,8 @@ public class KillQuest : ScriptableObject, IQuest
 
     private float totalKills = 0;   // number of kills currently counted toward the goal
 
+    public float TotalKills { get => totalKills; }
+
     // private void Start()
     // {
     //     totalKills = 0;

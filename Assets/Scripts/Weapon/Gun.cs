@@ -19,6 +19,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
 
     public ParticleSystem muzzleFlash;
     public GameObject bulletPrefab;
+    public ParticlePool impactPool;
 
     public Transform origin;        // Where the bullets originate from
     public Transform gunBarrel;     // Where bullets and muzzle flashes come from
@@ -132,12 +133,12 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
 
         RaycastHit hit;
         float turn = 0.5f;
-        LayerMask mask = 1 << 9;
+        LayerMask mask = 1 << 0 | 1 << 4 | 1 << 7 | 1 << 9 | 1 << 10 | 1 << 15 | 1 << 16;
         Vector3 offset = isAiming ? Vector3.zero : new Vector3(Random.Range(-turn, turn), Random.Range(-turn, turn), Random.Range(-turn, turn));
-        // do 2 raycasts- first check for a hit on vital organs, then check for a hit on regular body parts
-        if (Physics.Raycast(origin.position, origin.forward + offset, out hit, range, 1 << 10))
+        // TODO do 2 raycasts- first check for a hit on vital organs, then check for a hit on regular body parts
+        if (Physics.Raycast(origin.position, origin.forward + offset, out hit, range, mask))
         {
-            Debug.Log(hit.collider.transform.name + " " + hit.collider.transform.gameObject.layer);
+            //Debug.Log(hit.collider.transform.name + " " + hit.collider.transform.gameObject.layer);
             // check if we hit a weak point
             WeakPoint weakPoint = hit.collider.GetComponent<WeakPoint>();
             if (weakPoint != null)
@@ -153,7 +154,13 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
                     // just deal damage
                     weakPoint.TakeDamage(info);
                     playerUI.HitMarker();
+                    EventManager.TriggerEvent("BulletImpactBlood", hit);
                 }
+            }
+            else
+            {
+                // generate bullet impact on whatever was hit
+                EventManager.TriggerEvent("BulletImpact", hit);
             }
 
             // // otherwise, check for an entity and apply damage to it
@@ -161,7 +168,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
             // if (entity != null)
             // {
             //     entity.TakeDamage(new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this));
-            // }
+            // }          
         }        
     }
     

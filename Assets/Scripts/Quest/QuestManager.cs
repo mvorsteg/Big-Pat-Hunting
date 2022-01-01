@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 
 
@@ -53,7 +54,8 @@ public class QuestManager : MonoBehaviour
     
     private EntityManager entityManager;
     private CutsceneManager cutsceneManager;
-
+    
+    // private UnityAction onDayComplete;
 
     public static QuestManager instance;    // there can only be one
 
@@ -71,7 +73,8 @@ public class QuestManager : MonoBehaviour
         tripLocationText = tripTextObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         entityManager = GetComponent<EntityManager>();
         cutsceneManager = GetComponent<CutsceneManager>();
-        
+
+        //initialize listeners
     }
 
     private void Start()
@@ -90,31 +93,43 @@ public class QuestManager : MonoBehaviour
         instance.entityManager.SpawnBaseAnimals(GetRequiredEntities());
     }
 
+    public static void ResetDay()
+    {
+        ClearDay();
+        StartDay(instance.huntingTrip, instance.huntingTrip.currDay);   
+    }
+
+    public static void NextDay()
+    {
+        ClearDay();
+        instance.huntingTrip.currDay++;
+        StartDay(instance.huntingTrip, instance.huntingTrip.currDay);
+    }
+
     public static void EndDay()
     {
+        EventManager.TriggerEvent("DayComplete");
         instance.debriefBoard.gameObject.SetActive(true);
         instance.cutsceneManager.PlayNightCutscene();
         foreach (KillInfo info in instance.killLog)
         {
             instance.debriefBoard.AddRow(info);
         }
-
     }
 
-    public static void NextDay()
-    {   
+    public static void ClearDay()
+    {
         instance.killLog.Clear();
-        instance.player.transform .position = instance.playerSpawn.transform.position;
+        instance.player.ResetPlayer();
+        instance.player.transform.GetComponent<PlayerMovement>().MoveToPosition(instance.playerSpawn.transform.position);
         instance.player.transform.rotation = instance.playerSpawn.transform.rotation;
-        instance.huntingTrip.currDay++;
+        instance.entityManager.DeleteAllAnimals();
 
         for (int i = 0; i < instance.questTextParent.childCount; i++)
         {
             Destroy(instance.questTextParent.GetChild(0).gameObject);
         }
-
-        StartDay(instance.huntingTrip, instance.huntingTrip.currDay);
-    }
+    }    
 
     /// <summary>
     /// Adds a new quest that is tracked
@@ -191,16 +206,19 @@ public class QuestManager : MonoBehaviour
     /// <returns>If the shot will end the day</returns>
     public static bool IsGoingToBeLastShot(Entity entity, float damage)
     {
-        return true;
         if (instance.quests.Count == 1)
         {
             if (instance.quests[0] is KillQuest)
             {
-                if (((KillQuest)instance.quests[0]).target == entity.type)
+                KillQuest kq = (KillQuest)instance.quests[0];
+                if (kq.target == entity.type)
                 {
-                    if (entity.Health <= damage)
+                    if (kq.TotalKills == kq.requiredKills - 1)
                     {
-                        return true;
+                        if (entity.Health <= damage)
+                        {
+                            return true;
+                        }
                     }
                 }
             }   

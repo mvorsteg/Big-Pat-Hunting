@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 using Cinemachine;
 
 public class BulletTime : MonoBehaviour
@@ -30,9 +31,13 @@ public class BulletTime : MonoBehaviour
     private WeakPoint weakPoint;
     private HitInfo hitInfo;
 
+    public UnityAction onDayEnd;
+
     private void Awake()
     {
         player = FindObjectOfType<Player>();
+
+        onDayEnd = new UnityAction(OnDayEnd);
     }
 
     public void StartShot(GameObject bulletPrefab, Vector3 startPos, Vector3 endPos, Quaternion rot, WeakPoint weakPoint, HitInfo info)
@@ -52,9 +57,10 @@ public class BulletTime : MonoBehaviour
         // balls[0].transform.position = startPos;
         // balls[1].transform.position = endPos;
 
+        //Bullet bullet = Instantiate(bulletPrefab, startPos, rot).GetComponent<Bullet>();
         Bullet bullet = Instantiate(bulletPrefab, startPos, rot).GetComponent<Bullet>();
         bullet.Initialize(this, endPos);
-
+        Debug.Break();
         vCam.gameObject.SetActive(true);
         vCam.LookAt = bullet.transform;
 
@@ -78,18 +84,31 @@ public class BulletTime : MonoBehaviour
         scope.SetActive(false);
         hud.SetActive(false);
 
-        //Debug.Break();
+        Debug.Break();
 
         StartCoroutine(ApplySpeed(distanceToTarget / travelTime / timeScale, bulletSpeed / timeScale, bullet));
     }
 
-    public void EndShot()
+    public void BulletImpact()
     {
         vCam.LookAt = weakPoint.transform;
         //vCam.Follow = weakPoint.transform;
         cart.m_Speed = 0;
         weakPoint.TakeDamage(hitInfo);
         Time.timeScale = 0.5f;
+    }
+
+    public void FinishBulletTime()
+    {
+        Time.timeScale = 1f;
+        mixer.SetFloat("masterPitch", 1f);
+        vCam.gameObject.SetActive(false);
+        actualCam.SetActive(false);
+        hud.SetActive(true);
+        foreach (GameObject g in playerCameras)
+        {
+            g.SetActive(true);
+        }
     }
 
     private IEnumerator ApplySpeed(float camSpeed, float bulletSpeed, Bullet bullet)
@@ -99,5 +118,10 @@ public class BulletTime : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.2f);
         cart.m_Speed = camSpeed;
         bullet.speed = bulletSpeed;
+    }
+
+    private void OnDayEnd()
+    {
+        FinishBulletTime();
     }
 }

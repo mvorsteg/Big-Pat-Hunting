@@ -20,15 +20,21 @@ public class CameraController : MonoBehaviour
 
     private Rigidbody rb;
     private Collider coll;
+
+    private Vector3 initialPos;
+
     [SerializeField]
     private WeaponSwitcher weaponHolder;
     [SerializeField]
     private GameObject[] dummyWeapons;
+    private List<GameObject> instantiatedDummyWeapons;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         coll = GetComponent<Collider>();
+        initialPos = transform.localPosition;
+        instantiatedDummyWeapons = new List<GameObject>();
     }
 
     // Start is called before the first frame update
@@ -78,10 +84,23 @@ public class CameraController : MonoBehaviour
         coll.enabled = enabled;
         if (enabled)
         {
-            Rigidbody rb = Instantiate(dummyWeapons[weaponHolder.GetCurrWeaponId()], weaponHolder.transform.position, weaponHolder.transform.rotation).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 25f);
+            GameObject go = Instantiate(dummyWeapons[weaponHolder.GetCurrWeaponId()], weaponHolder.transform.position, weaponHolder.transform.rotation);
+            instantiatedDummyWeapons.Add(go);
+            go.GetComponent<Rigidbody>().AddForce(transform.forward * 25f);
             weaponHolder.gameObject.SetActive(false);
         }
+    }
+
+    public void ResetCamera()
+    {
+        EnableCameraGravity(false);
+        foreach (GameObject go in instantiatedDummyWeapons)
+        {
+            Destroy(go);
+        }
+        instantiatedDummyWeapons.Clear();
+        weaponHolder.gameObject.SetActive(true);
+        transform.localPosition = initialPos;
     }
 
     private void OnCollisionEnter(Collision other)

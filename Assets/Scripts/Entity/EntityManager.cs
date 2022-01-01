@@ -61,7 +61,6 @@ public class EntityManager : MonoBehaviour
     /// <param name="requiredSpawns">An EntityType-int dictionary, defining the types (and amounts) of animals that must be instantiated
     public void SpawnBaseAnimals(Dictionary<EntityType, int> requiredSpawns)
     {
-        DeleteAllAnimals();
         // put spawnpoints in random order
         spawnPoints = GetComponentsInChildren<AnimalSpawner>();
         List<AnimalSpawner> spawnLst = spawnPoints.ToList();
@@ -83,13 +82,17 @@ public class EntityManager : MonoBehaviour
             {
                 // must spawn more!
                 GameObject animal = spawnLst[i].SpawnAnimal(entityTypePrefabs[key], spawnLst[i].transform, 1);
+                currentAnimals.Add(animal);
                 LogEntitySpawn(animal.GetComponent<Entity>().type);
                 Debug.Log("spawning " + key + " manually"); 
             }
         }
     }
 
-    private void DeleteAllAnimals()
+    /// <summary>
+    /// Deletes all instances of animals from the world
+    /// </summary>
+    public void DeleteAllAnimals()
     {
         for (int i = 0; i < entityTypePrefabsSerializable.Length; i++)
         {

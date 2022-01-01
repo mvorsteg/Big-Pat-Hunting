@@ -29,7 +29,8 @@ public class Bullet : MonoBehaviour
             //Debug.Break();
 
             isHit = true;
-            bulletTime.EndShot();
+            bulletTime.BulletImpact();
+            Destroy(this.gameObject);
         }
     }
 }

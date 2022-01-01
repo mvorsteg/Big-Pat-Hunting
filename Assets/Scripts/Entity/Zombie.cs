@@ -3,13 +3,15 @@ using UnityEngine;
 public class Zombie : Animal, IDamageSource
 {
     public Entity target;
-    public Collider attackTrigger;
+    public EntitySensor sensor;
     public Transform attackPoint;
     public float attackRange;
     public LayerMask mask;
 
     public float attackDamage = 25f;
     public float force = 100f;
+
+    private bool targetInRange = false;
 
     protected override void Awake()
     {
@@ -19,14 +21,11 @@ public class Zombie : Animal, IDamageSource
     protected override void Start()
     {
         base.Start();
-        state = AIState.Attack;
-        maxSpeed = walkSpeed;
-        agent.speed = walkSpeed;
+        SetState(AIState.Attack);
     }
 
     protected override void Update()
     {
-        Debug.Log("updage");
         if (!isAlive)
         {
             return;
@@ -34,6 +33,18 @@ public class Zombie : Animal, IDamageSource
         GetFollowDestination(target);
         Move();
         
+        if (targetInRange)
+        {
+            if (sensor.IsEntityInRange(target))
+            {
+                anim.SetTrigger("attack");
+            }
+            else
+            {
+                targetInRange = false;
+            }
+        }
+
         base.Update();
     }
 
@@ -58,9 +69,9 @@ public class Zombie : Animal, IDamageSource
     /// <param name="other">The other entity that has been sensed by this one</param>
     public override void SenseEntity(Entity other)
     {
-        if (isAlive && type.Attacks(other.type))
+        if (isAlive && other == target)
         {
-            anim.SetTrigger("attack");
+            targetInRange = true;
         }
     }
 

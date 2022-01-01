@@ -26,8 +26,6 @@ public class Animal : Entity
     protected NavMeshAgent agent;   
     protected NavMeshPath path;
 
-    protected TerrainDetector detector;
-
     protected int pathIter = 1;
     protected Vector3 agentPosition;
     protected Vector3 destination = new Vector3(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity);
@@ -219,7 +217,7 @@ public class Animal : Entity
         // find position to run to
         NavMeshHit navHit;
         Vector3 worldPos = transform.position + safeDistance * direction;
-        Vector3 terrainPos = new Vector3(worldPos.x, detector.Terrain.SampleHeight(worldPos), worldPos.z);
+        Vector3 terrainPos = new Vector3(worldPos.x, TerrainDetector.SampleHeight(worldPos), worldPos.z);
         
         if (NavMesh.SamplePosition(terrainPos, out navHit, 5f, NavMesh.AllAreas))
         {
@@ -291,11 +289,6 @@ public class Animal : Entity
         followers.Add(follower);
     }
 
-    public void AssignTerrainDetector(TerrainDetector detector)
-    {
-        this.detector = detector;
-    }
-
     /// <summary>
     /// Updates AgentPosition to keep it up with where the transform is on the navMesh
     /// </summary>
@@ -340,6 +333,8 @@ public class Animal : Entity
         agent.CalculatePath(endDestination, path);
         pathIter = 1;
         agent.isStopped = false;
+        agent.destination = endDestination;
+
     }
 
     /// <summary>

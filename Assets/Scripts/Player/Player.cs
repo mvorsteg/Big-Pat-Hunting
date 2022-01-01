@@ -39,6 +39,19 @@ public class Player : Entity
         cameraController.EnableCameraGravity(false);        
     }
 
+    public void ResetPlayer()
+    {
+        health = maxHealth;
+        DamageSystem.SetVignette(1 - health / maxHealth);
+        StopCoroutine("HealthRegen");
+        GetComponent<PlayerInput>().SetUserControl(true);
+
+        playerUI.SetDeathScreen(false, "");
+        cameraController.ResetCamera();
+        weapon.Aim(false);
+        ((Gun)weapon).ReloadCallback();
+    }
+
     protected override void Update()
     {
         //SetAgentPosition();
@@ -100,7 +113,8 @@ public class Player : Entity
     protected override void Die(HitInfo info)
     {
         base.Die(info);
-        GetComponent<PlayerInput>().SetUserControl(false);
+        EventManager.TriggerEvent("PlayerDie");
+        //GetComponent<PlayerInput>().SetUserControl(false);
         cameraController.EnableCameraGravity(true);
         playerUI.SetDeathScreen(true, info.source.GetName());
         

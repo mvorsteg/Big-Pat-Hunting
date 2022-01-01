@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     public WeaponSwitcher weaponHolder;
     public Animator weaponAnimator;
     private AudioSource audioSource;
-    private TerrainDetector terrainDetector;
 
     private Vector3 velocity;
     private Vector3 hitNormal;
@@ -45,12 +45,27 @@ public class PlayerMovement : MonoBehaviour
     public float footstepDelayWalking = 0.6f;
     public float footstepDelaySprinting = 0.4f;
 
+    private UnityAction onPlayerDeath;
+
     public float Speed { get => isSprinting ? sprintSpeed : walkSpeed; }
 
     private void Awake()
     {
         cc = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
+
+        // initialize listeners
+        onPlayerDeath = new UnityAction(OnPlayerDeath);
+    }
+
+    private void OnEnable()
+    {
+        EventManager.StartListening("PlayerDeath", onPlayerDeath);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening("PlayerDeath", onPlayerDeath);
     }
 
     private void Update()
@@ -121,6 +136,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }    
 
+    public void MoveToPosition(Vector3 position)
+    {
+        cc.enabled = false;
+        transform.position = position;
+        cc.enabled = true;
+    }
+
     public void Jump()
     {
         if (isGrounded && Vector3.Angle(Vector3.up, hitNormal) <= slopeLimit)
@@ -136,30 +158,25 @@ public class PlayerMovement : MonoBehaviour
         weaponAnimator.SetBool("isSprinting", val);
     }
 
-    public void AssignTerrainDetector(TerrainDetector detector)
-    {
-        terrainDetector = detector;
-    }
-
     private AudioClip GetRandomFootstepClip()
     {
         
         int terrainTextureIdx = -1;
         if (Physics.CheckSphere(groundCheck.position, groundDistance, terrainMask))
-            terrainTextureIdx = terrainDetector.GetActiveTerrainTextureIdx(transform.position);
+            terrainTextureIdx = TerrainDetector.GetActiveTerrainTextureIdx(transform.position);
         
         if (terrainTextureIdx < 0)
         {
             RaycastHit hit;
             if (Physics.Raycast(groundCheck.position, -transform.up, out hit, 1f, groundMask))
             {
-                if (hit.transform.tag == "Stone")
+                if (hit.transform.CompareTag("Stone"))
                     return stoneFootsteps[Random.Range(0, stoneFootsteps.Length)];
-                if (hit.transform.tag == "Wood")
+                if (hit.transform.CompareTag("Wood"))
                     return woodFootsteps[Random.Range(0, woodFootsteps.Length)];
-                if (hit.transform.tag == "Metal")
+                if (hit.transform.CompareTag("Metal"))
                     return metalFootsteps[Random.Range(0, metalFootsteps.Length)];
-                if (hit.transform.tag == "Cloth")
+                if (hit.transform.CompareTag("Cloth"))
                     return snowFootsteps[Random.Range(0, snowFootsteps.Length)];
             }
         }
@@ -178,6 +195,11 @@ public class PlayerMovement : MonoBehaviour
 
         // default to grass
         return grassFootsteps[Random.Range(0, grassFootsteps.Length)];
+    }
+
+    private void OnPlayerDeath()
+    {
+
     }
 
     void OnControllerColliderHit (ControllerColliderHit hit)

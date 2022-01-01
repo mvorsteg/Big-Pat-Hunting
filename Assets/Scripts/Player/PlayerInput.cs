@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerInput : MonoBehaviour
@@ -11,6 +12,8 @@ public class PlayerInput : MonoBehaviour
     public bool toggleAim = true;
     public bool paused = false;
     public bool aiming = false;
+
+    private UnityAction onPlayerDeath;
 
     private void Awake()
     {
@@ -37,22 +40,30 @@ public class PlayerInput : MonoBehaviour
 
         controls.Gameplay.Use.performed += ctx => Interaction.Go();
 
+        controls.Gameplay.KillYourself.performed += ctx => player.TakeDamage(FallDamage.CalculateHit(player, -1000));
+
         SetAimControls(toggleAim);
 
         controls.PauseMenu.Pause.performed += ctx => TogglePause();
 
+        // initialize listeners
+        onPlayerDeath = new UnityAction(OnPlayerDeath);
     }
 
     private void OnEnable()
     {
         controls.Gameplay.Enable();
         controls.PauseMenu.Enable();
+
+        EventManager.StartListening("PlayerDeath", onPlayerDeath);
     }
 
     private void OnDisable()
     {
         controls.Gameplay.Disable();
         controls.PauseMenu.Disable();
+
+        EventManager.StopListening("PlayerDeath", onPlayerDeath);
     }
 
     public void SetAimControls(bool toggle)
@@ -99,6 +110,11 @@ public class PlayerInput : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+    }
+
+    private void OnPlayerDeath()
+    {
+        SetUserControl(false);
     }
 
 

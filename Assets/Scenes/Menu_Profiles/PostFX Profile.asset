@@ -90,23 +90,23 @@ MonoBehaviour:
     overrideState: 1
     value: 2
   toneCurveToeStrength:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.711
   toneCurveToeLength:
-    overrideState: 0
-    value: 0.5
+    overrideState: 1
+    value: 0.593
   toneCurveShoulderStrength:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.596
   toneCurveShoulderLength:
-    overrideState: 0
-    value: 0.5
+    overrideState: 1
+    value: 2.48
   toneCurveShoulderAngle:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.268
   toneCurveGamma:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 1.11
   ldrLut:
     overrideState: 0
     value: {fileID: 0}
@@ -116,13 +116,13 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 0
-    value: -8
+    value: 10.6
   tint:
     overrideState: 0
     value: 0
   colorFilter:
     overrideState: 0
-    value: {r: 0.9050579, g: 1, b: 0.89245284, a: 1}
+    value: {r: 0.9287212, g: 1, b: 0.9198113, a: 1}
   hueShift:
     overrideState: 0
     value: 0
@@ -133,8 +133,8 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   postExposure:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 1
   contrast:
     overrideState: 1
     value: -5
@@ -1395,7 +1395,7 @@ MonoBehaviour:
     value: {x: 83.16701, y: 99}
   minLuminance:
     overrideState: 1
-    value: -8.2
+    value: -3
   maxLuminance:
     overrideState: 1
     value: 0.5

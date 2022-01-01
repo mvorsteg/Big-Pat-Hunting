@@ -89,6 +89,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""KillYourself"",
+                    ""type"": ""Button"",
+                    ""id"": ""b49affa0-a4f2-4cfe-9c6b-4160c3366063"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -234,6 +242,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f521f40-cc66-4621-bdfc-a0e0cfc9d2a7"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KillYourself"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -373,6 +392,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
         m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
         m_Gameplay_Inventory = m_Gameplay.FindAction("Inventory", throwIfNotFound: true);
+        m_Gameplay_KillYourself = m_Gameplay.FindAction("KillYourself", throwIfNotFound: true);
         // CameraOnly
         m_CameraOnly = asset.FindActionMap("CameraOnly", throwIfNotFound: true);
         m_CameraOnly_Look = m_CameraOnly.FindAction("Look", throwIfNotFound: true);
@@ -441,6 +461,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Use;
     private readonly InputAction m_Gameplay_Sprint;
     private readonly InputAction m_Gameplay_Inventory;
+    private readonly InputAction m_Gameplay_KillYourself;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -454,6 +475,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Use => m_Wrapper.m_Gameplay_Use;
         public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
         public InputAction @Inventory => m_Wrapper.m_Gameplay_Inventory;
+        public InputAction @KillYourself => m_Wrapper.m_Gameplay_KillYourself;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -490,6 +512,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Inventory.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventory;
+                @KillYourself.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnKillYourself;
+                @KillYourself.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnKillYourself;
+                @KillYourself.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnKillYourself;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -521,6 +546,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @KillYourself.started += instance.OnKillYourself;
+                @KillYourself.performed += instance.OnKillYourself;
+                @KillYourself.canceled += instance.OnKillYourself;
             }
         }
     }
@@ -643,6 +671,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnUse(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnKillYourself(InputAction.CallbackContext context);
     }
     public interface ICameraOnlyActions
     {
