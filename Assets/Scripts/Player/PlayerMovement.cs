@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 hitNormal;
     private Vector3 slidingDirection;
     private float prevVelocityY;
-    private float timeToFootstep;
 
     public Transform groundCheck;
     private bool isGrounded;
@@ -33,23 +32,13 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    public LayerMask terrainMask;
-    public LayerMask waterMask;
-
-    public AudioClip[] grassFootsteps;
-    public AudioClip[] gravelFootsteps;
-    public AudioClip[] snowFootsteps;
-    public AudioClip[] stoneFootsteps;
-    public AudioClip[] woodFootsteps;
-    public AudioClip[] metalFootsteps;
-    public AudioClip[] waterFootsteps;
-
-    public float footstepDelayWalking = 0.6f;
-    public float footstepDelaySprinting = 0.4f;
 
     private UnityAction onPlayerDeath;
 
-    public float Speed { get => isSprinting ? sprintSpeed : walkSpeed; }
+    public float MaxSpeed { get => isSprinting ? sprintSpeed : walkSpeed; }
+    public bool IsSprinting { get => isSprinting; }
+    public bool IsGrounded { get => isGrounded; }
+    public Vector3 Velocity { get => cc.velocity; }
 
     private void Awake()
     {
@@ -116,26 +105,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (isSliding)
         {
-            cc.Move(((slidingDirection * Speed) + velocity) * Time.deltaTime);
+            cc.Move(((slidingDirection * MaxSpeed) + velocity) * Time.deltaTime);
         }
         else
         {
-            cc.Move(((inputMovement * Speed) + velocity) * Time.deltaTime);
+            cc.Move(((inputMovement * MaxSpeed) + velocity) * Time.deltaTime);
         }
 
         // do animation
-        weaponAnimationSpeed = cc.velocity.magnitude / Speed;
+        weaponAnimationSpeed = cc.velocity.magnitude / MaxSpeed;
         weaponAnimator.SetFloat("weaponSpeed", weaponAnimationSpeed);
         weaponAnimator.SetBool("isGrounded", isGrounded);
-
-        timeToFootstep -= Time.deltaTime;
-        if (isGrounded && cc.velocity.magnitude > 2f && timeToFootstep <= 0)
-        {
-            AudioClip sound = GetRandomFootstepClip();
-            audioSource.clip = sound;
-            audioSource.Play();
-            timeToFootstep = isSprinting ? footstepDelaySprinting : footstepDelayWalking;
-        }
     }    
 
     public void MoveToPosition(Vector3 position)
@@ -158,50 +138,6 @@ public class PlayerMovement : MonoBehaviour
     {
         isSprinting = val;
         weaponAnimator.SetBool("isSprinting", val);
-    }
-
-    private AudioClip GetRandomFootstepClip()
-    {
-        
-        int terrainTextureIdx = -1;
-        // check for water
-        Debug.DrawRay(transform.position, Vector3.down, Color.black, 10f);
-        if (Physics.Raycast(transform.position, Vector3.down, 2f, waterMask))
-            return waterFootsteps[Random.Range(0, waterFootsteps.Length)];
-        // check for everything else
-        if (Physics.CheckSphere(groundCheck.position, groundDistance, terrainMask))
-            terrainTextureIdx = TerrainDetector.GetActiveTerrainTextureIdx(transform.position);
-        
-        if (terrainTextureIdx < 0)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(groundCheck.position, -transform.up, out hit, 1f, groundMask))
-            {
-                if (hit.transform.CompareTag("Stone"))
-                    return stoneFootsteps[Random.Range(0, stoneFootsteps.Length)];
-                if (hit.transform.CompareTag("Wood"))
-                    return woodFootsteps[Random.Range(0, woodFootsteps.Length)];
-                if (hit.transform.CompareTag("Metal"))
-                    return metalFootsteps[Random.Range(0, metalFootsteps.Length)];
-                if (hit.transform.CompareTag("Cloth"))
-                    return snowFootsteps[Random.Range(0, snowFootsteps.Length)];
-            }
-        }
-        MaterialType textureTextureMaterial = TerrainDetector.GetMaterialFromTextureIdx(terrainTextureIdx);
-        if (textureTextureMaterial == MaterialType.Grass)
-            return grassFootsteps[Random.Range(0, grassFootsteps.Length)];
-        if (textureTextureMaterial == MaterialType.Gravel)
-            return gravelFootsteps[Random.Range(0, gravelFootsteps.Length)];
-        if (textureTextureMaterial == MaterialType.Snow)
-            return snowFootsteps[Random.Range(0, snowFootsteps.Length)];
-        if (textureTextureMaterial == MaterialType.Stone)
-            return stoneFootsteps[Random.Range(0, stoneFootsteps.Length)];
-        // wood and metal are not terrains
-        //return woodFootsteps[Random.Range(0, woodFootsteps.Length)];
-        //return metalFootsteps[Random.Range(0, metalFootsteps.Length)];
-
-        // default to grass
-        return grassFootsteps[Random.Range(0, grassFootsteps.Length)];
     }
 
     private void OnPlayerDeath()

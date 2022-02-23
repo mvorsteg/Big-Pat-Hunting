@@ -11,7 +11,7 @@ public enum BodyArea
 }
 
 /// <summary>
-/// A structure containing data about a hit on an entity
+/// A struct containing data about a hit on an entity
 /// </summary>
 public struct HitInfo
 {

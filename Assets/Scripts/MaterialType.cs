@@ -9,5 +9,6 @@ public enum MaterialType
     Wood,
     Metal,
     Cloth,
+    Water,
     Blood,
 }

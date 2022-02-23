@@ -134,6 +134,22 @@ public class Utility {
     }
 
     /// <summary>
+    /// Calculates the strength of a sound signal at a specified distance from the source
+    /// The intensity is assumed to be normal at 10m away
+    /// and drops by 6 dB every time the distance doubles
+    /// </summary>
+    /// <param name="volume">the volume of the original signal in dB</param>
+    /// <param name="distance">the distance between the source and listener in meters</param>
+    /// <returns></returns>
+    public static float CalculateVolumeAtDistance(float volume, float distance)
+    {
+        float loss = -6f * Mathf.Log(distance / 10f, 2);
+        return volume + loss;
+    }
+
+    #region conversions
+
+    /// <summary>
     /// converts pounds (lb) to kilograms (kg)
     /// </summary>
     /// <param name="lb">weight in pounds</param>
@@ -172,6 +188,8 @@ public class Utility {
     {
         return m * 3.281f;
     }
+
+    #endregion
 
 #if (UNITY_EDITOR) 
     [MenuItem("Assets/Save RenderTexture to file")]
