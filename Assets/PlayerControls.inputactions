@@ -2,21 +2,13 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Gameplay",
+            "name": "Movement",
             "id": "7d17686f-c243-46e5-94b4-41d4d8bfda7d",
             "actions": [
                 {
                     "name": "Move",
                     "type": "PassThrough",
                     "id": "8256ec7c-134a-4424-8724-7b2745cffa88",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Look",
-                    "type": "PassThrough",
-                    "id": "e53db83b-ba0a-46cb-a53d-3376201ff392",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
@@ -30,57 +22,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Shoot",
-                    "type": "Button",
-                    "id": "4800b74c-11b7-4def-86e4-81056cf29757",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Aim",
-                    "type": "Button",
-                    "id": "fab992c7-53fc-4ce9-aafe-8e947386e672",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Reload",
-                    "type": "Button",
-                    "id": "0c0a289b-4b2b-407d-b68d-9cfcc38c4fb3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Use",
-                    "type": "Button",
-                    "id": "626198d3-9534-4fc4-843c-4c7bd4d89f51",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Sprint",
                     "type": "Button",
                     "id": "21f8ca59-cfc4-4962-bb24-463a3d5669f0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Inventory",
-                    "type": "Button",
-                    "id": "3fc78277-709e-402a-b036-392de1fba3b0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "KillYourself",
-                    "type": "Button",
-                    "id": "b49affa0-a4f2-4cfe-9c6b-4160c3366063",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -144,67 +88,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1eeee886-ad2a-416d-a578-c4becb4136d0",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "960715d3-d938-4ab0-af9a-89a2838e1a9d",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dfab862b-32c6-4e41-b3a2-51549238b076",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1a19636c-f74d-4cb6-a0e6-6083c99c01c7",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6b1fe23d-56dc-45ef-a763-551725d2136b",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Reload",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c6f4e858-0cbf-4870-9596-7d51def4c62e",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Use",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -218,26 +107,126 @@
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "FPS",
+            "id": "74a26f2b-8764-41af-837e-6668c97245b5",
+            "actions": [
+                {
+                    "name": "Look",
+                    "type": "PassThrough",
+                    "id": "53bde74c-8ac2-44a8-b982-57c3057b8de6",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 },
                 {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "ddb333ae-71e7-473a-9405-0656a081ae31",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Aim",
+                    "type": "Button",
+                    "id": "5ed4782a-f485-4358-be08-6222c021ae1e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "920bcfcb-7984-4af2-bfac-42b34a2a3ea3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Use",
+                    "type": "Button",
+                    "id": "6f28aca6-e833-4b21-9998-40b8c687c999",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "e17b8448-3e6f-46e1-ad1a-7a1e8b2aafa2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
                     "name": "",
-                    "id": "5a43a193-7237-4fdb-afc7-1136f89de9e2",
-                    "path": "<Keyboard>/tab",
+                    "id": "691ac177-da22-4015-8616-da26d7ad9b2e",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Inventory",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "8f521f40-cc66-4621-bdfc-a0e0cfc9d2a7",
-                    "path": "<Keyboard>/k",
+                    "id": "a07591d4-d4bf-4f44-a568-44b9be864824",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "KillYourself",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d57996ba-c1d6-4413-beb4-b2aec150e721",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6c0b6fa8-71c1-4e06-87a5-acadf803aea8",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea8ed64c-c87d-468d-8b99-31cdcb1b6840",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8499d3c-3846-468f-a4dd-ea7dee18e497",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -360,6 +349,33 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Debug",
+            "id": "1103d467-1aee-41f2-9227-73b231872b83",
+            "actions": [
+                {
+                    "name": "KillYourself",
+                    "type": "Button",
+                    "id": "9f81f1dc-8f00-4a45-b4a7-a7614a0f68d5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9623a7f6-5e71-4fb1-89ed-c9c68fd9e206",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KillYourself",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

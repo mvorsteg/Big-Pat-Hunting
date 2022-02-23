@@ -26,7 +26,7 @@ TagManager:
   - PostProcessing
   - DeadPlayer
   - Animal
-  - 
+  - WorldBoundary
   - 
   - 
   - 
@@ -44,4 +44,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1700200729
+    locked: 0
+  - name: Line
+    uniqueID: 4139554989
     locked: 0

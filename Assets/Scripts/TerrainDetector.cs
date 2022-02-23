@@ -103,11 +103,11 @@ public class TerrainDetector : MonoBehaviour
     {
         if (idx < 0)
             return MaterialType.Default;
-        if (idx <= 2)
-            return MaterialType.Grass;
         if (idx <= 3)
+            return MaterialType.Grass;
+        if (idx <= 6)
             return MaterialType.Gravel;
-        if (idx <= 4)
+        if (idx <= 7)
             return MaterialType.Snow;
         return MaterialType.Stone;
     }

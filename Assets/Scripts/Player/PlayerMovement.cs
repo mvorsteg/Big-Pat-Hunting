@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public LayerMask terrainMask;
+    public LayerMask waterMask;
 
     public AudioClip[] grassFootsteps;
     public AudioClip[] gravelFootsteps;
@@ -41,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip[] stoneFootsteps;
     public AudioClip[] woodFootsteps;
     public AudioClip[] metalFootsteps;
+    public AudioClip[] waterFootsteps;
 
     public float footstepDelayWalking = 0.6f;
     public float footstepDelaySprinting = 0.4f;
@@ -162,6 +164,11 @@ public class PlayerMovement : MonoBehaviour
     {
         
         int terrainTextureIdx = -1;
+        // check for water
+        Debug.DrawRay(transform.position, Vector3.down, Color.black, 10f);
+        if (Physics.Raycast(transform.position, Vector3.down, 2f, waterMask))
+            return waterFootsteps[Random.Range(0, waterFootsteps.Length)];
+        // check for everything else
         if (Physics.CheckSphere(groundCheck.position, groundDistance, terrainMask))
             terrainTextureIdx = TerrainDetector.GetActiveTerrainTextureIdx(transform.position);
         
@@ -180,18 +187,18 @@ public class PlayerMovement : MonoBehaviour
                     return snowFootsteps[Random.Range(0, snowFootsteps.Length)];
             }
         }
-        
-        if (terrainTextureIdx < 3)
+        MaterialType textureTextureMaterial = TerrainDetector.GetMaterialFromTextureIdx(terrainTextureIdx);
+        if (textureTextureMaterial == MaterialType.Grass)
             return grassFootsteps[Random.Range(0, grassFootsteps.Length)];
-        if (terrainTextureIdx < 4)
+        if (textureTextureMaterial == MaterialType.Gravel)
             return gravelFootsteps[Random.Range(0, gravelFootsteps.Length)];
-        if (terrainTextureIdx < 5)
+        if (textureTextureMaterial == MaterialType.Snow)
             return snowFootsteps[Random.Range(0, snowFootsteps.Length)];
-        if (terrainTextureIdx < 8)
+        if (textureTextureMaterial == MaterialType.Stone)
             return stoneFootsteps[Random.Range(0, stoneFootsteps.Length)];
-            // wood and metal are not terrains
-            //return woodFootsteps[Random.Range(0, woodFootsteps.Length)];
-            //return metalFootsteps[Random.Range(0, metalFootsteps.Length)];
+        // wood and metal are not terrains
+        //return woodFootsteps[Random.Range(0, woodFootsteps.Length)];
+        //return metalFootsteps[Random.Range(0, metalFootsteps.Length)];
 
         // default to grass
         return grassFootsteps[Random.Range(0, grassFootsteps.Length)];

@@ -12,6 +12,7 @@
 
 /[Aa]ssets/**/[Pp]aid/
 /[Aa]ssets/**/[Uu]ntracked/
+/[Aa]ssets/**/NatureManufacture Assets/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta

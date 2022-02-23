@@ -15,21 +15,13 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Gameplay"",
+            ""name"": ""Movement"",
             ""id"": ""7d17686f-c243-46e5-94b4-41d4d8bfda7d"",
             ""actions"": [
                 {
                     ""name"": ""Move"",
                     ""type"": ""PassThrough"",
                     ""id"": ""8256ec7c-134a-4424-8724-7b2745cffa88"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Look"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""e53db83b-ba0a-46cb-a53d-3376201ff392"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -43,57 +35,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Shoot"",
-                    ""type"": ""Button"",
-                    ""id"": ""4800b74c-11b7-4def-86e4-81056cf29757"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Aim"",
-                    ""type"": ""Button"",
-                    ""id"": ""fab992c7-53fc-4ce9-aafe-8e947386e672"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Reload"",
-                    ""type"": ""Button"",
-                    ""id"": ""0c0a289b-4b2b-407d-b68d-9cfcc38c4fb3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Use"",
-                    ""type"": ""Button"",
-                    ""id"": ""626198d3-9534-4fc4-843c-4c7bd4d89f51"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Sprint"",
                     ""type"": ""Button"",
                     ""id"": ""21f8ca59-cfc4-4962-bb24-463a3d5669f0"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Inventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""3fc78277-709e-402a-b036-392de1fba3b0"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""KillYourself"",
-                    ""type"": ""Button"",
-                    ""id"": ""b49affa0-a4f2-4cfe-9c6b-4160c3366063"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -157,67 +101,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1eeee886-ad2a-416d-a578-c4becb4136d0"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""960715d3-d938-4ab0-af9a-89a2838e1a9d"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dfab862b-32c6-4e41-b3a2-51549238b076"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1a19636c-f74d-4cb6-a0e6-6083c99c01c7"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6b1fe23d-56dc-45ef-a763-551725d2136b"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Reload"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c6f4e858-0cbf-4870-9596-7d51def4c62e"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -231,26 +120,126 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""FPS"",
+            ""id"": ""74a26f2b-8764-41af-837e-6668c97245b5"",
+            ""actions"": [
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""53bde74c-8ac2-44a8-b982-57c3057b8de6"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 },
                 {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""ddb333ae-71e7-473a-9405-0656a081ae31"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""5ed4782a-f485-4358-be08-6222c021ae1e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""920bcfcb-7984-4af2-bfac-42b34a2a3ea3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f28aca6-e833-4b21-9998-40b8c687c999"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""e17b8448-3e6f-46e1-ad1a-7a1e8b2aafa2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
                     ""name"": """",
-                    ""id"": ""5a43a193-7237-4fdb-afc7-1136f89de9e2"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""id"": ""691ac177-da22-4015-8616-da26d7ad9b2e"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Inventory"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8f521f40-cc66-4621-bdfc-a0e0cfc9d2a7"",
-                    ""path"": ""<Keyboard>/k"",
+                    ""id"": ""a07591d4-d4bf-4f44-a568-44b9be864824"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""KillYourself"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d57996ba-c1d6-4413-beb4-b2aec150e721"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c0b6fa8-71c1-4e06-87a5-acadf803aea8"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ea8ed64c-c87d-468d-8b99-31cdcb1b6840"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8499d3c-3846-468f-a4dd-ea7dee18e497"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -377,22 +366,50 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""1103d467-1aee-41f2-9227-73b231872b83"",
+            ""actions"": [
+                {
+                    ""name"": ""KillYourself"",
+                    ""type"": ""Button"",
+                    ""id"": ""9f81f1dc-8f00-4a45-b4a7-a7614a0f68d5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""9623a7f6-5e71-4fb1-89ed-c9c68fd9e206"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KillYourself"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Gameplay
-        m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-        m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
-        m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
-        m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
-        m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
-        m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
-        m_Gameplay_Reload = m_Gameplay.FindAction("Reload", throwIfNotFound: true);
-        m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
-        m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
-        m_Gameplay_Inventory = m_Gameplay.FindAction("Inventory", throwIfNotFound: true);
-        m_Gameplay_KillYourself = m_Gameplay.FindAction("KillYourself", throwIfNotFound: true);
+        // Movement
+        m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
+        m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
+        m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
+        m_Movement_Sprint = m_Movement.FindAction("Sprint", throwIfNotFound: true);
+        // FPS
+        m_FPS = asset.FindActionMap("FPS", throwIfNotFound: true);
+        m_FPS_Look = m_FPS.FindAction("Look", throwIfNotFound: true);
+        m_FPS_Shoot = m_FPS.FindAction("Shoot", throwIfNotFound: true);
+        m_FPS_Aim = m_FPS.FindAction("Aim", throwIfNotFound: true);
+        m_FPS_Reload = m_FPS.FindAction("Reload", throwIfNotFound: true);
+        m_FPS_Use = m_FPS.FindAction("Use", throwIfNotFound: true);
+        m_FPS_Inventory = m_FPS.FindAction("Inventory", throwIfNotFound: true);
         // CameraOnly
         m_CameraOnly = asset.FindActionMap("CameraOnly", throwIfNotFound: true);
         m_CameraOnly_Look = m_CameraOnly.FindAction("Look", throwIfNotFound: true);
@@ -403,6 +420,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // PauseMenu
         m_PauseMenu = asset.FindActionMap("PauseMenu", throwIfNotFound: true);
         m_PauseMenu_Pause = m_PauseMenu.FindAction("Pause", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_KillYourself = m_Debug.FindAction("KillYourself", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -449,85 +469,108 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // Gameplay
-    private readonly InputActionMap m_Gameplay;
-    private IGameplayActions m_GameplayActionsCallbackInterface;
-    private readonly InputAction m_Gameplay_Move;
-    private readonly InputAction m_Gameplay_Look;
-    private readonly InputAction m_Gameplay_Jump;
-    private readonly InputAction m_Gameplay_Shoot;
-    private readonly InputAction m_Gameplay_Aim;
-    private readonly InputAction m_Gameplay_Reload;
-    private readonly InputAction m_Gameplay_Use;
-    private readonly InputAction m_Gameplay_Sprint;
-    private readonly InputAction m_Gameplay_Inventory;
-    private readonly InputAction m_Gameplay_KillYourself;
-    public struct GameplayActions
+    // Movement
+    private readonly InputActionMap m_Movement;
+    private IMovementActions m_MovementActionsCallbackInterface;
+    private readonly InputAction m_Movement_Move;
+    private readonly InputAction m_Movement_Jump;
+    private readonly InputAction m_Movement_Sprint;
+    public struct MovementActions
     {
         private @PlayerControls m_Wrapper;
-        public GameplayActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Gameplay_Move;
-        public InputAction @Look => m_Wrapper.m_Gameplay_Look;
-        public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
-        public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
-        public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
-        public InputAction @Reload => m_Wrapper.m_Gameplay_Reload;
-        public InputAction @Use => m_Wrapper.m_Gameplay_Use;
-        public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
-        public InputAction @Inventory => m_Wrapper.m_Gameplay_Inventory;
-        public InputAction @KillYourself => m_Wrapper.m_Gameplay_KillYourself;
-        public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
+        public MovementActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Movement_Move;
+        public InputAction @Jump => m_Wrapper.m_Movement_Jump;
+        public InputAction @Sprint => m_Wrapper.m_Movement_Sprint;
+        public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GameplayActions set) { return set.Get(); }
-        public void SetCallbacks(IGameplayActions instance)
+        public static implicit operator InputActionMap(MovementActions set) { return set.Get(); }
+        public void SetCallbacks(IMovementActions instance)
         {
-            if (m_Wrapper.m_GameplayActionsCallbackInterface != null)
+            if (m_Wrapper.m_MovementActionsCallbackInterface != null)
             {
-                @Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                @Look.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
-                @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                @Shoot.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
-                @Aim.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
-                @Aim.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
-                @Aim.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
-                @Reload.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReload;
-                @Reload.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReload;
-                @Reload.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReload;
-                @Use.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
-                @Use.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
-                @Use.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
-                @Sprint.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                @Sprint.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                @Sprint.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                @Inventory.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventory;
-                @Inventory.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventory;
-                @Inventory.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInventory;
-                @KillYourself.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnKillYourself;
-                @KillYourself.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnKillYourself;
-                @KillYourself.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnKillYourself;
+                @Move.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
+                @Jump.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnJump;
+                @Sprint.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnSprint;
             }
-            m_Wrapper.m_GameplayActionsCallbackInterface = instance;
+            m_Wrapper.m_MovementActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
+            }
+        }
+    }
+    public MovementActions @Movement => new MovementActions(this);
+
+    // FPS
+    private readonly InputActionMap m_FPS;
+    private IFPSActions m_FPSActionsCallbackInterface;
+    private readonly InputAction m_FPS_Look;
+    private readonly InputAction m_FPS_Shoot;
+    private readonly InputAction m_FPS_Aim;
+    private readonly InputAction m_FPS_Reload;
+    private readonly InputAction m_FPS_Use;
+    private readonly InputAction m_FPS_Inventory;
+    public struct FPSActions
+    {
+        private @PlayerControls m_Wrapper;
+        public FPSActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Look => m_Wrapper.m_FPS_Look;
+        public InputAction @Shoot => m_Wrapper.m_FPS_Shoot;
+        public InputAction @Aim => m_Wrapper.m_FPS_Aim;
+        public InputAction @Reload => m_Wrapper.m_FPS_Reload;
+        public InputAction @Use => m_Wrapper.m_FPS_Use;
+        public InputAction @Inventory => m_Wrapper.m_FPS_Inventory;
+        public InputActionMap Get() { return m_Wrapper.m_FPS; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(FPSActions set) { return set.Get(); }
+        public void SetCallbacks(IFPSActions instance)
+        {
+            if (m_Wrapper.m_FPSActionsCallbackInterface != null)
+            {
+                @Look.started -= m_Wrapper.m_FPSActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_FPSActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_FPSActionsCallbackInterface.OnLook;
+                @Shoot.started -= m_Wrapper.m_FPSActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_FPSActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_FPSActionsCallbackInterface.OnShoot;
+                @Aim.started -= m_Wrapper.m_FPSActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_FPSActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_FPSActionsCallbackInterface.OnAim;
+                @Reload.started -= m_Wrapper.m_FPSActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_FPSActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_FPSActionsCallbackInterface.OnReload;
+                @Use.started -= m_Wrapper.m_FPSActionsCallbackInterface.OnUse;
+                @Use.performed -= m_Wrapper.m_FPSActionsCallbackInterface.OnUse;
+                @Use.canceled -= m_Wrapper.m_FPSActionsCallbackInterface.OnUse;
+                @Inventory.started -= m_Wrapper.m_FPSActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_FPSActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_FPSActionsCallbackInterface.OnInventory;
+            }
+            m_Wrapper.m_FPSActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
@@ -540,19 +583,13 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Use.started += instance.OnUse;
                 @Use.performed += instance.OnUse;
                 @Use.canceled += instance.OnUse;
-                @Sprint.started += instance.OnSprint;
-                @Sprint.performed += instance.OnSprint;
-                @Sprint.canceled += instance.OnSprint;
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
-                @KillYourself.started += instance.OnKillYourself;
-                @KillYourself.performed += instance.OnKillYourself;
-                @KillYourself.canceled += instance.OnKillYourself;
             }
         }
     }
-    public GameplayActions @Gameplay => new GameplayActions(this);
+    public FPSActions @FPS => new FPSActions(this);
 
     // CameraOnly
     private readonly InputActionMap m_CameraOnly;
@@ -660,18 +697,53 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public PauseMenuActions @PauseMenu => new PauseMenuActions(this);
-    public interface IGameplayActions
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private IDebugActions m_DebugActionsCallbackInterface;
+    private readonly InputAction m_Debug_KillYourself;
+    public struct DebugActions
+    {
+        private @PlayerControls m_Wrapper;
+        public DebugActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @KillYourself => m_Wrapper.m_Debug_KillYourself;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void SetCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+            {
+                @KillYourself.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnKillYourself;
+                @KillYourself.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnKillYourself;
+                @KillYourself.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnKillYourself;
+            }
+            m_Wrapper.m_DebugActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @KillYourself.started += instance.OnKillYourself;
+                @KillYourself.performed += instance.OnKillYourself;
+                @KillYourself.canceled += instance.OnKillYourself;
+            }
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
+    public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
+    }
+    public interface IFPSActions
+    {
+        void OnLook(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
-        void OnSprint(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
-        void OnKillYourself(InputAction.CallbackContext context);
     }
     public interface ICameraOnlyActions
     {
@@ -685,5 +757,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IPauseMenuActions
     {
         void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnKillYourself(InputAction.CallbackContext context);
     }
 }

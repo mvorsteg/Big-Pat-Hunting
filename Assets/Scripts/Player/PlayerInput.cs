@@ -23,28 +23,36 @@ public class PlayerInput : MonoBehaviour
 
         controls = new PlayerControls();
 
-        controls.Gameplay.Move.performed += ctx => playerMovement.move = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Move.canceled += ctx => playerMovement.move = Vector2.zero;
+        #region movement controls
 
-        controls.Gameplay.Look.performed += ctx => playerMovement.look = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Look.canceled += ctx => playerMovement.look = Vector2.zero;
+        controls.Movement.Move.performed += ctx => playerMovement.move = ctx.ReadValue<Vector2>();
+        controls.Movement.Move.canceled += ctx => playerMovement.move = Vector2.zero;
 
-        controls.Gameplay.Jump.performed += ctx => playerMovement.Jump();
+        controls.Movement.Sprint.performed += ctx => playerMovement.Sprint(true);
+        controls.Movement.Sprint.canceled += ctx => playerMovement.Sprint(false);
 
-        controls.Gameplay.Sprint.performed += ctx => playerMovement.Sprint(true);
-        controls.Gameplay.Sprint.canceled += ctx => playerMovement.Sprint(false);
+        controls.Movement.Jump.performed += ctx => playerMovement.Jump();
 
-        controls.Gameplay.Shoot.performed += ctx => player.Shoot();
+        #endregion
 
-        controls.Gameplay.Reload.performed += ctx => player.Reload();
+        #region FPS controls
 
-        controls.Gameplay.Use.performed += ctx => Interaction.Go();
+        controls.FPS.Look.performed += ctx => playerMovement.look = ctx.ReadValue<Vector2>();
+        controls.FPS.Look.canceled += ctx => playerMovement.look = Vector2.zero;
 
-        controls.Gameplay.KillYourself.performed += ctx => player.TakeDamage(FallDamage.CalculateHit(player, -1000));
+        controls.FPS.Shoot.performed += ctx => player.Shoot();
 
-        SetAimControls(toggleAim);
+        controls.FPS.Reload.performed += ctx => player.Reload();
+
+        controls.FPS.Use.performed += ctx => Interaction.Go();
+
+        #endregion
+
+        controls.Debug.KillYourself.performed += ctx => player.TakeDamage(FallDamage.CalculateHit(player, -1000));
 
         controls.PauseMenu.Pause.performed += ctx => TogglePause();
+       
+        SetAimControls(toggleAim);
 
         // initialize listeners
         onPlayerDeath = new UnityAction(OnPlayerDeath);
@@ -52,7 +60,8 @@ public class PlayerInput : MonoBehaviour
 
     private void OnEnable()
     {
-        controls.Gameplay.Enable();
+        controls.FPS.Enable();
+        controls.Movement.Enable();
         controls.PauseMenu.Enable();
 
         EventManager.StartListening("PlayerDeath", onPlayerDeath);
@@ -60,7 +69,8 @@ public class PlayerInput : MonoBehaviour
 
     private void OnDisable()
     {
-        controls.Gameplay.Disable();
+        controls.FPS.Disable();
+        controls.Movement.Disable();
         controls.PauseMenu.Disable();
 
         EventManager.StopListening("PlayerDeath", onPlayerDeath);
@@ -70,13 +80,13 @@ public class PlayerInput : MonoBehaviour
     {
         if (toggle)
         {
-            controls.Gameplay.Aim.performed += ctx => aiming = !aiming;
-            controls.Gameplay.Aim.performed += ctx => player.Aim(aiming);
+            controls.FPS.Aim.performed += ctx => aiming = !aiming;
+            controls.FPS.Aim.performed += ctx => player.Aim(aiming);
         }
         else
         {
-            controls.Gameplay.Aim.performed += ctx => player.Aim(true);
-            controls.Gameplay.Aim.canceled += ctx => player.Aim(false);
+            controls.FPS.Aim.performed += ctx => player.Aim(true);
+            controls.FPS.Aim.canceled += ctx => player.Aim(false);
         }
     }
 
@@ -84,11 +94,13 @@ public class PlayerInput : MonoBehaviour
     {
         if (toggle)
         {
-            controls.Gameplay.Enable();
+            controls.FPS.Enable();
+            controls.Movement.Enable();
         }
         else
         {
-            controls.Gameplay.Disable();
+            controls.FPS.Disable();
+            controls.Movement.Disable();
         }
     }
 
