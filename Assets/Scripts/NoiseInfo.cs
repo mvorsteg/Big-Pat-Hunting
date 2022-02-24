@@ -15,11 +15,11 @@ public struct NoiseInfo
     public Vector3 position;
     public float decibels;
 
-    public NoiseInfo(float decibels, Vector3 position, GameObject source)
+    public NoiseInfo(float decibels, Vector3 position, NoiseType type, GameObject source)
     {
         this.decibels = decibels;
         this.position = position;
-        this.noiseType = NoiseType.Footstep;
+        this.noiseType = type;
         this.source = source;
     }
 

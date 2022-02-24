@@ -14,25 +14,22 @@ public class Oscilloscope : MonoBehaviour
 
     private const float tau = 2 * Mathf.PI;
 
-    private float[] points;
-
-    private LineRenderer lineRenderer;
-    [SerializeField]
-    private int numPoints = 100;
-    [SerializeField]
-    float xStart = 0, xFinish = tau;
+    private float[] linePoints;
+    private RectTransform[] bars;
 
     [SerializeField]
     private float minAmplitude = 5f, maxAmplitude = 65f;
 
-    private UnityAction<object> onFootstepSound;
+    [SerializeField]
+    private Transform barsParent;
+
+    private UnityAction<object> onNoiseGenerated;
 
     private void Awake()
     {
-        lineRenderer = GetComponentInChildren<LineRenderer>();
-        lineRenderer.positionCount = numPoints;
+        bars = barsParent.GetComponentsInChildren<RectTransform>();
 
-        onFootstepSound = new UnityAction<object>(OnFootstepSound);
+        onNoiseGenerated = new UnityAction<object>(OnNoiseGenerated);
     }
 
     private void Start()
@@ -42,13 +39,13 @@ public class Oscilloscope : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.StartListening("Footstep", onFootstepSound);
+        EventManager.StartListening("NoiseGenerated", onNoiseGenerated);
     }
 
 
     private void OnDisable()
     {
-        EventManager.StopListening("Footstep", onFootstepSound);
+        EventManager.StopListening("Noise", onNoiseGenerated);
     }
 
     private void Update()
@@ -58,20 +55,19 @@ public class Oscilloscope : MonoBehaviour
 
     private void DrawSinWave()
     {   
-        lineRenderer.positionCount = numPoints;
-        for (int i = 0; i < numPoints; i++)
+        for (int i = 0; i < bars.Length; i++)
         {
-            float progress = (float)i / (numPoints - 1);
-            float x = Mathf.Lerp(xStart, xFinish, progress);
-            float y = amplitude * Mathf.Sin((tau * frequency *x) + Time.timeSinceLevelLoad * movementSpeed);
-            lineRenderer.SetPosition(i, new Vector3(x, y, 0));
+            float progress = (float)i / (bars.Length - 1);
+            float x = Mathf.Lerp(bars[i].position.x, bars[i].position.y, progress);
+                float y = amplitude * (Mathf.Sin((tau * frequency * x) + Time.timeSinceLevelLoad * movementSpeed) + 1);
+            bars[i].sizeDelta = new Vector2(bars[i].sizeDelta.x, y);
         }
     }
 
-    private void OnFootstepSound(object data)
+    private void OnNoiseGenerated(object data)
     {
         NoiseInfo info = (NoiseInfo)data;
-        StartCoroutine(WaveSpike(info.decibels));
+        StartCoroutine(WaveSpike(Mathf.Clamp(info.decibels, minAmplitude, maxAmplitude)));
         
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
@@ -125,11 +126,14 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     {
         currAmmo--;
         playerUI.DisableBullet();
-        audioSource.clip = fire;
-        audioSource.Play();
+
         StartCoroutine(FireCooldown());
         recoil.AddRecoil(isAiming);
         muzzleFlash.Play();
+
+        audioSource.clip = fire;
+        audioSource.Play();
+        EventManager.TriggerEvent("NoiseGenerated", new NoiseInfo(165f, transform.position, NoiseType.Gunshot, this.gameObject));
 
         RaycastHit hit;
         float turn = 0.5f;

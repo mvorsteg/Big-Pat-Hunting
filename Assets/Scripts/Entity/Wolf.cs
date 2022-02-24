@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class Wolf : Animal, INoiseListener, IDamageSource
 {
-    public NoiseGenerator noiseGenerator;
-
     public Transform attackPoint;
     public float attackRange;
     public LayerMask mask;
@@ -88,11 +86,11 @@ public class Wolf : Animal, INoiseListener, IDamageSource
     /// Hears a noise and runs away
     /// </summary>
     /// <param name="generator">The noise generator that created the noise</param>
-    public void HearNoise(NoiseGenerator generator)
+    public void HearNoise(NoiseInfo info)
     {
         if (isAlive)
         {
-            Investigate(generator.GetPosition());
+            Investigate(info.position);
         }
     }
 

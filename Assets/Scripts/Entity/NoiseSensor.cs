@@ -1,42 +1,43 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 public class NoiseSensor : MonoBehaviour
 {
     public float noiseThreshold = 5f;
 
-    private UnityAction<object> onFootstepSound;
+    private UnityAction<object> onNoiseGenerated;
 
     private void Awake()
     {
-        onFootstepSound = new UnityAction<object>(OnFootstepSound);
+        onNoiseGenerated = new UnityAction<object>(OnNoiseGenerated);
     }
 
     private void OnEnable()
     {
-        EventManager.StartListening("Footstep", onFootstepSound);
+        EventManager.StartListening("NoiseGenerated", onNoiseGenerated);
     }
 
     private void OnDisable()
     {
-        EventManager.StopListening("Footstep", onFootstepSound);
+        EventManager.StopListening("NoiseGenerated", onNoiseGenerated);
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="data"></param>
-    private void OnFootstepSound(object data)
+    private void OnNoiseGenerated(object data)
     {
         NoiseInfo info = (NoiseInfo)data;
         float effectiveDecibels = Utility.CalculateVolumeAtDistance(info.decibels, Vector3.Distance(info.position, transform.position));
         if (effectiveDecibels >= noiseThreshold)
         {
-            Debug.Log(transform.parent.name + " heard noise: " + effectiveDecibels + " dB");
+            Debug.Log(String.Format("{0} heard {1} at {2} dB", transform.name, info.noiseType.ToString(), effectiveDecibels));
         }
         else
         {
-            Debug.Log(transform.parent.name + " did not hear noise: " + effectiveDecibels + " dB");
+            //Debug.Log(transform.name + " did not hear noise: " + effectiveDecibels + " dB");
         }
     }
 

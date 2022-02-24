@@ -50,11 +50,11 @@ public class Bear : Animal, INoiseListener
     /// Hears a noise and runs away
     /// </summary>
     /// <param name="generator">The noise generator that created the noise</param>
-    public void HearNoise(NoiseGenerator generator)
+    public void HearNoise(NoiseInfo info)
     {
         if (isAlive)
         {
-            Investigate(generator.GetPosition());
+            Investigate(info.position);
         }
     }
 

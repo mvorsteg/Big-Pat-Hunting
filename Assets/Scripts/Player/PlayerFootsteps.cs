@@ -25,6 +25,7 @@ public class PlayerFootsteps : MonoBehaviour
 
     public float walkingDecibelModifier = 1f;
     public float sprintingDecibelModifier = 1.5f;
+    public float crouchingDecibelModifier = 0.5f;
 
     public float grassFootstepDecibels = 40f;
     public float gravelFootstepDecibels = 40f;
@@ -57,12 +58,21 @@ public class PlayerFootsteps : MonoBehaviour
             MaterialType materialUnderfoot = GetMaterialTypeUnderfoot();
             AudioClip sound = GetRandomFootstepClip(materialUnderfoot);
             audioSource.clip = sound;
+            audioSource.volume = playerMovement.IsCrouching ? 0.5f : 1.0f;
             audioSource.Play();
             timeToFootstep = playerMovement.IsSprinting ? footstepDelaySprinting : footstepDelayWalking;
 
             // send footstep
-            NoiseInfo info = new NoiseInfo(GetDecibelsFromMaterial(materialUnderfoot), transform.position, this.gameObject);
-            EventManager.TriggerEvent("Footstep", info);
+            NoiseInfo info = new NoiseInfo(GetDecibelsFromMaterial(materialUnderfoot), transform.position, NoiseType.Footstep, this.gameObject);
+            if (playerMovement.IsSprinting)
+            {
+                info.decibels *= sprintingDecibelModifier;
+            }
+            else if (playerMovement.IsCrouching)
+            {
+                info.decibels *= crouchingDecibelModifier;
+            }
+            EventManager.TriggerEvent("NoiseGenerated", info);
         }
     }
 

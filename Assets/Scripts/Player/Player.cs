@@ -9,7 +9,6 @@ public class Player : Entity
     public IWeapon weapon;
     [SerializeField]
     private WeaponSwitcher weaponSwitcher;
-    public NoiseGenerator noiseGenerator;
 
     public Transform groundCheck;
     public Vector3 navPosition;
@@ -128,7 +127,6 @@ public class Player : Entity
         if (weapon.CanShoot())
         {
             weapon.Shoot();
-            noiseGenerator.GenerateNoise();
         }
     }
 

@@ -143,7 +143,7 @@ public class Utility {
     /// <returns></returns>
     public static float CalculateVolumeAtDistance(float volume, float distance)
     {
-        float loss = -6f * Mathf.Log(distance / 10f, 2);
+        float loss = Mathf.Min(0f, -6f * Mathf.Log(distance / 10f, 2));
         return volume + loss;
     }
 

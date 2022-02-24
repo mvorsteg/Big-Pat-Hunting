@@ -18,6 +18,12 @@ public class CameraController : MonoBehaviour
     private float rotationSpeed = 6f;
     private float returnSpeed = 25f;
 
+    [SerializeField]
+    private float normalHeight = 0.3f, crouchHeight = -0.4f;
+    [SerializeField]
+    private float crouchTime = 0.2f;
+    private bool isCrouchAllowed = true;
+
     private Rigidbody rb;
     private Collider coll;
 
@@ -76,6 +82,31 @@ public class CameraController : MonoBehaviour
         currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, returnSpeed * Time.deltaTime);
         rot = Vector3.Slerp(rot, currentRotation, rotationSpeed * Time.deltaTime);
         recoilTransform.localRotation = Quaternion.Euler(rot);
+    }
+
+    public bool Crouch(bool val)
+    {
+        bool temp = isCrouchAllowed;
+        if (isCrouchAllowed)
+        {
+            StartCoroutine(CrouchOverTime(val));
+        }
+        return temp;
+    }
+
+    private IEnumerator CrouchOverTime(bool val)
+    {
+        isCrouchAllowed = false;
+        Vector3 start = new Vector3(0, val ? normalHeight : crouchHeight, 0);
+        Vector3 end   = new Vector3(0, val ? crouchHeight : normalHeight, 0);
+        float elapedTime = 0f;
+        while (elapedTime < crouchTime)
+        {
+            elapedTime += Time.deltaTime;
+            transform.localPosition = Vector3.Lerp(start, end, elapedTime / crouchTime);
+            yield return null;
+        }
+        isCrouchAllowed = true;
     }
 
     public void EnableCameraGravity(bool enabled)

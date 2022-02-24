@@ -3,15 +3,23 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public enum MovementMode
+    {
+        Walking,
+        Sprinting,
+        Crouching,
+    }
 
     public Vector2 move;
     public Vector2 look;
 
     public float weaponAnimationSpeed;
 
+    public MovementMode mode;
+
     public float walkSpeed = 12f;
     public float sprintSpeed = 16f;
-    private bool isSprinting = false;
+    public float crouchSpeed = 5f;
     public float jumpHeight = 3f;
     public float slopeLimit = 45;
     public float slideFriction = 0.3f;
@@ -35,8 +43,9 @@ public class PlayerMovement : MonoBehaviour
 
     private UnityAction onPlayerDeath;
 
-    public float MaxSpeed { get => isSprinting ? sprintSpeed : walkSpeed; }
-    public bool IsSprinting { get => isSprinting; }
+    public float MaxSpeed { get => IsSprinting ?  sprintSpeed : IsCrouching? crouchSpeed : walkSpeed; }
+    public bool IsSprinting { get => mode == MovementMode.Sprinting; }
+    public bool IsCrouching { get => mode == MovementMode.Crouching; } 
     public bool IsGrounded { get => isGrounded; }
     public Vector3 Velocity { get => cc.velocity; }
 
@@ -136,8 +145,29 @@ public class PlayerMovement : MonoBehaviour
 
     public void Sprint(bool val)
     {
-        isSprinting = val;
+        mode = val ? MovementMode.Sprinting : MovementMode.Walking;
         weaponAnimator.SetBool("isSprinting", val);
+    }
+
+    public void Crouch()
+    {
+        if (isGrounded)
+        {
+            if (mode == MovementMode.Walking)
+            {
+                if (cameraController.Crouch(true))
+                {
+                    mode = MovementMode.Crouching;
+                }
+            }
+            else if (mode == MovementMode.Crouching)
+            {
+                if (cameraController.Crouch(false))
+                {
+                    mode = MovementMode.Walking;
+                }
+            }
+        }
     }
 
     private void OnPlayerDeath()

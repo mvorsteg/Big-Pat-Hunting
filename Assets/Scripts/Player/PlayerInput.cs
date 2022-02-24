@@ -31,6 +31,8 @@ public class PlayerInput : MonoBehaviour
         controls.Movement.Sprint.performed += ctx => playerMovement.Sprint(true);
         controls.Movement.Sprint.canceled += ctx => playerMovement.Sprint(false);
 
+        controls.Movement.Crouch.performed += ctx => playerMovement.Crouch();
+
         controls.Movement.Jump.performed += ctx => playerMovement.Jump();
 
         #endregion
