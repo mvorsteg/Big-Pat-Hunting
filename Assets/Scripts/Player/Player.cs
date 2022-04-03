@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -25,17 +26,33 @@ public class Player : Entity
     private CameraController cameraController;
     public PlayerUI playerUI;
 
+    public int baseWeapon = 0;
+
+    private UnityAction onBulletTimeEnd;
+
     protected override void Awake()
     {
         base.Awake();
         audioSource = GetComponent<AudioSource>();
+
+        onBulletTimeEnd = new UnityAction(OnBulletTimeEnd);
     }
 
     protected override void Start()
     {
         base.Start();
-        weapon = weaponSwitcher.SetWeapon(0);
+        weapon = weaponSwitcher.SetWeapon(baseWeapon);
         cameraController.EnableCameraGravity(false);        
+    }
+
+    private void OnEnable()
+    {
+        Messenger.Subscribe(MessageIDs.BulletTimeEnd, onBulletTimeEnd);
+    }
+
+    private void OnDisable()
+    {
+        Messenger.Unsubscribe(MessageIDs.BulletTimeEnd, onBulletTimeEnd);
     }
 
     public void ResetPlayer()
@@ -112,7 +129,7 @@ public class Player : Entity
     protected override void Die(HitInfo info)
     {
         base.Die(info);
-        EventManager.TriggerEvent("PlayerDie");
+        Messenger.SendMessage(MessageIDs.PlayerDeath);
         //GetComponent<PlayerInput>().SetUserControl(false);
         cameraController.EnableCameraGravity(true);
         playerUI.SetDeathScreen(true, info.source.GetName());
@@ -124,10 +141,7 @@ public class Player : Entity
     /// </summary>
     public void Shoot()
     {
-        if (weapon.CanShoot())
-        {
-            weapon.Shoot();
-        }
+        weapon.Shoot();
     }
 
     /// <summary>
@@ -160,5 +174,10 @@ public class Player : Entity
             yield return null;
         }
         health = maxHealth;
+    }
+
+    private void OnBulletTimeEnd()
+    {
+        Aim(false);
     }
 }

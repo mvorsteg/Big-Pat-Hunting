@@ -39,13 +39,13 @@ public class Oscilloscope : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.StartListening("NoiseGenerated", onNoiseGenerated);
+        Messenger.Subscribe(MessageIDs.NoiseGenerated, onNoiseGenerated);
     }
 
 
     private void OnDisable()
     {
-        EventManager.StopListening("Noise", onNoiseGenerated);
+        Messenger.Unsubscribe(MessageIDs.NoiseGenerated, onNoiseGenerated);
     }
 
     private void Update()

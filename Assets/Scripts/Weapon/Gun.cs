@@ -29,7 +29,8 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     public Image crosshairOverlay;      // The crosshair image that will be changed
     public Sprite crosshairSprite;      // The specific crosshair sprite that will be used
     public Camera mainCamera;
-    public GameObject rifleCamera;
+    public Camera rifleCamera;
+    private int rifleCameraCullingMask;
     public PlayerUI playerUI;
     public float scopedFOV = 15f;
     public float scopedSensitivity = 0.5f;
@@ -54,6 +55,8 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         //anim = GetComponentInParent<Animator>();
         recoil = GetComponent<Recoil>();
         recoil.cameraController = cameraController;
+
+        rifleCameraCullingMask = rifleCamera.cullingMask;
     }
 
     private void Start()
@@ -123,7 +126,15 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     /// If it hits any entity that can take damage, it applies damage to it
     /// </summary>
     public void Shoot()
-    {
+    {   
+        // dry fire
+        if (currAmmo <= 0)
+        {
+            audioSource.clip = dry;
+            audioSource.Play();
+            Messenger.SendMessage(MessageIDs.NoiseGenerated, new NoiseInfo(20f, transform.position, NoiseType.Gunshot, this.gameObject));
+            return;
+        }
         currAmmo--;
         playerUI.DisableBullet();
 
@@ -133,38 +144,49 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
 
         audioSource.clip = fire;
         audioSource.Play();
-        EventManager.TriggerEvent("NoiseGenerated", new NoiseInfo(165f, transform.position, NoiseType.Gunshot, this.gameObject));
+        Messenger.SendMessage(MessageIDs.NoiseGenerated, new NoiseInfo(165f, transform.position, NoiseType.Gunshot, this.gameObject));
 
-        RaycastHit hit;
+        RaycastHit hit, hitVitals;
         float turn = 0.5f;
-        LayerMask mask = 1 << 0 | 1 << 4 | 1 << 7 | 1 << 9 | 1 << 10 | 1 << 15 | 1 << 16;
+        LayerMask mask = 1 << 0 | 1 << 4 | 1 << 7 | 1 << 9 | 1 << 10 | 1 << 15 /*| 1 << 16*/;
         Vector3 offset = isAiming ? Vector3.zero : new Vector3(Random.Range(-turn, turn), Random.Range(-turn, turn), Random.Range(-turn, turn));
         // TODO do 2 raycasts- first check for a hit on vital organs, then check for a hit on regular body parts
         if (Physics.Raycast(origin.position, origin.forward + offset, out hit, range, mask))
         {
             //Debug.Log(hit.collider.transform.name + " " + hit.collider.transform.gameObject.layer);
-            // check if we hit a weak point
-            WeakPoint weakPoint = hit.collider.GetComponent<WeakPoint>();
+            WeakPoint weakPoint;
+            // first, check if we hit vitals
+            if (Physics.Raycast(origin.position, origin.forward + offset, out hitVitals, range, 1 << 9))
+            {
+                weakPoint = hitVitals.collider.GetComponent<WeakPoint>();
+            }
+            // else check if we hit a standard weak point
+            else
+            {
+                weakPoint = hit.collider.GetComponent<WeakPoint>();
+            }
+            
             if (weakPoint != null)
             {
                 HitInfo info = new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this);
+                info.bodyArea = weakPoint.bodyArea;
                 if (QuestManager.IsGoingToBeLastShot(weakPoint.parent, damage * weakPoint.damageMultiplier))
                 {
                     // cinematic shot
-                    FindObjectOfType<BulletTime>().StartShot(bulletPrefab, gunBarrel.position, hit.point, Quaternion.LookRotation(hit.point - gunBarrel.position), weakPoint, info);                
+                    FindObjectOfType<BulletTime>().StartBulletTime(bulletPrefab, gunBarrel.position, hit.point, Quaternion.LookRotation(hit.point - gunBarrel.position), weakPoint, info);                
                 }
                 else
                 {
                     // just deal damage
                     weakPoint.TakeDamage(info);
                     playerUI.HitMarker();
-                    EventManager.TriggerEvent("BulletImpactBlood", hit);
+                    Messenger.SendMessage(MessageIDs.BulletImpactBlood, hit);
                 }
             }
             else
             {
                 // generate bullet impact on whatever was hit
-                EventManager.TriggerEvent("BulletImpact", hit);
+                Messenger.SendMessage(MessageIDs.BulletImpact, hit);
             }
 
             // // otherwise, check for an entity and apply damage to it
@@ -172,7 +194,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
             // if (entity != null)
             // {
             //     entity.TakeDamage(new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this));
-            // }          
+            // }       
         }        
     }
     
@@ -203,7 +225,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
             {
                 //HUD.SetActive(true);
                 cameraController.SetSensitivity(1.0f);
-                rifleCamera.SetActive(true);
+                rifleCamera.cullingMask = rifleCameraCullingMask;
                 scopeOverlay.SetActive(false);
                 mainCamera.fieldOfView = normalFOV;
             }
@@ -218,7 +240,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         //playerMov.AdjustSensitivity(0.5f);
         yield return new WaitForSeconds(0.15f);
         scopeOverlay.SetActive(true);
-        rifleCamera.SetActive(false);
+        rifleCamera.cullingMask = 0;
         mainCamera.fieldOfView = scopedFOV;
         
 

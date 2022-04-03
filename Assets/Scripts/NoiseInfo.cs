@@ -4,6 +4,7 @@ public enum NoiseType
 {
     Footstep,
     Gunshot,
+    Misc,
 }
 /// <summary>
 /// A structure containing data about a noise

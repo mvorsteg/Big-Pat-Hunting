@@ -41,7 +41,10 @@ public class Interaction : MonoBehaviour
 
     public static void Reset()
     {
-        interactionText.text = "";
+        if (interactionText != null)
+        {
+            interactionText.text = "";
+        }
         //PlayerUI.interactionText.gameObject.SetActive(false);
         loadedInteraction = null;
     }

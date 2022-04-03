@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Boundary : MonoBehaviour
 {
@@ -18,11 +19,25 @@ public class Boundary : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        warningText.SetActive(false);
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            warningText.SetActive(false);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        warningText.SetActive(true);   
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            warningText.SetActive(true);   
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Animal"))
+        {
+            Animal animal = other.transform.GetComponent<Animal>();
+            if (animal != null)
+            {
+                Messenger.SendMessage(MessageIDs.AnimalExitBoundary, animal.type);
+            }
+        }
     }
 }

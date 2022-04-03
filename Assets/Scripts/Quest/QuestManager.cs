@@ -8,31 +8,12 @@ using TMPro;
 
 public class QuestManager : MonoBehaviour
 {
-    [System.Serializable]
-    public struct KillInfo
-    {
-        public EntityType type;
-        public float score;
-        public float scale;
-        public float distance;
-        public BodyArea bodyArea;
-
-        public KillInfo(EntityType type, float score, float scale, float distance, BodyArea bodyArea)
-        {
-            this.type = type;
-            this.score = score;
-            this.scale = scale;
-            this.distance = distance;
-            this.bodyArea = bodyArea;
-        }
-    }
-
     public Player player;
     public GameObject playerSpawn;
 
-    public GameObject tripTextObj;
-    private TextMeshProUGUI tripDayText;
-    private TextMeshProUGUI tripLocationText;
+    [SerializeField]
+    private TextMeshProUGUI levelTitleText, levelDetailText, anyKeyText;
+    private GameObject levelTextParent;
     
     public TextMeshProUGUI dayCompleteText;
     public DebriefBoard debriefBoard;
@@ -45,17 +26,24 @@ public class QuestManager : MonoBehaviour
 
     public Color disableColor;
 
-    public HuntingTrip huntingTrip;
-
-    private List<IQuest> quests;            // list of quests that will be tracked
+    [SerializeField]
+    private LevelDefinition levelDef;
+    public  List<Quest> quests;            // list of quests that will be tracked
     private List<TextMeshProUGUI> texts;    // list of description texts associated with these quests
 
-    private List<KillInfo> killLog;         // list of every animal the player has killed
+    private List<KillQuest.KillInfo> killLog;         // list of every animal the player has killed
     
     private EntityManager entityManager;
     private CutsceneManager cutsceneManager;
-    
+    private bool isBulletTime = false;    
+
     // private UnityAction onDayComplete;
+    private UnityAction onBulletTimeStart;
+    private UnityAction onBulletTimeEnd;
+    private UnityAction onAnyKeyPressed;
+    private UnityAction<object> onQuestComplete;
+    private UnityAction<object> onQuestFailed;
+    private UnityAction<object> onAnimalExitBoundary;
 
     public static QuestManager instance;    // there can only be one
 
@@ -65,81 +53,98 @@ public class QuestManager : MonoBehaviour
         {
             instance = this;
         }   
-        quests = new List<IQuest>();
+
         texts = new List<TextMeshProUGUI>();
-        killLog = new List<KillInfo>();
+        killLog = new List<KillQuest.KillInfo>();
         scoreText = scoreTextParent.GetComponent<TextMeshProUGUI>();
-        tripDayText = tripTextObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        tripLocationText = tripTextObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        entityManager = GetComponent<EntityManager>();
-        cutsceneManager = GetComponent<CutsceneManager>();
+        //levelTitleText = tripTextObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        //levelDetailText = tripTextObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        levelTextParent = levelTitleText.transform.parent.gameObject;
+        anyKeyText.gameObject.SetActive(false);
+        entityManager = FindObjectOfType<EntityManager>();
+        cutsceneManager = FindObjectOfType<CutsceneManager>();
 
         //initialize listeners
+        onBulletTimeStart = new UnityAction(OnBulletTimeStart);
+        onBulletTimeEnd = new UnityAction(OnBulletTimeEnd);
+        onAnyKeyPressed = new UnityAction(OnAnyKeyPressed);
+        onQuestFailed = new UnityAction<object>(OnQuestFailed);
+        onQuestComplete = new UnityAction<object>(OnQuestComplete);
+        onAnimalExitBoundary = new UnityAction<object>(OnAnimalExitBoundary);
     }
 
     private void Start()
     {
-        huntingTrip.currDay = 0;
-        StartDay(huntingTrip, 0);
-    }
-
-    public static void StartDay(HuntingTrip trip, int day)
-    {
-        foreach (IQuest q in trip.days[day].GetQuests())
+        foreach (Quest q in quests)
         {
+            q.Initialize(); // need to reset scriptable objects
             AddQuest(q);
         }
-        instance.StartCoroutine(instance.ShowTripScreen(trip, day));
-        instance.entityManager.SpawnBaseAnimals(GetRequiredEntities());
+
+        // keep track of how many targets we have in the scene
+        Animal[] activeAnimals = FindObjectsOfType<Animal>();
+        Dictionary<EntityType, int> typeDict = new Dictionary<EntityType, int>();
+        for (int i = 0; i < activeAnimals.Length; i++)
+        {
+            EntityType type = activeAnimals[i].type;
+            int count = 0;
+            typeDict.TryGetValue(type, out count);
+            typeDict[type] = count + 1;
+        }
+        // send count to relevant quests
+        foreach (Quest q in quests)
+        {
+            if (q is KillQuest)
+            {
+                KillQuest kq = (KillQuest)q;
+                int activeTargets;
+                if (typeDict.TryGetValue(kq.target, out activeTargets))
+                {
+                    kq.NumAvaiableTargets = activeTargets;
+                }
+            }   
+        }
+        Messenger.SendMessage(MessageIDs.LevelStart);
     }
 
-    public static void ResetDay()
+    private void OnEnable()
     {
-        ClearDay();
-        StartDay(instance.huntingTrip, instance.huntingTrip.currDay);   
+        Messenger.Subscribe(MessageIDs.BulletTimeStart, onBulletTimeStart);
+        Messenger.Subscribe(MessageIDs.BulletTimeEnd, onBulletTimeEnd);
+        Messenger.Subscribe(MessageIDs.QuestComplete, onQuestComplete);
+        Messenger.Subscribe(MessageIDs.QuestFailed, onQuestFailed);
+        Messenger.Subscribe(MessageIDs.AnimalExitBoundary, onAnimalExitBoundary);
     }
 
-    public static void NextDay()
+    private void OnDisable()
     {
-        ClearDay();
-        instance.huntingTrip.currDay++;
-        StartDay(instance.huntingTrip, instance.huntingTrip.currDay);
+        Messenger.Unsubscribe(MessageIDs.BulletTimeStart, onBulletTimeStart);
+        Messenger.Unsubscribe(MessageIDs.BulletTimeEnd, onBulletTimeEnd);
+        Messenger.Unsubscribe(MessageIDs.AnyKeyPressed, onAnyKeyPressed);
+        Messenger.Unsubscribe(MessageIDs.QuestComplete, onQuestComplete);
+        Messenger.Unsubscribe(MessageIDs.QuestFailed, onQuestFailed);
+        Messenger.Unsubscribe(MessageIDs.AnimalExitBoundary, onAnimalExitBoundary);
     }
 
     public static void EndDay()
     {
-        EventManager.TriggerEvent("DayComplete");
+        Messenger.SendMessage(MessageIDs.DayComplete);
         instance.debriefBoard.gameObject.SetActive(true);
         instance.cutsceneManager.PlayNightCutscene();
-        foreach (KillInfo info in instance.killLog)
+        foreach (KillQuest.KillInfo info in instance.killLog)
         {
             instance.debriefBoard.AddRow(info);
         }
     }
 
-    public static void ClearDay()
-    {
-        instance.killLog.Clear();
-        instance.player.ResetPlayer();
-        instance.player.transform.GetComponent<PlayerMovement>().MoveToPosition(instance.playerSpawn.transform.position);
-        instance.player.transform.rotation = instance.playerSpawn.transform.rotation;
-        instance.entityManager.DeleteAllAnimals();
-
-        for (int i = 0; i < instance.questTextParent.childCount; i++)
-        {
-            Destroy(instance.questTextParent.GetChild(0).gameObject);
-        }
-    }    
-
     /// <summary>
     /// Adds a new quest that is tracked
     /// </summary>
     /// <param name="quest">The quest being added</param>
-    public static void AddQuest(IQuest quest)
+    public static void AddQuest(Quest quest)
     {
         TextMeshProUGUI questText = Instantiate(instance.questTextPrefab, instance.questTextParent).GetComponent<TextMeshProUGUI>();
         questText.text = quest.GetShortDescription();
-        instance.quests.Add(quest);
         instance.texts.Add(questText);
     }
 
@@ -147,26 +152,10 @@ public class QuestManager : MonoBehaviour
     /// Updates the text of a quest already being tracked
     /// </summary>
     /// <param name="quest">The quest to update</param>
-    public static void UpdateQuest(IQuest quest)
+    public static void UpdateQuest(Quest quest)
     {
         int idx = instance.quests.IndexOf(quest);
         instance.texts[idx].text = quest.GetShortDescription();
-    }
-
-    /// <summary>
-    /// Completes a quest by removing it from the list and greying out the color of its text
-    /// </summary>
-    /// <param name="quest">The quest to remove</param>
-    public static void CompleteQuest(IQuest quest)
-    {
-        int idx = instance.quests.IndexOf(quest);
-        instance.quests.Remove(quest);
-        instance.texts[idx].color = instance.disableColor;
-        instance.texts.RemoveAt(idx);
-        if (instance.quests.Count == 0)
-        {
-            instance.StartCoroutine(instance.EndDayCoroutine());
-        }
     }
 
     /// <summary>
@@ -177,7 +166,7 @@ public class QuestManager : MonoBehaviour
     public static void RegisterKill(Entity entity, HitInfo info)
     {   
         float score = CalculateScore(entity, info, 1.0f);
-        instance.killLog.Add(new KillInfo(entity.type, score, entity.transform.localScale.x, info.distance, info.bodyArea));
+        instance.killLog.Add(new KillQuest.KillInfo(entity.type, score, entity.transform.localScale.x, info.distance, info.bodyArea));
         //instance.scoreText.text = "+" + score.ToString("F0");
         //instance.StartCoroutine(instance.ScoreTextFade());
         for (int i = 0; i < instance.quests.Count; i++)
@@ -190,7 +179,7 @@ public class QuestManager : MonoBehaviour
                     // if the quest is completed, decrease i
                     if (kq.RegisterKill(entity))
                     {
-                        i--;
+                        //i--;
                     }
                 }
             }
@@ -213,7 +202,7 @@ public class QuestManager : MonoBehaviour
                 KillQuest kq = (KillQuest)instance.quests[0];
                 if (kq.target == entity.type)
                 {
-                    if (kq.TotalKills == kq.requiredKills - 1)
+                    if (kq.NumAvaiableTargets <= 1)
                     {
                         if (entity.Health <= damage)
                         {
@@ -233,16 +222,20 @@ public class QuestManager : MonoBehaviour
     public static Dictionary<EntityType, int> GetRequiredEntities()
     {
         Dictionary<EntityType, int> reqs = new Dictionary<EntityType, int>();
-        foreach (IQuest q in instance.quests)
+        foreach (Quest q in instance.quests)
         {
-            Dictionary<EntityType, int> qReqs = q.GetRequiredEntities();
-            foreach (EntityType k in qReqs.Keys)
+            if (q is KillQuest)
             {
-                if (!reqs.ContainsKey(k))
+                KillQuest kq = (KillQuest)q;
+                Dictionary<EntityType, int> kqReqs = kq.GetRequiredEntities();
+                foreach (EntityType k in kqReqs.Keys)
                 {
-                    reqs[k] = 0;
+                    if (!reqs.ContainsKey(k))
+                    {
+                        reqs[k] = 0;
+                    }
+                    reqs[k] += kqReqs[k];
                 }
-                reqs[k] += qReqs[k];
             }
         }
         return reqs;
@@ -324,15 +317,15 @@ public class QuestManager : MonoBehaviour
 
     private IEnumerator ShowTripScreen(HuntingTrip trip, int day)
     {
-        tripDayText.text = "Day " + (day + 1) + " of " + trip.days.Length;
-        tripLocationText.text = trip.Location;
-        tripTextObj.SetActive(true);
-        tripDayText.color = new Color(tripDayText.color.r, tripDayText.color.g, tripDayText.color.b, 1);
-        tripLocationText.color = new Color(tripLocationText.color.r, tripLocationText.color.g, tripLocationText.color.b, 1);
+        levelTitleText.text = "Day " + (day + 1) + " of " + trip.days.Length;
+        levelDetailText.text = trip.Location;
+        levelTextParent.SetActive(true);
+        levelTitleText.color = new Color(levelTitleText.color.r, levelTitleText.color.g, levelTitleText.color.b, 1);
+        levelDetailText.color = new Color(levelDetailText.color.r, levelDetailText.color.g, levelDetailText.color.b, 1);
         
 
-        Image textDayBg = tripTextObj.GetComponent<Image>();
-        textDayBg.color = new Color(textDayBg.color.r, textDayBg.color.g, textDayBg.color.b, 1);
+        //Image textDayBg = tripTextObj.GetComponent<Image>();
+        //textDayBg.color = new Color(textDayBg.color.r, textDayBg.color.g, textDayBg.color.b, 1);
 
         float elapsedTime = 0f;
         float displayTime = 0f;
@@ -348,24 +341,95 @@ public class QuestManager : MonoBehaviour
         while (elapsedTime < fadeTime)
         {
             elapsedTime += Time.deltaTime;
-            textDayBg.color = new Color(textDayBg.color.r, textDayBg.color.g, textDayBg.color.b, 1 - (elapsedTime / fadeTime));
+            //textDayBg.color = new Color(textDayBg.color.r, textDayBg.color.g, textDayBg.color.b, 1 - (elapsedTime / fadeTime));
             yield return null;
         }
         elapsedTime = 0;
         while (elapsedTime < fadeTime)
         {
             elapsedTime += Time.deltaTime;
-            tripDayText.color = new Color(tripDayText.color.r, tripDayText.color.g, tripDayText.color.b, 1 - (elapsedTime / fadeTime));
-            tripLocationText.color = new Color(tripLocationText.color.r, tripLocationText.color.g, tripLocationText.color.b, 1 - (elapsedTime / fadeTime));
+            levelTitleText.color = new Color(levelTitleText.color.r, levelTitleText.color.g, levelTitleText.color.b, 1 - (elapsedTime / fadeTime));
+            levelDetailText.color = new Color(levelDetailText.color.r, levelDetailText.color.g, levelDetailText.color.b, 1 - (elapsedTime / fadeTime));
             yield return null;
         }
+        levelTextParent.SetActive(false);
     }
 
-    private IEnumerator EndDayCoroutine()
+    private IEnumerator ShowEndScreen(string titleText, string subText)
     {
-        yield return new WaitForSeconds(2);
-
-        EndDay();
+        // TODO Animate Text
+        yield return new WaitUntil(() => !isBulletTime);
+        levelTitleText.text = titleText;
+        levelDetailText.text = subText;
+        levelTextParent.SetActive(true);
+        RecordSerializer.WriteQuest("GR-1.xml", killLog, "GR-1");
+        StartCoroutine(AnyKeyEnable(2f));
     }
 
+    private IEnumerator AnyKeyEnable(float delaySeconds)
+    {
+        yield return new WaitForSecondsRealtime(delaySeconds);
+        anyKeyText.gameObject.SetActive(true);
+        Messenger.Subscribe(MessageIDs.AnyKeyPressed, onAnyKeyPressed);
+    }
+
+    private void OnBulletTimeStart()
+    {   
+        isBulletTime = true;    
+    }
+
+    private void OnBulletTimeEnd()
+    {
+        isBulletTime = false;
+    }
+
+    private void OnAnyKeyPressed()
+    {
+        Messenger.Unsubscribe(MessageIDs.AnyKeyPressed, onAnyKeyPressed);
+        LevelLoader.LoadLevel(LevelLoader.LevelIDs.LevelSelect);
+    }
+
+    private void OnQuestComplete(object data)
+    {
+        Quest quest = (Quest)data;
+        Debug.Log("Quest " + quest.GetShortDescription() + " complete!");
+
+        int x = ((KillQuest)quest).TotalKills;
+        string subtext = "You got " + x + (x != 1 ? " bucks!" : " buck!");
+        StartCoroutine(ShowEndScreen("Hunt Complete", subtext));
+
+        LevelLoader.LevelStates[levelDef.levelID] = LevelLoader.LevelState.Complete;
+
+        Messenger.SendMessage(MessageIDs.LevelEnd);
+    }
+
+    private void OnQuestFailed(object data)
+    {
+        Quest quest = (Quest)data;
+        Debug.Log("Quest " + quest.GetShortDescription() + " failed!");
+
+        StartCoroutine(ShowEndScreen("Hunt Failed", "You let em all get away!"));
+        
+        LevelLoader.LevelStates[levelDef.levelID] = LevelLoader.LevelState.Failed;
+
+        Messenger.SendMessage(MessageIDs.LevelEnd);
+    }
+
+    private void OnAnimalExitBoundary(object data)
+    {
+        EntityType animalType = (EntityType)data;
+        {
+            foreach (Quest q in quests)
+            {
+                if (q is KillQuest)
+                {
+                    KillQuest kq = (KillQuest)q;
+                    if (kq.target == animalType)
+                    {
+                        kq.NumAvaiableTargets -= 1;
+                    }
+                }
+            }
+        }
+    }
 }

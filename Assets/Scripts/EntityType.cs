@@ -35,4 +35,9 @@ public class EntityType : ScriptableObject
         return false;
     }
 
+    public override string ToString()
+    {
+        return name;
+    }
+
 }

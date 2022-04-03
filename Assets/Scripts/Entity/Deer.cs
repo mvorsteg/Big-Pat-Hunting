@@ -50,7 +50,7 @@ public class Deer : Animal, INoiseListener
     /// <param name="generator">The noise generator that created the noise</param>
     public void HearNoise(NoiseInfo info)
     {
-        if (isAlive)
+        if (isAlive && state != AIState.Flee)
         {
             Flee(info.position);
         }

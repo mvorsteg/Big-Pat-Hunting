@@ -49,7 +49,7 @@ public class CutsceneManager : MonoBehaviour
         cutscene.gameObject.SetActive(false);
         player.gameObject.SetActive(true);
 
-        QuestManager.NextDay();
+        //QuestManager.NextDay();
     }
 
     public void AnyKeyPressed()

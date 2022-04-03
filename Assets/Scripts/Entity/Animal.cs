@@ -10,6 +10,7 @@ public class Animal : Entity
     public float runSpeed = 7f;
     public float rotationSpeed = 50f;
     
+    public float safeAngle = 25f;
     public float safeDistance = 15f;
     public float stoppingDistance = 0.1f;
 
@@ -202,17 +203,19 @@ public class Animal : Entity
         // check if the animal is running toward danger. otherwise, just run forward
         float difference = Vector3.Angle((source - transform.position).normalized, transform.forward);
         Vector3 direction;
-        if (difference >= 45f)
+        if (difference >= safeAngle)
         {
             // run forward
             direction = transform.forward;
         }
         else
         {
-            // turn away from danger
+            // turn away from danger, within a random angle 
             direction = transform.position - source;
             direction.y = 0;
             direction = direction.normalized;
+            float variance = Random.Range(-90, 90);
+            direction = Quaternion.Euler(0, variance, 0) * direction;
         }
         // find position to run to
         NavMeshHit navHit;

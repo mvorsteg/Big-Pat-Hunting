@@ -10,7 +10,7 @@ public class PlayerDeath : MonoBehaviour
     private void Awake()
     {
         controls = new PlayerControls();   
-        controls.AnyKey.AnyKey.performed += ctx => Respawn();
+        controls.AnyKey.AnyKey.performed += ctx => ReturnToLevelSelect();
     }
 
     private void OnEnable()
@@ -26,10 +26,9 @@ public class PlayerDeath : MonoBehaviour
         controls.Disable();
     }
 
-    private void Respawn()
+    private void ReturnToLevelSelect()
     {
-        QuestManager.ResetDay();
-        OnDisable();
+        
     }
 
     private IEnumerator SetControls(bool active, float delay)

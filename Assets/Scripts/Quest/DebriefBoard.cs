@@ -14,7 +14,7 @@ public class DebriefBoard : MonoBehaviour
         
     }
 
-    public void AddRow(QuestManager.KillInfo info)
+    public void AddRow(KillQuest.KillInfo info)
     {
         string weight;
         string distance;

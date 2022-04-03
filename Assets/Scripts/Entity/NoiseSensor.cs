@@ -6,21 +6,25 @@ public class NoiseSensor : MonoBehaviour
 {
     public float noiseThreshold = 5f;
 
+    private INoiseListener noiseListener;
+
     private UnityAction<object> onNoiseGenerated;
 
     private void Awake()
     {
+        noiseListener = GetComponent<INoiseListener>();
+
         onNoiseGenerated = new UnityAction<object>(OnNoiseGenerated);
     }
 
     private void OnEnable()
     {
-        EventManager.StartListening("NoiseGenerated", onNoiseGenerated);
+        Messenger.Subscribe(MessageIDs.NoiseGenerated, onNoiseGenerated);
     }
 
     private void OnDisable()
     {
-        EventManager.StopListening("NoiseGenerated", onNoiseGenerated);
+        Messenger.Unsubscribe(MessageIDs.NoiseGenerated, onNoiseGenerated);
     }
 
     /// <summary>
@@ -34,10 +38,11 @@ public class NoiseSensor : MonoBehaviour
         if (effectiveDecibels >= noiseThreshold)
         {
             Debug.Log(String.Format("{0} heard {1} at {2} dB", transform.name, info.noiseType.ToString(), effectiveDecibels));
+            noiseListener.HearNoise(info);
         }
         else
         {
-            //Debug.Log(transform.name + " did not hear noise: " + effectiveDecibels + " dB");
+            Debug.Log(transform.name + " did not hear noise: " + effectiveDecibels + " dB");
         }
     }
 

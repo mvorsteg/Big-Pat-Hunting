@@ -72,7 +72,7 @@ public class PlayerFootsteps : MonoBehaviour
             {
                 info.decibels *= crouchingDecibelModifier;
             }
-            EventManager.TriggerEvent("NoiseGenerated", info);
+            Messenger.SendMessage(MessageIDs.NoiseGenerated, info);
         }
     }
 

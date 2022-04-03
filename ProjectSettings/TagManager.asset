@@ -26,8 +26,8 @@ TagManager:
   - PostProcessing
   - DeadPlayer
   - Animal
-  - WorldBoundary
-  - 
+  - HardBoundary
+  - SoftBoundary
   - 
   - 
   - 

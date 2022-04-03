@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.Events;
 using Cinemachine;
@@ -22,8 +23,7 @@ public class BulletTime : MonoBehaviour
     public float bulletSpeed = 50f;
 
     public GameObject[] playerCameras;
-    public GameObject hud;
-    public GameObject scope;
+    public Canvas canvas;
 
     public GameObject[] balls;
 
@@ -40,8 +40,9 @@ public class BulletTime : MonoBehaviour
         onDayEnd = new UnityAction(OnDayEnd);
     }
 
-    public void StartShot(GameObject bulletPrefab, Vector3 startPos, Vector3 endPos, Quaternion rot, WeakPoint weakPoint, HitInfo info)
+    public void StartBulletTime(GameObject bulletPrefab, Vector3 startPos, Vector3 endPos, Quaternion rot, WeakPoint weakPoint, HitInfo info)
     {
+        Messenger.SendMessage(MessageIDs.BulletTimeStart);
         Time.timeScale = timeScale;
         mixer.SetFloat("masterPitch", 0.5f);
         Debug.Log("Cinematic Shot!");
@@ -60,7 +61,7 @@ public class BulletTime : MonoBehaviour
         //Bullet bullet = Instantiate(bulletPrefab, startPos, rot).GetComponent<Bullet>();
         Bullet bullet = Instantiate(bulletPrefab, startPos, rot).GetComponent<Bullet>();
         bullet.Initialize(this, endPos);
-        Debug.Break();
+        //Debug.Break();
         vCam.gameObject.SetActive(true);
         vCam.LookAt = bullet.transform;
 
@@ -76,15 +77,13 @@ public class BulletTime : MonoBehaviour
 
         actualCam.SetActive(true);
         
+        canvas.enabled = false;
         foreach (GameObject g in playerCameras)
         {
             g.SetActive(false);
         }
 
-        scope.SetActive(false);
-        hud.SetActive(false);
-
-        Debug.Break();
+        //Debug.Break();
 
         StartCoroutine(ApplySpeed(distanceToTarget / travelTime / timeScale, bulletSpeed / timeScale, bullet));
     }
@@ -104,11 +103,13 @@ public class BulletTime : MonoBehaviour
         mixer.SetFloat("masterPitch", 1f);
         vCam.gameObject.SetActive(false);
         actualCam.SetActive(false);
-        hud.SetActive(true);
+
+        canvas.enabled = true;
         foreach (GameObject g in playerCameras)
         {
             g.SetActive(true);
         }
+        Messenger.SendMessage(MessageIDs.BulletTimeEnd);
     }
 
     private IEnumerator ApplySpeed(float camSpeed, float bulletSpeed, Bullet bullet)
@@ -118,6 +119,9 @@ public class BulletTime : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.2f);
         cart.m_Speed = camSpeed;
         bullet.speed = bulletSpeed;
+        yield return new WaitForSeconds(3f);
+        FinishBulletTime();
+
     }
 
     private void OnDayEnd()

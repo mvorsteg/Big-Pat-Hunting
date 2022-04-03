@@ -497,9 +497,11 @@ GameObject:
   - component: {fileID: 2809930915682918181}
   - component: {fileID: 2809930915675762897}
   - component: {fileID: 2809930915126054819}
-  - component: {fileID: 2809930915126054816}
-  - component: {fileID: 2809930915126054846}
+  - component: {fileID: 6935906024765781011}
   - component: {fileID: 2809930915126054817}
+  - component: {fileID: 2809930915126054846}
+  - component: {fileID: 649848796}
+  - component: {fileID: 649848795}
   m_Layer: 0
   m_Name: fawn
   m_TagString: Untagged
@@ -535,7 +537,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: e7052ee96642231498b616f350f890d8, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -553,12 +555,12 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &2809930915126054816
-BoxCollider:
+--- !u!136 &6935906024765781011
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -567,9 +569,32 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.27, y: 0.8911732, z: 1.0612267}
-  m_Center: {x: -0.000000059604645, y: 0.44557992, z: 0.30382973}
+  m_Radius: 0.12
+  m_Height: 0.77057505
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.37404847, z: 0}
+--- !u!195 &2809930915126054817
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809930915683009285}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.12
+  m_Speed: 3.5
+  m_Acceleration: 16
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.75
+  m_BaseOffset: -0.01
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &2809930915126054846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,35 +608,105 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  type: {fileID: 11400000, guid: 8548aa3f0ee9c9d479f60f031acbba66, type: 2}
+  type: {fileID: 11400000, guid: bfa50aef7c3eaaf4d9c908ee414b1440, type: 2}
   walkSpeed: 1.5
   runSpeed: 7
   rotationSpeed: 75
-  safeDistance: 15
+  safeDistance: 150
   stoppingDistance: 0.3
   leader: {fileID: 0}
---- !u!195 &2809930915126054817
-NavMeshAgent:
+--- !u!114 &649848796
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2809930915683009285}
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.4
-  m_Speed: 3.5
-  m_Acceleration: 16
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.08
-  m_BaseOffset: -0.025
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7873bbb03e30513468616ab2a453b473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftArm: {fileID: 2809930915682918203}
+  leftLeg: {fileID: 2809930915682918175}
+  rightArm: {fileID: 2809930915682918199}
+  rightLeg: {fileID: 2809930915682918189}
+  neck: {fileID: 2809930915682918185}
+  legs:
+  - topBone:
+      bone: {fileID: 2809930915682918257}
+      neutralRotation: {x: 0, y: 0, z: 15.59257}
+      maxRotation: {x: 0, y: 0, z: 98.39173}
+    midBone:
+      bone: {fileID: 2809930915682918207}
+      neutralRotation: {x: -89.665, y: -82.224, z: 74.748}
+      maxRotation: {x: -179.438, y: -97.47699, z: 90.088}
+    toe:
+      bone: {fileID: 2809930915682918159}
+      neutralRotation: {x: 359.95468, y: 353.45834, z: 0.005198201}
+      maxRotation: {x: 0, y: 0, z: 0}
+    liftLength: 0
+    liftAmount: 0
+    toeOffset: 0.07
+  - topBone:
+      bone: {fileID: 2809930915682918167}
+      neutralRotation: {x: 0, y: 0, z: 15.593}
+      maxRotation: {x: 0, y: 0, z: 98.39173}
+    midBone:
+      bone: {fileID: 0}
+      neutralRotation: {x: 89.665, y: 82.224, z: 74.748}
+      maxRotation: {x: 179.438, y: 97.47699, z: 90.088}
+    toe:
+      bone: {fileID: 0}
+      neutralRotation: {x: 359.95468, y: 353.45834, z: 0.005198201}
+      maxRotation: {x: 0, y: 0, z: 0}
+    liftLength: 0
+    liftAmount: 0
+    toeOffset: 0.07
+  - topBone:
+      bone: {fileID: 2809930915682918169}
+      neutralRotation: {x: 0, y: 0, z: 46.197}
+      maxRotation: {x: 0, y: 0, z: 98.39173}
+    midBone:
+      bone: {fileID: 2809930915682918173}
+      neutralRotation: {x: 0, y: 0, z: -31.124}
+      maxRotation: {x: 0, y: 0, z: -117.366}
+    toe:
+      bone: {fileID: 2809930915682918193}
+      neutralRotation: {x: 0, y: 0, z: 0}
+      maxRotation: {x: 0, y: 0, z: 0}
+    liftLength: 0
+    liftAmount: 0
+    toeOffset: 0.07
+  - topBone:
+      bone: {fileID: 2809930915682918261}
+      neutralRotation: {x: 0, y: 0, z: 46.197}
+      maxRotation: {x: 0, y: 0, z: 98.39173}
+    midBone:
+      bone: {fileID: 2809930915682918191}
+      neutralRotation: {x: 0, y: 0, z: -31.124}
+      maxRotation: {x: 0, y: 0, z: -117.366}
+    toe:
+      bone: {fileID: 2809930915682918259}
+      neutralRotation: {x: 0, y: 0, z: 0}
+      maxRotation: {x: 0, y: 0, z: 0}
+    liftLength: 0
+    liftAmount: 0
+    toeOffset: 0.07
+  root: {fileID: 5933576309102981904}
+--- !u!114 &649848795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809930915683009285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 690585ff6d6dfa747839481b0c7d1200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseThreshold: 10
 --- !u!1 &2809930915683009287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,6 +1318,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1

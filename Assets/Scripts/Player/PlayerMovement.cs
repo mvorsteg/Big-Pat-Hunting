@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsCrouching { get => mode == MovementMode.Crouching; } 
     public bool IsGrounded { get => isGrounded; }
     public Vector3 Velocity { get => cc.velocity; }
+    public Vector3 LocalVelocity { get => transform.InverseTransformDirection(cc.velocity); }
 
     private void Awake()
     {
@@ -60,12 +61,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.StartListening("PlayerDeath", onPlayerDeath);
+        Messenger.Subscribe(MessageIDs.PlayerDeath, onPlayerDeath);
     }
 
     private void OnDisable()
     {
-        EventManager.StopListening("PlayerDeath", onPlayerDeath);
+        Messenger.Unsubscribe(MessageIDs.PlayerDeath, onPlayerDeath);
     }
 
     private void Update()
@@ -121,6 +122,12 @@ public class PlayerMovement : MonoBehaviour
             cc.Move(((inputMovement * MaxSpeed) + velocity) * Time.deltaTime);
         }
 
+        // check if we need to stop sprinting
+        if (IsSprinting && LocalVelocity.z <= 0)
+        {
+            Sprint(false);
+        }
+
         // do animation
         weaponAnimationSpeed = cc.velocity.magnitude / MaxSpeed;
         weaponAnimator.SetFloat("weaponSpeed", weaponAnimationSpeed);
@@ -138,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && Vector3.Angle(Vector3.up, hitNormal) <= slopeLimit)
         {
+            //Sprint(false);
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             weaponAnimator.SetTrigger("jump");
         }
@@ -145,8 +153,26 @@ public class PlayerMovement : MonoBehaviour
 
     public void Sprint(bool val)
     {
-        mode = val ? MovementMode.Sprinting : MovementMode.Walking;
-        weaponAnimator.SetBool("isSprinting", val);
+        if (val)
+        {
+            if (isGrounded)
+            {
+                if (LocalVelocity.z > 0)
+                {
+                    if (mode == MovementMode.Crouching)
+                    {
+                        cameraController.Crouch(false);
+                    }
+                    mode = MovementMode.Sprinting;
+                    weaponAnimator.SetBool("isSprinting", true);
+                }
+            }
+        }
+        else
+        {
+            mode = MovementMode.Walking;
+            weaponAnimator.SetBool("isSprinting", false);
+        }
     }
 
     public void Crouch()

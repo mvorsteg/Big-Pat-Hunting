@@ -624,6 +624,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
@@ -1244,10 +1245,12 @@ GameObject:
   - component: {fileID: 4659020050795699493}
   - component: {fileID: 4659020050803421921}
   - component: {fileID: 4659020050825537060}
-  - component: {fileID: 4659020050825537061}
-  - component: {fileID: 4659020050825537059}
+  - component: {fileID: 5541464015334430329}
   - component: {fileID: 4659020050825537058}
-  m_Layer: 0
+  - component: {fileID: 4659020050825537059}
+  - component: {fileID: 6743138640186830269}
+  - component: {fileID: 2519910300268765865}
+  m_Layer: 16
   m_Name: doe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1282,7 +1285,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: e7052ee96642231498b616f350f890d8, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1300,12 +1303,12 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &4659020050825537061
-BoxCollider:
+--- !u!136 &5541464015334430329
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1314,31 +1317,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.27, y: 0.8911732, z: 1.0612267}
-  m_Center: {x: -0.000000059604645, y: 0.44557992, z: 0.30382973}
---- !u!195 &4659020050825537059
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4659020050795987269}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.4
-  m_Speed: 3.5
-  m_Acceleration: 16
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.08
-  m_BaseOffset: -0.025
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_Radius: 0.22
+  m_Height: 1.0526297
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5150758, z: 0}
 --- !u!114 &4659020050825537058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1356,9 +1338,123 @@ MonoBehaviour:
   walkSpeed: 1.5
   runSpeed: 7
   rotationSpeed: 75
-  safeDistance: 15
+  safeDistance: 150
   stoppingDistance: 0.3
   leader: {fileID: 0}
+--- !u!195 &4659020050825537059
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4659020050795987269}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.22
+  m_Speed: 3.5
+  m_Acceleration: 16
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.08
+  m_BaseOffset: -0.025
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &6743138640186830269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4659020050795987269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7873bbb03e30513468616ab2a453b473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftArm: {fileID: 4659020050795699467}
+  leftLeg: {fileID: 4659020050795699517}
+  rightArm: {fileID: 4659020050795699475}
+  rightLeg: {fileID: 4659020050795699471}
+  neck: {fileID: 4659020050795699499}
+  legs:
+  - topBone:
+      bone: {fileID: 4659020050795699511}
+      neutralRotation: {x: 0, y: 0, z: 15.59257}
+      maxRotation: {x: 0, y: 0, z: 98.39173}
+    midBone:
+      bone: {fileID: 4659020050795699497}
+      neutralRotation: {x: -89.665, y: -82.224, z: 74.748}
+      maxRotation: {x: -179.438, y: -97.47699, z: 90.088}
+    toe:
+      bone: {fileID: 4659020050795699527}
+      neutralRotation: {x: 359.95468, y: 353.45834, z: 0.005198201}
+      maxRotation: {x: 0, y: 0, z: 0}
+    liftLength: 0
+    liftAmount: 0
+    toeOffset: 0.07
+  - topBone:
+      bone: {fileID: 4659020050795699469}
+      neutralRotation: {x: 0, y: 0, z: 15.593}
+      maxRotation: {x: 0, y: 0, z: 98.39173}
+    midBone:
+      bone: {fileID: 4659020050795699521}
+      neutralRotation: {x: 89.665, y: 82.224, z: 74.748}
+      maxRotation: {x: 179.438, y: 97.47699, z: 90.088}
+    toe:
+      bone: {fileID: 4659020050795699501}
+      neutralRotation: {x: 359.95468, y: 353.45834, z: 0.005198201}
+      maxRotation: {x: 0, y: 0, z: 0}
+    liftLength: 0
+    liftAmount: 0
+    toeOffset: 0.07
+  - topBone:
+      bone: {fileID: 4659020050795699509}
+      neutralRotation: {x: 0, y: 0, z: 46.197}
+      maxRotation: {x: 0, y: 0, z: 98.39173}
+    midBone:
+      bone: {fileID: 4659020050795699523}
+      neutralRotation: {x: 0, y: 0, z: -31.124}
+      maxRotation: {x: 0, y: 0, z: -117.366}
+    toe:
+      bone: {fileID: 4659020050795699483}
+      neutralRotation: {x: 0, y: 0, z: 0}
+      maxRotation: {x: 0, y: 0, z: 0}
+    liftLength: 0
+    liftAmount: 0
+    toeOffset: 0.07
+  - topBone:
+      bone: {fileID: 4659020050795699519}
+      neutralRotation: {x: 0, y: 0, z: 46.197}
+      maxRotation: {x: 0, y: 0, z: 98.39173}
+    midBone:
+      bone: {fileID: 4659020050795699481}
+      neutralRotation: {x: 0, y: 0, z: -31.124}
+      maxRotation: {x: 0, y: 0, z: -117.366}
+    toe:
+      bone: {fileID: 4659020050795699473}
+      neutralRotation: {x: 0, y: 0, z: 0}
+      maxRotation: {x: 0, y: 0, z: 0}
+    liftLength: 0
+    liftAmount: 0
+    toeOffset: 0.07
+  root: {fileID: 4094463595106792330}
+--- !u!114 &2519910300268765865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4659020050795987269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 690585ff6d6dfa747839481b0c7d1200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseThreshold: 10
 --- !u!1 &4659020050795987271
 GameObject:
   m_ObjectHideFlags: 0

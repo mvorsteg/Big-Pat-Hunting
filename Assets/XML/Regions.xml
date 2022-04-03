@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding = "UTF-8" standalone = "no" ?>
+<Region name="Green Ridge State Forest">
+	<Level name="GR-1">
+		<LocalSceneID>0<LocalSceneID/>
+		<Description>Test description</Description>
+	</Level>
+</Region>

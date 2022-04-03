@@ -50,7 +50,7 @@ public class BulletImpactManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.StartListening("BulletImpact", onBulletImpact);
+        Messenger.Subscribe(MessageIDs.BulletImpact, onBulletImpact);
     }
 
 

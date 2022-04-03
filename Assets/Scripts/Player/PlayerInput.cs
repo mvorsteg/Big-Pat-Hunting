@@ -13,6 +13,9 @@ public class PlayerInput : MonoBehaviour
     public bool paused = false;
     public bool aiming = false;
 
+    private UnityAction onLevelStart;
+    private UnityAction onLevelEnd;
+    private UnityAction onBulletTimeStart;
     private UnityAction onPlayerDeath;
 
     private void Awake()
@@ -50,6 +53,8 @@ public class PlayerInput : MonoBehaviour
 
         #endregion
 
+        controls.AnyKey.AnyKey.performed += ctx => AnyKeyPressed();
+
         controls.Debug.KillYourself.performed += ctx => player.TakeDamage(FallDamage.CalculateHit(player, -1000));
 
         controls.PauseMenu.Pause.performed += ctx => TogglePause();
@@ -57,6 +62,9 @@ public class PlayerInput : MonoBehaviour
         SetAimControls(toggleAim);
 
         // initialize listeners
+        onLevelStart = new UnityAction(OnLevelStart);
+        onLevelEnd = new UnityAction(OnLevelEnd);
+        onBulletTimeStart = new UnityAction(OnBulletTimeStart);
         onPlayerDeath = new UnityAction(OnPlayerDeath);
     }
 
@@ -65,8 +73,12 @@ public class PlayerInput : MonoBehaviour
         controls.FPS.Enable();
         controls.Movement.Enable();
         controls.PauseMenu.Enable();
+        controls.AnyKey.Enable();
 
-        EventManager.StartListening("PlayerDeath", onPlayerDeath);
+        Messenger.Subscribe(MessageIDs.LevelStart, onLevelStart);
+        Messenger.Subscribe(MessageIDs.LevelEnd, onLevelEnd);
+        Messenger.Subscribe(MessageIDs.BulletTimeStart, onBulletTimeStart);
+        Messenger.Subscribe(MessageIDs.PlayerDeath, onPlayerDeath);
     }
 
     private void OnDisable()
@@ -74,8 +86,12 @@ public class PlayerInput : MonoBehaviour
         controls.FPS.Disable();
         controls.Movement.Disable();
         controls.PauseMenu.Disable();
+        controls.AnyKey.Disable();
 
-        EventManager.StopListening("PlayerDeath", onPlayerDeath);
+        Messenger.Unsubscribe(MessageIDs.LevelStart, onLevelStart);
+        Messenger.Unsubscribe(MessageIDs.LevelEnd, onLevelEnd);
+        Messenger.Unsubscribe(MessageIDs.BulletTimeStart, onBulletTimeStart);
+        Messenger.Unsubscribe(MessageIDs.PlayerDeath, onPlayerDeath);
     }
 
     public void SetAimControls(bool toggle)
@@ -124,6 +140,26 @@ public class PlayerInput : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+    }
+
+    public void AnyKeyPressed()
+    {
+        Messenger.SendMessage(MessageIDs.AnyKeyPressed);
+    }
+
+    private void OnLevelStart()
+    {
+        SetUserControl(true);
+    }
+
+    private void OnLevelEnd()
+    {
+        SetUserControl(false);
+    }
+    
+    private void OnBulletTimeStart()
+    {
+        SetUserControl(false);
     }
 
     private void OnPlayerDeath()

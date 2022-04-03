@@ -9,18 +9,11 @@ public class HuntingTrip : ScriptableObject
     {
         public System.DayOfWeek day;
         [SerializeField]
-        [RequireInterface(typeof(IQuest))]
-        private UnityEngine.Object[] questObjs;
+        private Quest[] quests;
 
-        public IQuest[] GetQuests()
+        public Quest[] GetQuests()
         {
-            IQuest[] qs = new IQuest[questObjs.Length];
-            for (int i = 0; i < questObjs.Length; i++)
-            {
-                Object qo = Instantiate<Object>(questObjs[i]);
-                qs[i] = (IQuest)qo;
-            }
-            return qs;
+            return quests;
         }
     }
 

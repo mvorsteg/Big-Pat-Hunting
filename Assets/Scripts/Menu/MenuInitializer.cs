@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class MenuInitializer : MonoBehaviour
 {
     public AudioMenu audioMenu;
-    private void Start()
+    private void OnEnable()
     {
         audioMenu.LoadSoundSettings();
         // make sure we start on root menu
