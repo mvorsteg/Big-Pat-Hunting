@@ -50,6 +50,22 @@ public class Utility {
         return p + k * (q - p);
     }
 
+    public static Vector3 GetClosestPointOnConcaveCollider(MeshCollider c, Vector3 x)
+    {
+        Vector3 pos = x;
+        float minDist = float.MaxValue;
+        foreach (Vector3 v in c.sharedMesh.vertices)
+        {
+            float d = Vector3.Distance(v, x);
+            if (d < minDist)
+            {
+                minDist = d;
+                pos = v;
+            }
+        }
+        return pos;
+    }
+
     /*  returns the closest n gameObjects within a radius with a certain tag 
         the array returned may be fully or partially empty 
         Runs in O(nk)*/

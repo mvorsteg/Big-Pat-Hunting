@@ -10,6 +10,7 @@ public class LevelLoader : MonoBehaviour
 
     public enum LevelIDs
     {
+        Default = -1,
         MainMenu = 0,
         LevelSelect = 1,
 
@@ -104,7 +105,7 @@ public class LevelLoader : MonoBehaviour
             bar.value = progress;
             yield return null;
         }
-        //canvas.SetActive(false);
+        canvas.SetActive(false);
     }
 
 }

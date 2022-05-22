@@ -34,6 +34,8 @@ public class Animal : Entity
     protected Queue<Vector3> destinationQueue = new Queue<Vector3>(2);
 
     public AIState State { get => state; set => state = value; }
+    public Vector3 Destination { get => endDestination; }
+    public float ddd;
 
     protected override void Awake() 
     {
@@ -57,7 +59,7 @@ public class Animal : Entity
     protected override void Update()
     {
         base.Update();
-
+        ddd = Vector3.Distance(transform.position, endDestination);
         currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * 8f);
         anim.SetFloat("speedX", currentSpeed);
     }
@@ -120,7 +122,7 @@ public class Animal : Entity
     /// <param name="other">The other entity that has been sensed by this one</param>
     public override void SenseEntity(Entity other)
     {
-        if (isAlive && type.RunsFrom(other.type))
+        if (isAlive && state != AIState.Flee && type.RunsFrom(other.type))
         {
             Flee(other.transform.position);
         }
@@ -217,18 +219,63 @@ public class Animal : Entity
             float variance = Random.Range(-90, 90);
             direction = Quaternion.Euler(0, variance, 0) * direction;
         }
-        // find position to run to
+        // find position(s) to run to
+        // first, find intersection with world border
+        Vector3 terrainPos;
+        RaycastHit rayHit;
         NavMeshHit navHit;
-        Vector3 worldPos = transform.position + safeDistance * direction;
-        Vector3 terrainPos = new Vector3(worldPos.x, TerrainDetector.SampleHeight(worldPos), worldPos.z);
+        int boundaryMask = LayerMask.GetMask("SoftBoundary");
+        if (Physics.Raycast(transform.position, direction, out rayHit, Mathf.Infinity, boundaryMask))
+        {
+            terrainPos = new Vector3(rayHit.point.x, TerrainDetector.SampleHeight(rayHit.point), rayHit.point.z);
+            if (NavMesh.SamplePosition(terrainPos, out navHit, 5f, NavMesh.AllAreas))
+            {
+                destinationQueue.Enqueue(navHit.position);
+            }
+            else
+            {
+                Debug.LogError("Flee | " + transform.name + " failed to sample dest1");
+            }
+        }
+        else
+        {
+            Debug.LogError("Flee | " + transform.name + " failed to raycast dest1");
+        }
+        // next, continue the line farther out from that position
+        // worldPos = transform.position + safeDistance * direction;
+        // terrainPos = new Vector3(worldPos.x, TerrainDetector.SampleHeight(worldPos), worldPos.z);
         
+        // if (NavMesh.SamplePosition(terrainPos, out navHit, 5f, NavMesh.AllAreas))
+        // {
+        //     dest2 = navHit.position;
+        //     destinationQueue.Enqueue(dest2);
+        //     //StartCoroutine(GenerateRandomDestinations(3, safeDistance * 2, dest2));
+        // }
+        // else
+        // {
+        //     Debug.LogError("Flee | " + transform.name + " failed to sample dest2");
+        // }
+        NextDestination();
+        // announce (to game manager) that we are fleeing
+        Messenger.SendMessage(MessageIDs.AnimalFlee, this);        
+    }
+
+    public void ExitBoundary()
+    {
+        //ArriveAtDestination();
+        Vector3 worldPos = transform.position + safeDistance * transform.forward;
+        Vector3 terrainPos = new Vector3(worldPos.x, TerrainDetector.SampleHeight(worldPos), worldPos.z);
+        NavMeshHit navHit;
         if (NavMesh.SamplePosition(terrainPos, out navHit, 5f, NavMesh.AllAreas))
         {
-            //agent.SetDestination(navHit.position);
             destinationQueue.Enqueue(navHit.position);
-            NextDestination();
-            StartCoroutine(GenerateRandomDestinations(3, safeDistance * 2, navHit.position));
-        }        
+        }
+        else
+        {
+            Debug.LogError("Flee | " + transform.name + " failed to sample dest2");
+        }
+        //SetState(AIState.Flee);
+        NextDestination();
     }
 
     /// <summary>
@@ -277,6 +324,7 @@ public class Animal : Entity
         agent.isStopped = true;
         agent.enabled = false;
         rb.isKinematic = false;
+        Messenger.SendMessage(MessageIDs.AnimalDeath, this);
     }
 
     /// <summary>
@@ -315,13 +363,16 @@ public class Animal : Entity
     /// </summary>
     protected void NextDestination()
     {
-        Vector3 pos = destinationQueue.Dequeue();
-        path = new NavMeshPath();
-        endDestination = pos;
-        agent.CalculatePath(endDestination, path);
-        pathIter = 1;
-        agent.isStopped = false;
-        agent.destination = endDestination;
+        if (destinationQueue.Count > 0)
+        {
+            Vector3 pos = destinationQueue.Dequeue();
+            path = new NavMeshPath();
+            endDestination = pos;
+            agent.CalculatePath(endDestination, path);
+            pathIter = 1;
+            agent.isStopped = false;
+            agent.destination = endDestination;
+        }
     }
     
     /// <summary>

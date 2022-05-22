@@ -9,6 +9,7 @@ public class TerrainDetector : MonoBehaviour
     private const float terrainHeight = 1000f;
 
     private Dictionary<(int, int), TerrainInfo> terrainInfoDict;
+    [SerializeField] private MaterialType[] terrainMaterials;
 
     private static TerrainDetector instance;
 
@@ -55,9 +56,11 @@ public class TerrainDetector : MonoBehaviour
 
     private static (int, int) ConvertPositionToIndex (Vector3 pos)
     {
-        int x = (int)(Mathf.Floor(pos.x / terrainWidth)) * (int)terrainWidth;
-        int z = (int)(Mathf.Floor(pos.z / terrainHeight)) * (int)terrainHeight;
-        return (x, z);
+        // TODO refactor this
+        //int x = (int)(Mathf.Floor(pos.x / terrainWidth)) * (int)terrainWidth;
+        //int z = (int)(Mathf.Floor(pos.z / terrainHeight)) * (int)terrainHeight;
+        //return (x, z);
+        return (-1000, -1000);
     }
 
     private static Vector3 ConvertToSplatMapCoordinate(Vector3 worldPos, Terrain terrain)
@@ -101,15 +104,9 @@ public class TerrainDetector : MonoBehaviour
 
     public static MaterialType GetMaterialFromTextureIdx(int idx)
     {
-        if (idx < 0)
-            return MaterialType.Default;
-        if (idx <= 3)
-            return MaterialType.Grass;
-        if (idx <= 6)
-            return MaterialType.Gravel;
-        if (idx <= 7)
-            return MaterialType.Snow;
-        return MaterialType.Stone;
+        if (idx > 0 && idx < instance.terrainMaterials.Length)
+            return instance.terrainMaterials[idx];
+        return MaterialType.Default;
     }
 
     /// <summary>

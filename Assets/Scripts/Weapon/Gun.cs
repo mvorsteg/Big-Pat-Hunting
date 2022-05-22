@@ -45,9 +45,9 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     private AudioClip fire, dry, boltDown, boltUp, reload;
 
     private AudioSource audioSource;
-
-
     public Animator anim;
+
+    private UnityAction onReloadCancel;
 
     private void Awake()
     {
@@ -57,6 +57,8 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         recoil.cameraController = cameraController;
 
         rifleCameraCullingMask = rifleCamera.cullingMask;
+
+        onReloadCancel = new UnityAction(OnReloadCancel);
     }
 
     private void Start()
@@ -67,13 +69,24 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         crosshairOverlay.sprite = crosshairSprite;
     }
 
+    private void OnEnable()
+    {
+        Messenger.Subscribe(MessageIDs.ReloadCancel, onReloadCancel);
+    }
+
+    private void OnDisable()
+    {
+        Messenger.Unsubscribe(MessageIDs.ReloadCancel, onReloadCancel);
+    }
+
+
     /// <summary>
     /// Determines if the gun is cooled down, loaded, and otherwise able to shoot
     /// </summary>
     /// <returns>True if the gun can shoot, otherwise False</returns>
-    public bool CanShoot()
+    public bool IsReady()
     {
-        return isReadyToShoot && currAmmo > 0;
+        return isReadyToShoot;
     }
 
     /// <summary>
@@ -130,8 +143,8 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         // dry fire
         if (currAmmo <= 0)
         {
-            audioSource.clip = dry;
-            audioSource.Play();
+            //audioSource.clip = dry;
+            audioSource.PlayOneShot(dry);
             Messenger.SendMessage(MessageIDs.NoiseGenerated, new NoiseInfo(20f, transform.position, NoiseType.Gunshot, this.gameObject));
             return;
         }
@@ -195,7 +208,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
             // {
             //     entity.TakeDamage(new HitInfo(damage, hit.distance, force, (hit.transform.position - origin.position).normalized, this));
             // }       
-        }        
+        }    
     }
     
     /// <summary>
@@ -204,6 +217,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
     public void Reload()
     {
         anim.SetTrigger("reload");
+        Messenger.SendMessage(MessageIDs.ReloadStart);
         isReadyToShoot = false;
     }
 
@@ -243,7 +257,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         rifleCamera.cullingMask = 0;
         mainCamera.fieldOfView = scopedFOV;
         
-
+        Messenger.SendMessage(MessageIDs.ScopeIn);
         //HUD.SetActive(false);
     }
 
@@ -270,6 +284,7 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         currAmmo = maxAmmo;
         isReadyToShoot = true;
         playerUI.Reload();
+        Messenger.SendMessage(MessageIDs.ReloadFinish);
     }
     
     public void PlayMiscAudio(AudioClip clip)
@@ -277,5 +292,10 @@ public class Gun : MonoBehaviour, IWeapon, IDamageSource
         audioSource.Stop();
         audioSource.clip = clip;
         audioSource.Play();
+    }
+
+    private void OnReloadCancel()
+    {
+        isReadyToShoot = true;
     }
 }

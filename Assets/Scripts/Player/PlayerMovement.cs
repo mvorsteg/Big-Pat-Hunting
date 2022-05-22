@@ -148,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
             //Sprint(false);
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             weaponAnimator.SetTrigger("jump");
+            Messenger.SendMessage(MessageIDs.ReloadCancel);
         }
     }
 
@@ -165,6 +166,10 @@ public class PlayerMovement : MonoBehaviour
                     }
                     mode = MovementMode.Sprinting;
                     weaponAnimator.SetBool("isSprinting", true);
+                    // ReloadCancel HAS to be before SprintStart
+                    // or else you can shoot while sprinting!
+                    Messenger.SendMessage(MessageIDs.ReloadCancel);
+                    Messenger.SendMessage(MessageIDs.SprintStart);
                 }
             }
         }
@@ -172,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
         {
             mode = MovementMode.Walking;
             weaponAnimator.SetBool("isSprinting", false);
+            Messenger.SendMessage(MessageIDs.SprintEnd);
         }
     }
 

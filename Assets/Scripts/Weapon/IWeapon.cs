@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    bool CanShoot();
+    bool IsReady();
     bool IsScoped();
     bool CanReload();
     void Shoot();

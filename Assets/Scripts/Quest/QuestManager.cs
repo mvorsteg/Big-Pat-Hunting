@@ -32,9 +32,11 @@ public class QuestManager : MonoBehaviour
     private List<TextMeshProUGUI> texts;    // list of description texts associated with these quests
 
     private List<KillQuest.KillInfo> killLog;         // list of every animal the player has killed
-    
+    private RecordSerializer recordSerializer;
+
     private EntityManager entityManager;
     private CutsceneManager cutsceneManager;
+    private FinalTargetTracker targetTracker;
     private bool isBulletTime = false;    
 
     // private UnityAction onDayComplete;
@@ -43,6 +45,8 @@ public class QuestManager : MonoBehaviour
     private UnityAction onAnyKeyPressed;
     private UnityAction<object> onQuestComplete;
     private UnityAction<object> onQuestFailed;
+    private UnityAction<object> onAnimalFlee;
+    private UnityAction<object> onAnimalEnterBoundary;
     private UnityAction<object> onAnimalExitBoundary;
 
     public static QuestManager instance;    // there can only be one
@@ -56,6 +60,7 @@ public class QuestManager : MonoBehaviour
 
         texts = new List<TextMeshProUGUI>();
         killLog = new List<KillQuest.KillInfo>();
+        recordSerializer = FindObjectOfType<RecordSerializer>();
         scoreText = scoreTextParent.GetComponent<TextMeshProUGUI>();
         //levelTitleText = tripTextObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         //levelDetailText = tripTextObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
@@ -63,6 +68,7 @@ public class QuestManager : MonoBehaviour
         anyKeyText.gameObject.SetActive(false);
         entityManager = FindObjectOfType<EntityManager>();
         cutsceneManager = FindObjectOfType<CutsceneManager>();
+        targetTracker = FindObjectOfType<FinalTargetTracker>();
 
         //initialize listeners
         onBulletTimeStart = new UnityAction(OnBulletTimeStart);
@@ -70,6 +76,8 @@ public class QuestManager : MonoBehaviour
         onAnyKeyPressed = new UnityAction(OnAnyKeyPressed);
         onQuestFailed = new UnityAction<object>(OnQuestFailed);
         onQuestComplete = new UnityAction<object>(OnQuestComplete);
+        onAnimalFlee = new UnityAction<object>(OnAnimalFlee);
+        onAnimalEnterBoundary = new UnityAction<object>(OnAnimalEnterBoundary);
         onAnimalExitBoundary = new UnityAction<object>(OnAnimalExitBoundary);
     }
 
@@ -89,20 +97,22 @@ public class QuestManager : MonoBehaviour
             EntityType type = activeAnimals[i].type;
             int count = 0;
             typeDict.TryGetValue(type, out count);
-            typeDict[type] = count + 1;
+            typeDict[type] = count + 1; 
         }
-        // send count to relevant quests
+        // track relevant animals
         foreach (Quest q in quests)
         {
             if (q is KillQuest)
             {
-                KillQuest kq = (KillQuest)q;
-                int activeTargets;
-                if (typeDict.TryGetValue(kq.target, out activeTargets))
+                EntityType targetType = ((KillQuest)q).target;
+                foreach (Animal animal in activeAnimals)
                 {
-                    kq.NumAvaiableTargets = activeTargets;
+                    if (animal.type == targetType)
+                    {
+                        targetTracker.AddTarget(animal);
+                    }
                 }
-            }   
+            }
         }
         Messenger.SendMessage(MessageIDs.LevelStart);
     }
@@ -113,6 +123,8 @@ public class QuestManager : MonoBehaviour
         Messenger.Subscribe(MessageIDs.BulletTimeEnd, onBulletTimeEnd);
         Messenger.Subscribe(MessageIDs.QuestComplete, onQuestComplete);
         Messenger.Subscribe(MessageIDs.QuestFailed, onQuestFailed);
+        Messenger.Subscribe(MessageIDs.AnimalFlee, onAnimalFlee);
+        Messenger.Subscribe(MessageIDs.AnimalEnterBoundary, onAnimalEnterBoundary);
         Messenger.Subscribe(MessageIDs.AnimalExitBoundary, onAnimalExitBoundary);
     }
 
@@ -123,6 +135,8 @@ public class QuestManager : MonoBehaviour
         Messenger.Unsubscribe(MessageIDs.AnyKeyPressed, onAnyKeyPressed);
         Messenger.Unsubscribe(MessageIDs.QuestComplete, onQuestComplete);
         Messenger.Unsubscribe(MessageIDs.QuestFailed, onQuestFailed);
+        Messenger.Unsubscribe(MessageIDs.AnimalFlee, onAnimalFlee);
+        Messenger.Unsubscribe(MessageIDs.AnimalEnterBoundary, onAnimalEnterBoundary);
         Messenger.Unsubscribe(MessageIDs.AnimalExitBoundary, onAnimalExitBoundary);
     }
 
@@ -202,7 +216,7 @@ public class QuestManager : MonoBehaviour
                 KillQuest kq = (KillQuest)instance.quests[0];
                 if (kq.target == entity.type)
                 {
-                    if (kq.NumAvaiableTargets <= 1)
+                    if (kq.NumAvailableTargets <= 1)
                     {
                         if (entity.Health <= damage)
                         {
@@ -362,7 +376,7 @@ public class QuestManager : MonoBehaviour
         levelTitleText.text = titleText;
         levelDetailText.text = subText;
         levelTextParent.SetActive(true);
-        RecordSerializer.WriteQuest("GR-1.xml", killLog, "GR-1");
+        recordSerializer.WriteQuest("GR-1.xml", killLog, "GR-1");
         StartCoroutine(AnyKeyEnable(2f));
     }
 
@@ -415,18 +429,59 @@ public class QuestManager : MonoBehaviour
         Messenger.SendMessage(MessageIDs.LevelEnd);
     }
 
-    private void OnAnimalExitBoundary(object data)
+    private void OnAnimalFlee(object data)
     {
-        EntityType animalType = (EntityType)data;
+        // Animal animal = (Animal)data;
+        // foreach (Quest q in quests)
+        // {
+        //     if (q is KillQuest)
+        //     {
+        //         KillQuest kq = (KillQuest)q;
+        //         if (kq.target == animal.type)
+        //         {
+        //             targetTracker.AddTarget(animal);
+        //             if (fleeingTargets.Count >= kq.NumAvailableTargets)
+        //             {
+        //                 Messenger.SendMessage(MessageIDs.ShowTargetTracker, fleeingTargets)
+        //             }
+        //         }
+        //     }
+        // }
+    }
+
+    private void OnAnimalEnterBoundary(object data)
+    {
+        Animal animal = (Animal)data;
         {
             foreach (Quest q in quests)
             {
                 if (q is KillQuest)
                 {
                     KillQuest kq = (KillQuest)q;
-                    if (kq.target == animalType)
+                    if (kq.target == animal.type)
                     {
-                        kq.NumAvaiableTargets -= 1;
+                        kq.NumAvailableTargets += 1;
+                        Debug.Log(animal.type.name + " entered.\n" + kq.NumAvailableTargets + " remaining.");
+                    }
+                }
+            }
+        }
+    }
+
+    private void OnAnimalExitBoundary(object data)
+    {
+        Animal animal = (Animal)data;
+        {
+            foreach (Quest q in quests)
+            {
+                if (q is KillQuest)
+                {
+                    KillQuest kq = (KillQuest)q;
+                    if (kq.target == animal.type)
+                    {
+                        kq.NumAvailableTargets -= 1;
+                        //fleeingTargets.Remove(animal);
+                        Debug.Log(animal.type.name + " exited.\n" + kq.NumAvailableTargets + " remaining.");
                     }
                 }
             }

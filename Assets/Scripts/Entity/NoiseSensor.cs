@@ -42,7 +42,7 @@ public class NoiseSensor : MonoBehaviour
         }
         else
         {
-            Debug.Log(transform.name + " did not hear noise: " + effectiveDecibels + " dB");
+            //Debug.Log(transform.name + " did not hear noise: " + effectiveDecibels + " dB");
         }
     }
 

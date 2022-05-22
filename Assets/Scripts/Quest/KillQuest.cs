@@ -30,7 +30,7 @@ public class KillQuest : Quest
     private int numAvaiableTargets = 0; // number of target entities currently available in scene
 
     public int TotalKills { get => totalKills; }
-    public int NumAvaiableTargets
+    public int NumAvailableTargets
     { 
         get => numAvaiableTargets; 
         set
@@ -67,7 +67,7 @@ public class KillQuest : Quest
     public bool RegisterKill(Entity entity)
     {
         totalKills++;
-        NumAvaiableTargets--;
+        NumAvailableTargets--;
         QuestManager.UpdateQuest(this);
         if (totalKills >= requiredKills)
         {

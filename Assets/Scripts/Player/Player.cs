@@ -11,6 +11,8 @@ public class Player : Entity
     [SerializeField]
     private WeaponSwitcher weaponSwitcher;
 
+    private bool isSprintingOrFalling;
+
     public Transform groundCheck;
     public Vector3 navPosition;
 
@@ -28,31 +30,64 @@ public class Player : Entity
 
     public int baseWeapon = 0;
 
+    private UnityAction onScopeIn;
+    private UnityAction onUnscope;
+    private UnityAction onReloadStart;
+    private UnityAction onReloadFinish;
+    private UnityAction onReloadCancel;
+    private UnityAction onSprintStart;
+    private UnityAction onSprintEnd;
     private UnityAction onBulletTimeEnd;
+    private UnityAction onLevelEnd;
 
     protected override void Awake()
     {
         base.Awake();
         audioSource = GetComponent<AudioSource>();
 
+        onScopeIn = new UnityAction(OnScopeIn);
+        onUnscope = new UnityAction(OnUnscope);
+        onReloadStart = new UnityAction(OnReloadStart);
+        onReloadFinish = new UnityAction(OnReloadFinish);
+        onReloadCancel = new UnityAction(OnReloadCancel);
+        onSprintStart = new UnityAction(OnSprintStart);
+        onSprintEnd = new UnityAction(OnSprintEnd);
         onBulletTimeEnd = new UnityAction(OnBulletTimeEnd);
+        onLevelEnd = new UnityAction(OnLevelEnd);
     }
 
     protected override void Start()
     {
         base.Start();
         weapon = weaponSwitcher.SetWeapon(baseWeapon);
-        cameraController.EnableCameraGravity(false);        
+        cameraController.EnableCameraGravity(false);     
+        FallDamage.Initialize(maxHealth);   
     }
 
     private void OnEnable()
     {
+        Messenger.Subscribe(MessageIDs.ScopeIn, onScopeIn);
+        Messenger.Subscribe(MessageIDs.Unscope, onUnscope);
+        Messenger.Subscribe(MessageIDs.ReloadStart, onReloadStart);
+        Messenger.Subscribe(MessageIDs.ReloadFinish, onReloadFinish);
+        Messenger.Subscribe(MessageIDs.ReloadCancel, onReloadCancel);
+        Messenger.Subscribe(MessageIDs.SprintStart, onSprintStart);
+        Messenger.Subscribe(MessageIDs.SprintEnd, onSprintEnd);
         Messenger.Subscribe(MessageIDs.BulletTimeEnd, onBulletTimeEnd);
+        Messenger.Subscribe(MessageIDs.LevelEnd, onLevelEnd);
     }
 
     private void OnDisable()
     {
+        Messenger.Unsubscribe(MessageIDs.ScopeIn, onScopeIn);
+        Messenger.Unsubscribe(MessageIDs.Unscope, onUnscope);
+        Messenger.Unsubscribe(MessageIDs.ReloadStart, onReloadStart);
+        Messenger.Unsubscribe(MessageIDs.ReloadFinish, onReloadFinish);
+        Messenger.Unsubscribe(MessageIDs.ReloadCancel, onReloadCancel);
+        Messenger.Unsubscribe(MessageIDs.SprintStart, onSprintStart);
+        Messenger.Unsubscribe(MessageIDs.SprintEnd, onSprintEnd);
         Messenger.Unsubscribe(MessageIDs.BulletTimeEnd, onBulletTimeEnd);
+        Messenger.Unsubscribe(MessageIDs.LevelEnd, onLevelEnd);
     }
 
     public void ResetPlayer()
@@ -141,7 +176,10 @@ public class Player : Entity
     /// </summary>
     public void Shoot()
     {
-        weapon.Shoot();
+        if (weapon.IsReady())
+        {
+            weapon.Shoot();
+        }
     }
 
     /// <summary>
@@ -150,6 +188,10 @@ public class Player : Entity
     /// <param name="state">Whether or not to aim</param>
     public void Aim(bool state)
     {
+        if (state && !weapon.IsReady())
+        {
+            return;
+        }
         weapon.Aim(state);
     }
 
@@ -158,7 +200,7 @@ public class Player : Entity
     /// </summary>
     public void Reload()
     {
-        if (weapon.CanReload())
+        if (weapon.CanReload() && !isSprintingOrFalling)
         {
             weapon.Reload();
         }
@@ -176,7 +218,47 @@ public class Player : Entity
         health = maxHealth;
     }
 
+    private void OnScopeIn()
+    {
+
+    }
+
+    private void OnUnscope()
+    {
+
+    }
+
+    private void OnReloadStart()
+    {
+        
+    }
+
+    private void OnReloadFinish()
+    {
+        
+    }
+
+    private void OnReloadCancel()
+    {
+        
+    }
+
+    private void OnSprintStart()
+    {
+        isSprintingOrFalling = false;
+    }
+
+    private void OnSprintEnd()
+    {
+        isSprintingOrFalling = true;
+    }
+
     private void OnBulletTimeEnd()
+    {
+        Aim(false);
+    }
+
+    private void OnLevelEnd()
     {
         Aim(false);
     }

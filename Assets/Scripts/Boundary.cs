@@ -23,7 +23,16 @@ public class Boundary : MonoBehaviour
         {
             warningText.SetActive(false);
         }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Animal"))
+        {
+            Animal animal = other.transform.GetComponent<Animal>();
+            if (animal != null)
+            {
+                Messenger.SendMessage(MessageIDs.AnimalEnterBoundary, animal);
+            }
+        }
     }
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -36,7 +45,8 @@ public class Boundary : MonoBehaviour
             Animal animal = other.transform.GetComponent<Animal>();
             if (animal != null)
             {
-                Messenger.SendMessage(MessageIDs.AnimalExitBoundary, animal.type);
+                animal.ExitBoundary();
+                Messenger.SendMessage(MessageIDs.AnimalExitBoundary, animal);
             }
         }
     }

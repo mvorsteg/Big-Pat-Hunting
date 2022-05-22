@@ -6,13 +6,18 @@
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
+/[Bb]uild.zip
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
 /[Aa]ssets/**/[Pp]aid/
 /[Aa]ssets/**/[Uu]ntracked/
+/[Aa]ssets/**/Gaia Pro Sample
 /[Aa]ssets/**/NatureManufacture Assets/
+/[Aa]ssets/**/AdvancedTerrainGrass/
+/[Aa]ssets/**/EasyRoads3D Assets/
+/[Aa]ssets/**/Procedural Worlds/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
