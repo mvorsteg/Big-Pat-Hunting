@@ -26,6 +26,13 @@ public class AnimalIK : MonoBehaviour
         public float toeOffset = 0.07f;
     }
 
+    [System.Serializable]
+    public class NeckData
+    {
+        public BoneData head;
+        public BoneData[] neck;
+    }
+
     [SerializeField]
     private Transform leftArm;
     [SerializeField]
@@ -36,10 +43,10 @@ public class AnimalIK : MonoBehaviour
     private Transform rightLeg;
 
     [SerializeField]
-    private Transform neck;
+    private Transform neckBase;
 
     public LegData[] legs;
-    
+
     [SerializeField]
     private Transform root;
     private Animal animal;
@@ -47,6 +54,9 @@ public class AnimalIK : MonoBehaviour
 
     private float angle;
     private float speed;
+
+    [SerializeField]
+    private LayerMask mask;
 
     private void Start()
     {
@@ -61,14 +71,13 @@ public class AnimalIK : MonoBehaviour
 
     private void LateUpdate()
     {
-        UpdateCharacterBones();
+        UpdateLegBones();
         SolveLegIK();
     }
 
 
-    private void UpdateCharacterBones()
+    private void UpdateLegBones()
     {
-        LayerMask mask = LayerMask.GetMask("Ground");
         RaycastHit armHit, legHit;
 
         if (Physics.Raycast(leftArm.position, Vector3.down, out armHit, 10, mask) && Physics.Raycast(leftLeg.position, Vector3.down, out legHit, 10, mask))
@@ -88,9 +97,7 @@ public class AnimalIK : MonoBehaviour
             leftLeg.localEulerAngles += new Vector3(0, 0, -angle);
             rightLeg.localEulerAngles += new Vector3(0, 0, -angle);
 
-            neck.localEulerAngles += new Vector3(0, 0, angle);
-
-
+            neckBase.localEulerAngles += new Vector3(0, 0, angle);
         }
     }
 
@@ -99,7 +106,6 @@ public class AnimalIK : MonoBehaviour
         RaycastHit toeHit;
         float prevToeLocation;
         float currToeLocation;
-        LayerMask mask = LayerMask.GetMask("Ground");
         Vector3 raycastStart;
         float ikAmount = Mathf.Clamp((1 - speed), 0, 1);
 

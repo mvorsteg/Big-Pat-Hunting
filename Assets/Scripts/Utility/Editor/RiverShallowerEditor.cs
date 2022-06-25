@@ -5,9 +5,8 @@ using UnityEditor;
 public class RiverShallowerEditor : Editor
 {
     private RiverShallower riverShallower;
-    private Terrain terrain;
-    private float riverDepth;
-    private float maxDistance;
+
+    private Transform testTransform;
 
     private void OnEnable()
     {
@@ -17,13 +16,12 @@ public class RiverShallowerEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        EditorGUILayout.LabelField("Our Custom Inspector");
-        EditorGUILayout.Space();
         riverShallower.Terrain = (Terrain)EditorGUILayout.ObjectField("Terrain", riverShallower.Terrain, typeof(Terrain), true);
         EditorGUILayout.Space();
         riverShallower.maxDepth = EditorGUILayout.FloatField("River Depth", riverShallower.maxDepth);
         riverShallower.raycastDistance = EditorGUILayout.FloatField("Max Raycast Distance", riverShallower.raycastDistance);
         EditorGUILayout.Space();
+        riverShallower.testPosition = (Transform)EditorGUILayout.ObjectField("Test Position", riverShallower.testPosition, typeof(Transform), true);
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Undo"))
         {

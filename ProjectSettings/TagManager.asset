@@ -15,6 +15,12 @@ TagManager:
   - Synty Small Farm
   - PW - Nature
   - Bush
+  - Log
+  - concrete
+  - dirt
+  - wood
+  - water
+  - Road
   layers:
   - Default
   - TransparentFX

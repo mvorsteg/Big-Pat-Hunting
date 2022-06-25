@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GR2
   m_EditorClassIdentifier: 
   siteName: Riverside Rocks
-  siteDescription: This is not done yet!
+  siteDescription: A sandy riverbank, where the water is shallow enough to wade through
   siteImage: {fileID: 21300000, guid: 17a0e09628cc53a46b269ccf21b66bea, type: 3}
   levelID: 3

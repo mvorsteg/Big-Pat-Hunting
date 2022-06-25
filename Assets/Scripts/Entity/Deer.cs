@@ -3,9 +3,23 @@ using System.Collections;
 
 public class Deer : Animal, INoiseListener
 {
+    [SerializeField]
+    protected int footstepsToDetection = 3; 
+    [SerializeField]
+    protected float detectionTimeoutSeconds = 5f, detectionResetSeconds = 3f, detectedPlayerSeconds;
+    protected float detectionLevel = 0f, detectionRate, detectionTimer;
+
+    public Vector2 peripheralCutoff;
+    public LayerMask sightMask;
+
+    [SerializeField]
+    protected Transform head;
+    protected Transform lookTarget;
+
     protected override void Awake()
     {
         base.Awake();
+        detectionRate = 1f / footstepsToDetection;
     }
 
     protected override void Start()
@@ -42,8 +56,64 @@ public class Deer : Animal, INoiseListener
         {
 
         }
+        
+        // move head if frozen
+        if (state == AIState.Freeze && statusIndicator.Status == EntityStatus.Question && lookTarget != null)
+        {
+            // stare at noise source
+            Vector2 lookDir = CalculateLookDir(lookTarget.position);
+            // Debug.Log(lookDir);
+            // check if can see player
+            if (Mathf.Abs(lookDir.x) <= peripheralCutoff.x && Mathf.Abs(lookDir.y) <= peripheralCutoff.y)
+            {
+
+                RaycastHit hit;
+                if (Physics.Linecast(head.position, lookTarget.position, out hit, sightMask))
+                {
+                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
+                    {
+                        // can see player
+                        detectionTimer = detectionTimeoutSeconds;
+                        detectionLevel += (1 / detectedPlayerSeconds) * Time.deltaTime;
+                        detectionLevel = Mathf.Clamp01(detectionLevel);
+                        statusIndicator.StatusLevel = detectionLevel;
+                    }
+                }
+                anim.SetFloat("lookX", lookDir.x);
+                anim.SetFloat("lookY", lookDir.y);
+            }
+            // cannot see player
+            else
+            {
+                detectionTimer -= Time.deltaTime;
+                detectionTimer = Mathf.Clamp(detectionTimer, 0, detectionTimeoutSeconds);
+                if (detectionTimer <= 0)
+                {
+                    detectionLevel -= (Time.deltaTime / detectionResetSeconds);
+                    detectionLevel = Mathf.Clamp01(detectionLevel);
+                    statusIndicator.StatusLevel = detectionLevel;
+                }
+                if (detectionLevel <= 0)
+                {
+                    SetState(AIState.Idle);
+                    statusIndicator.Status = EntityStatus.Normal;
+                }
+            }
+            // if we're at max detection level, gtfo
+            if (Mathf.Approximately(detectionLevel, 1f))
+            {
+                statusIndicator.Animate();
+                Flee(lookTarget.position);
+                lookTarget = null;
+            }
+        }
+
+        
+
+
         base.Update();
     }
+
     /// <summary>
     /// Hears a noise and runs away
     /// </summary>
@@ -52,7 +122,38 @@ public class Deer : Animal, INoiseListener
     {
         if (isAlive && state != AIState.Flee)
         {
-            Flee(info.position);
+            // Flee(info.position);
+            switch (info.noiseType)
+            {
+                case (NoiseType.CarHorn) :
+                case (NoiseType.Footstep) :
+                    // freeze in place
+                    if (state != AIState.Freeze && state != AIState.Flee)
+                    {
+                        SetState(AIState.Freeze);
+                        lookTarget = info.source.transform;
+                    }
+                    // set new status
+                    if (statusIndicator.Status == EntityStatus.Normal)
+                    {
+                        statusIndicator.Status = EntityStatus.Question;
+                    }
+                    detectionLevel += detectionRate;
+                    detectionLevel = Mathf.Clamp01(detectionLevel);
+                    statusIndicator.StatusLevel = detectionLevel;
+                    detectionTimer = detectionTimeoutSeconds;
+                    break;
+                case (NoiseType.Gunshot) :
+                    detectionLevel = 1f;
+                    break;
+                    // Flee(info.position); // TODO do I really want deer to run away from car? 
+            }
+            statusIndicator.Animate();
+            if (Mathf.Approximately(detectionLevel, 1f))
+            {
+                statusIndicator.Animate();
+                Flee(info.position);
+            }
         }
     }
 
@@ -85,13 +186,22 @@ public class Deer : Animal, INoiseListener
         }
     }
 
-    /// <summary>
-    /// Calls the IdleStateSwitch Coroutine
-    /// </summary>
-    // protected override void IdleStateSwitch()
-    // {
-    //     StartCoroutine(IdleStateSwitch())
-    // }
+    private Vector2 CalculateLookDir(Vector3 lookPos)
+    {
+        Vector3 dir = lookTarget.position - head.position;
+        //dir = transform.InverseTransformDirection(dir).normalized;
+        Vector3 horizontalDir = new Vector3(dir.x, 0, dir.z);
+        Vector3 verticalDir = dir - horizontalDir;
+        float horizontalAngle = Vector3.SignedAngle(horizontalDir, transform.forward, transform.up);
+        float verticalAngle = Vector3.SignedAngle(horizontalDir, dir, transform.right);
+
+        // Debug.DrawRay(head.position, transform.forward * 5, Color.blue);
+        // Debug.DrawRay(head.position, horizontalDir, Color.magenta);
+        // Debug.DrawRay(head.position, dir - horizontalDir, Color.green);
+        // Debug.DrawRay(head.position, dir, Color.yellow);
+
+        return new Vector2(-horizontalAngle, -verticalAngle);
+    }
 
     /// <summary>
     /// Switches the animal between different idle states

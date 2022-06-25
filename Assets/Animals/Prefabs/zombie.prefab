@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.5
   bodyArea: 4
 --- !u!1 &2275295810351416209
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.5
   bodyArea: 4
 --- !u!1 &2275295810364904502
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.25
   bodyArea: 5
 --- !u!1 &2275295810386409224
@@ -388,7 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.25
   bodyArea: 5
 --- !u!1 &2275295810453812813
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 1
   bodyArea: 3
 --- !u!1 &2275295810627936217
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.5
   bodyArea: 4
 --- !u!1 &2275295810898627012
@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.25
   bodyArea: 5
 --- !u!1 &2275295811065424621
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 2
   bodyArea: 0
 --- !u!1 &2275295811097832923
@@ -693,7 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 1.5
   bodyArea: 2
 --- !u!1 &2275295811116733834
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.5
   bodyArea: 4
 --- !u!1 &2275295811138116224
@@ -1335,6 +1335,9 @@ MonoBehaviour:
     liftAmount: 0
     toeOffset: 0.07
   root: {fileID: 3449803833465489428}
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &8942267774966451094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1352,9 +1355,11 @@ MonoBehaviour:
   walkSpeed: 1
   runSpeed: 2
   rotationSpeed: 50
+  safeAngle: 25
   safeDistance: 15
   stoppingDistance: 0.3
   leader: {fileID: 0}
+  ddd: 0
   target: {fileID: 0}
   sensor: {fileID: 1158750820}
   attackPoint: {fileID: 785665518}
@@ -2267,7 +2272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.5
   bodyArea: 4
 --- !u!1 &2275295811407849184
@@ -2328,7 +2333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.5
   bodyArea: 4
 --- !u!1 &2275295811408102472
@@ -2389,7 +2394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.5
   bodyArea: 4
 --- !u!1 &2275295811513880828
@@ -2450,7 +2455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.5
   bodyArea: 4
 --- !u!1 &2275295811528559630
@@ -2511,7 +2516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 2
   bodyArea: 0
 --- !u!1 &2275295811583676583
@@ -2572,7 +2577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 2
   bodyArea: 1
 --- !u!1 &2275295812232241784
@@ -2633,7 +2638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59ae038e0f216e40aaad1871127808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2275295810885207619, guid: 7dca4c5bf74d93e428efd2da589912bd, type: 3}
+  parent: {fileID: 0}
   damageMultiplier: 0.25
   bodyArea: 5
 --- !u!1 &5017706576755376372

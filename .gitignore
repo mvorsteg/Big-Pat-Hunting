@@ -13,10 +13,10 @@
 
 /[Aa]ssets/**/[Pp]aid/
 /[Aa]ssets/**/[Uu]ntracked/
+/[Aa]ssets/**/EasyRoads3D/
+/[Aa]ssets/**/EasyRoads3D Assets/
 /[Aa]ssets/**/Gaia Pro Sample
 /[Aa]ssets/**/NatureManufacture Assets/
-/[Aa]ssets/**/AdvancedTerrainGrass/
-/[Aa]ssets/**/EasyRoads3D Assets/
 /[Aa]ssets/**/Procedural Worlds/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored

@@ -1,0 +1,416 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e251860fcd970734c9f14ebd98a146c3, type: 3}
+  m_Name: GS-20220522 - 212314
+  m_EditorClassIdentifier: 
+  m_name: Session 20220522-212314
+  m_description: 'Rocking out at Creativity Central!
+
+
+    If you like Gaia please
+    consider rating it :)'
+  m_previewImage: {fileID: 0}
+  m_dateCreated: 5/22/2022 9:23:14 PM
+  m_terrainWidth: 1024
+  m_terrainDepth: 1024
+  m_terrainHeight: 1024
+  m_seaLevel: 0
+  m_spawnDensity: 0.8
+  m_isLocked: 0
+  m_previewImageBytes: 
+  m_previewImageWidth: 0
+  m_previewImageHeight: 0
+  m_operations:
+  - m_description: Clear World
+    m_operationType: 10
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 5/22/2022 9:24:42 PM
+    scriptableObjectAssetGUID: 
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Creating World: 1 x 1 tiles, tile size: 1024'
+    m_operationType: 0
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 5/22/2022 9:24:43 PM
+    scriptableObjectAssetGUID: 18c506f2376737c47a3e85506699544a
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Clear World
+    m_operationType: 10
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 5/22/2022 9:25:13 PM
+    scriptableObjectAssetGUID: 
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Creating World: 1 x 1 tiles, tile size: 1024'
+    m_operationType: 0
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 5/22/2022 9:25:14 PM
+    scriptableObjectAssetGUID: 81f2710d8c92da948a84d9a5464e1333
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Clear World
+    m_operationType: 10
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 5/22/2022 9:25:34 PM
+    scriptableObjectAssetGUID: 
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Creating World: 1 x 1 tiles, tile size: 1024'
+    m_operationType: 0
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 5/22/2022 9:25:35 PM
+    scriptableObjectAssetGUID: c4ee02b333fb477469abc4c0ece27302
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Multiple Spawners (8)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 212534
+    m_operationDateTime: 5/22/2022 9:27:19 PM
+    scriptableObjectAssetGUID: 582a2b61b8f950c46ad486831d4fda4b
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Texture(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 212534
+    m_operationDateTime: 5/22/2022 9:28:09 PM
+    scriptableObjectAssetGUID: bfc991c7fa17b50438d116250e8dd2f1
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Texture(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 212534
+    m_operationDateTime: 5/22/2022 9:28:31 PM
+    scriptableObjectAssetGUID: f672c668a1ffa5f41ab7ca7ef5535c17
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Clearing - Trees Details GOs SpawnExt Probes, CurrentTerrainOnly,
+      AnySource
+    m_operationType: 3
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 212534
+    m_operationDateTime: 5/22/2022 9:28:35 PM
+    scriptableObjectAssetGUID: 535f9b7820a33da4e8089273dee40069
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Clear World
+    m_operationType: 10
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 5/22/2022 9:30:07 PM
+    scriptableObjectAssetGUID: 
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Creating World: 1 x 1 tiles, tile size: 1024'
+    m_operationType: 0
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 5/22/2022 9:30:08 PM
+    scriptableObjectAssetGUID: 8d47e5c9af5ae9c46b7eda48c34c0c34
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Texture(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 9:30:20 PM
+    scriptableObjectAssetGUID: 7ebf6991694b0d34cb10630c8a3b0d40
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Multiple Spawners (6)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:12:46 PM
+    scriptableObjectAssetGUID: 39d9c4f436a1af34bbcf4bdc619bdf3a
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Clearing - Details GOs, AllTerrains, OnlyThisSpawner
+    m_operationType: 3
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:14:36 PM
+    scriptableObjectAssetGUID: 200c50ae3ce70324e92f2956060122db
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Grass - Object(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:16:27 PM
+    scriptableObjectAssetGUID: 5181374888d2ba1438e2eca3eff5e342
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Grass - Object(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:16:39 PM
+    scriptableObjectAssetGUID: a82cb4f8770856e47bee89fb0fff595c
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Grass - Object(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:16:43 PM
+    scriptableObjectAssetGUID: 85a79ba771c739a4f879144d898fba7d
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Multiple Spawners (6)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:25:05 PM
+    scriptableObjectAssetGUID: f491ed1939903af4caae008ddeb94a94
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Grass - Object(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:44:09 PM
+    scriptableObjectAssetGUID: bbf18a1e0b339784eb03e19680322b69
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Grass - Terrain(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:44:19 PM
+    scriptableObjectAssetGUID: 0845662882dc4004f95070dad268317c
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Multiple Spawners (6)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:49:18 PM
+    scriptableObjectAssetGUID: 42b59c5da459e1a48beda968121ab1da
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Grass - Object(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:49:48 PM
+    scriptableObjectAssetGUID: 0963e489206835d4eabf2488434f0405
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Clearing - Details GOs, AllTerrains, OnlyThisSpawner
+    m_operationType: 3
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:52:03 PM
+    scriptableObjectAssetGUID: 9986bc0d21645bc49b707ec685cf5515
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Grass - Object(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:53:59 PM
+    scriptableObjectAssetGUID: c72c1aa36e9b47642a250e278edd46d1
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Grass - Terrain(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:54:10 PM
+    scriptableObjectAssetGUID: 4fe4170680dda4143be03989bd965e74
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Roots(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220522 - 213008
+    m_operationDateTime: 5/22/2022 10:54:30 PM
+    scriptableObjectAssetGUID: a1169405c32480c40b51effc8dc6aa90
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  m_terrainMinMaxCache:
+  - guid: a603b170f27a7bc44816a51b902e80bf
+    isWorldmap: 0
+    recalculate: 0
+    min: 18.469032
+    max: 107.43914
+  - guid: bea4e1946b05a54478990aa348263919
+    isWorldmap: 0
+    recalculate: 0
+    min: 18.469032
+    max: 107.43914
+  - guid: 80e7152b686e246449f70ce04c9b42c0
+    isWorldmap: 0
+    recalculate: 0
+    min: 18.469032
+    max: 107.43914
+  - guid: c7412744ab48826469c9f2847d9b035d
+    isWorldmap: 0
+    recalculate: 0
+    min: 9.937652
+    max: 76.969925
+  - guid: Worldmap
+    isWorldmap: 1
+    recalculate: 0
+    min: 0
+    max: 0
+  m_bakedMaskCacheEntries:
+  - fileName: Terrain_0_0-20220522 - 213008_LayerGameObject_14680064_0.5
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_LayerGameObject_14680064_0.5
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_LayerGameObject_14680064_0.5
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220522 - 213008_RadiusTree_c8845373-efb7-4b73-85f6-b07ac89dbb77_5.6
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_c8845373-efb7-4b73-85f6-b07ac89dbb77_5.6
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_c8845373-efb7-4b73-85f6-b07ac89dbb77_5.6
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220522 - 213008_RadiusTree_c5a5544d-139c-4378-b184-71a716251e5a_6.09
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_c5a5544d-139c-4378-b184-71a716251e5a_6.09
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_c5a5544d-139c-4378-b184-71a716251e5a_6.09
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220522 - 213008_RadiusTree_123fc5d7-ac87-464e-8edf-f53b22030eae_5.01
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_123fc5d7-ac87-464e-8edf-f53b22030eae_5.01
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_123fc5d7-ac87-464e-8edf-f53b22030eae_5.01
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220522 - 213008_RadiusTree_59062d20-7f0a-481f-bf4d-d73d48bffff0_2.93
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_59062d20-7f0a-481f-bf4d-d73d48bffff0_2.93
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_59062d20-7f0a-481f-bf4d-d73d48bffff0_2.93
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220522 - 213008_RadiusTree_18b63f1e-874a-4f9c-b6ed-75b83bcf0fe7_3.84
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_18b63f1e-874a-4f9c-b6ed-75b83bcf0fe7_3.84
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_18b63f1e-874a-4f9c-b6ed-75b83bcf0fe7_3.84
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220522 - 213008_RadiusTree_87160e4d-9c18-45ad-8081-33544fae38a2_4.96
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_87160e4d-9c18-45ad-8081-33544fae38a2_4.96
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_87160e4d-9c18-45ad-8081-33544fae38a2_4.96
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220522 - 213008_RadiusTree_2ff5ac05-2224-49be-b72d-2f99837ef22d_5.72
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_2ff5ac05-2224-49be-b72d-2f99837ef22d_5.72
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_2ff5ac05-2224-49be-b72d-2f99837ef22d_5.72
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220522 - 213008_RadiusTree_574a5332-4895-407b-b5b4-e4e6cd49a47a_8.92
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_574a5332-4895-407b-b5b4-e4e6cd49a47a_8.92
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTree_574a5332-4895-407b-b5b4-e4e6cd49a47a_8.92
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220522 - 213008_LayerGameObject_16_0
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_LayerGameObject_16_0
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_LayerGameObject_16_0
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220522 - 213008_RadiusTag_Bush_0.87
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTag_Bush_0.87
+    fullPath: C:/Users/Matt/Unity Projects/Big-Pat-Hunting/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220522
+      - 213008/Terrain_0_0-20220522 - 213008_RadiusTag_Bush_0.87
+    texture: {fileID: 0}
+  m_worldBiomeMaskSettings: {fileID: 0}

@@ -4,10 +4,13 @@ using UnityEngine;
 public class RiverShallower : MonoBehaviour
 {
     private Terrain terrain;
-    private TerrainData terrainData;
+
+    private Vector3 offset = new Vector3(-512, 0, -512);
 
     public float raycastDistance = 5f;
     public float maxDepth = 1f;
+
+    public Transform testPosition;
 
     public Terrain Terrain { get => terrain; set => terrain = value; }
     public TerrainData TerrainData { get => Terrain.terrainData; }
@@ -19,7 +22,8 @@ public class RiverShallower : MonoBehaviour
 
     private void Start()
     {
-
+        // terrain = Terrain.activeTerrain;
+        // ModifyTerrain();
     }
 
     public void ModifyTerrain()
@@ -29,14 +33,26 @@ public class RiverShallower : MonoBehaviour
 
         float [,] heights = TerrainData.GetHeights(0, 0, heightmapHeight, heightmapWidth);
 
-        Debug.DrawRay(new Vector3(40, 1, 40), Vector3.up * raycastDistance, Color.red, 1000);
-        if (Physics.Raycast(new Vector3(40, 1, 40), Vector3.up, raycastDistance, LayerMask.GetMask("Water")))
+        //Debug.DrawRay(testPosition.position, Vector3.up * raycastDistance, Color.red, 10);
+        if (testPosition == null)
         {
-            Debug.Log("true");
+            Debug.Log("Test position not defined");
         }
         else
         {
-            Debug.Log("false");
+            
+            Vector3 testPos = testPosition.position + Vector3.up * raycastDistance;
+            Debug.Log("test y " + testPos.y);
+            RaycastHit hit;
+            Debug.DrawRay(testPos, Vector3.down * raycastDistance, Color.red, 10);
+            if (Physics.Raycast(testPos, Vector3.down, out hit, raycastDistance, LayerMask.GetMask("Water")))
+            {
+                Debug.Log("true");
+            }
+            else
+            {
+                Debug.Log("false");
+            }
         }
 
         // iterate all points in the terrain
@@ -45,10 +61,17 @@ public class RiverShallower : MonoBehaviour
             //Debug.Log(i * terrainData.heightmapScale.x + " " + heights[i, 0] * terrainData.heightmapScale.y);
             for (int j = 0; j < heightmapWidth; j++)
             {
-                Vector3 pos = new Vector3(i * TerrainData.heightmapScale.x, heights[j, i] * TerrainData.heightmapScale.y , j * TerrainData.heightmapScale.z);
-                // check if we are under a river
+                if (i == 1130 && j == 718)
+                {
+                    Debug.Log("here");
+                }
+                float x = offset.x + i * TerrainData.heightmapScale.x;
+                float y = heights[j, i] * TerrainData.heightmapScale.y;
+                float z = offset.z + j * TerrainData.heightmapScale.z;
+                Vector3 pos = new Vector3(x, y, z);
+                Vector3 testPos = pos + Vector3.up * raycastDistance;
                 RaycastHit hit;
-                if (Physics.Raycast(pos, Vector3.up, out hit, raycastDistance, LayerMask.GetMask("Water")))
+                if (Physics.Raycast(testPos, Vector3.down, out hit, raycastDistance, LayerMask.GetMask("Water")))
                 {
                     Debug.Log("hit");
                     float waterHeight = hit.point.y;

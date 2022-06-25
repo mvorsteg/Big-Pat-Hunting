@@ -4,6 +4,7 @@ public enum NoiseType
 {
     Footstep,
     Gunshot,
+    CarHorn,
     Misc,
 }
 /// <summary>

@@ -88,6 +88,10 @@ public class BulletImpactManager : MonoBehaviour
         {
             hitMaterial = MaterialType.Cloth;
         }
+        else if (hit.transform.CompareTag("Road"))
+        {
+            hitMaterial = MaterialType.Gravel;
+        }
         // attempt to get material from terrain
         else
         {

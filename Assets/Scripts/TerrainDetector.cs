@@ -33,10 +33,10 @@ public class TerrainDetector : MonoBehaviour
             Destroy(this);
         }
         terrainInfoDict = new Dictionary<(int, int), TerrainInfo>();
-        Terrain[] childTerrains = GetComponentsInChildren<Terrain>();
-        for (int i = 0; i < childTerrains.Length; i++)
+        Terrain[] terrains = FindObjectsOfType<Terrain>();
+        for (int i = 0; i < terrains.Length; i++)
         {
-            AddTerrain(childTerrains[i]);
+            AddTerrain(terrains[i]);
         }
     }
     

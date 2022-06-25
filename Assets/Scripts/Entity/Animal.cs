@@ -20,6 +20,8 @@ public class Animal : Entity
     protected AIState state;
     protected Rigidbody rb;
 
+    protected EntityStatusIndicator statusIndicator;
+
     protected float maxSpeed;
     protected float currentSpeed;
     protected float smoothSpeed;
@@ -42,6 +44,7 @@ public class Animal : Entity
         base.Awake();
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        statusIndicator = GetComponentInChildren<EntityStatusIndicator>();
     }
 
     // Start is called before the first frame update
@@ -136,6 +139,7 @@ public class Animal : Entity
     {
         this.state = state;
         anim.SetBool("idle", false);
+        anim.SetBool("freeze", false);
         switch (state)
         {
             case AIState.Idle :
@@ -163,6 +167,11 @@ public class Animal : Entity
                         f.SetState(AIState.Follow);
                     }
                 }
+                break;
+            case AIState.Freeze :
+                maxSpeed = 0;
+                agent.speed = 0;
+                anim.SetBool("freeze", true);
                 break;
             case AIState.Investigate :
                 maxSpeed = walkSpeed;
@@ -257,7 +266,11 @@ public class Animal : Entity
         // }
         NextDestination();
         // announce (to game manager) that we are fleeing
-        Messenger.SendMessage(MessageIDs.AnimalFlee, this);        
+        Messenger.SendMessage(MessageIDs.AnimalFlee, this); 
+        if (statusIndicator != null)
+        {
+            statusIndicator.Status = EntityStatus.Exclaim;  
+        }     
     }
 
     public void ExitBoundary()
@@ -325,6 +338,10 @@ public class Animal : Entity
         agent.enabled = false;
         rb.isKinematic = false;
         Messenger.SendMessage(MessageIDs.AnimalDeath, this);
+        if (statusIndicator != null)
+        {
+            statusIndicator.Status = EntityStatus.Dead;  
+        }     
     }
 
     /// <summary>

@@ -85,7 +85,8 @@ public class PlayerFootsteps : MonoBehaviour
         int terrainTextureIdx = -1;
         // check for water
         Debug.DrawRay(transform.position, Vector3.down, Color.black, 10f);
-        if (Physics.Raycast(transform.position, Vector3.down, 2f, waterMask))
+        //if (Physics.Raycast(transform.position, Vector3.down, 2f, waterMask))
+        if (Physics.Linecast(transform.position, groundCheck.position, waterMask))
             return MaterialType.Water;
         // check for everything else
         if (Physics.CheckSphere(groundCheck.position, groundDistance, terrainMask))

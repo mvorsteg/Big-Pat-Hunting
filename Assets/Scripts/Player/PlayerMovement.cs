@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource audioSource;
 
     private Vector3 velocity;
+    private Vector3 impact;
     private Vector3 hitNormal;
     private Vector3 slidingDirection;
     private float prevVelocityY;
@@ -71,6 +72,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        // add potential impact
+        if (impact.magnitude > 0.2)
+        {
+            cc.Move(impact * Time.deltaTime);
+        }
+        // consumes the impact energy each cycle:
+        impact = Vector3.Lerp(impact, Vector3.zero, 5 * Time.deltaTime);
+
         prevVelocityY = velocity.y;
         cameraController.Rotate(look.x, look.y);
         weaponHolder.Rotate(look.x, look.y);
@@ -102,8 +111,8 @@ public class PlayerMovement : MonoBehaviour
         //     isSliding = false;
         //     slidingDirection = Vector3.Lerp(Vector3.zero,;
         // }
-
         Vector3 inputMovement = transform.right * move.x + transform.forward * move.y;    
+        
         //cc.Move(inputMovement * speed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
@@ -134,11 +143,31 @@ public class PlayerMovement : MonoBehaviour
         weaponAnimator.SetBool("isGrounded", isGrounded);
     }    
 
+    /// <summary>
+    /// OnControllerColliderHit is called when the controller hits a
+    /// collider while performing a Move.
+    /// </summary>
+    /// <param name="hit">The ControllerColliderHit data associated with this collision.</param>
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        hitNormal = hit.normal;
+    }
+
     public void MoveToPosition(Vector3 position)
     {
         cc.enabled = false;
         transform.position = position;
         cc.enabled = true;
+    }
+
+    public void AddImpact(Vector3 dir, float force)
+    {
+        dir.Normalize();
+        if (dir.y < 0) 
+        {
+            dir.y = -dir.y; // reflect down force on the ground
+        }
+        impact += dir.normalized * force;
     }
 
     public void Jump()
@@ -205,10 +234,5 @@ public class PlayerMovement : MonoBehaviour
     private void OnPlayerDeath()
     {
 
-    }
-
-    void OnControllerColliderHit (ControllerColliderHit hit)
-    {
-        hitNormal = hit.normal;
     }
 }

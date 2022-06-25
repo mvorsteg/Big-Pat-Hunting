@@ -8,6 +8,7 @@ public abstract class Entity : MonoBehaviour
     {
         Idle,       // No movement
         Wander,     // Wandering aimlessly
+        Freeze,     // Freeze in place
         Flee,       // Running away from immediate danger
         Investigate,// Investigating a noise or something
         Follow,     // Following another entity
@@ -64,12 +65,16 @@ public abstract class Entity : MonoBehaviour
     /// <param name="info">The HitInfo struct that contains data for this hit.</param>
     public virtual void TakeDamage(HitInfo info)
     {
-        Debug.Log(transform.name + " took " + info.damage + " damage");
-        health -= info.damage;
-        if (health <= 0)
+        if (isAlive)
         {
-            Die(info);
+            Debug.Log(transform.name + " took " + info.damage + " damage");
+            health -= info.damage;
+            if (health <= 0)
+            {
+                Die(info);
+            }
         }
+        
     }
 
     protected virtual void Die(HitInfo info)
