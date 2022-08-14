@@ -20,6 +20,8 @@ public class Animal : Entity
     protected AIState state;
     protected Rigidbody rb;
 
+    protected Ragdoll ragdoll;
+
     protected EntityStatusIndicator statusIndicator;
 
     protected float maxSpeed;
@@ -37,6 +39,7 @@ public class Animal : Entity
 
     public AIState State { get => state; set => state = value; }
     public Vector3 Destination { get => endDestination; }
+
     public float ddd;
 
     protected override void Awake() 
@@ -45,6 +48,7 @@ public class Animal : Entity
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         statusIndicator = GetComponentInChildren<EntityStatusIndicator>();
+        ragdoll = GetComponent<Ragdoll>();
     }
 
     // Start is called before the first frame update
@@ -56,6 +60,10 @@ public class Animal : Entity
         agent.isStopped = true;
         path = new NavMeshPath();
         
+        if (ragdoll != null)
+        {
+            ragdoll.SetRagdoll(false);
+        }
     }
 
     // Update is called once per frame
@@ -337,6 +345,12 @@ public class Animal : Entity
         agent.isStopped = true;
         agent.enabled = false;
         rb.isKinematic = false;
+
+        if (ragdoll != null)
+        {
+            ragdoll.SetRagdoll(true);
+        }
+
         Messenger.SendMessage(MessageIDs.AnimalDeath, this);
         if (statusIndicator != null)
         {

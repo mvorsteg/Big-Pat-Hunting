@@ -397,6 +397,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""KillAllAnimals"",
+                    ""type"": ""Button"",
+                    ""id"": ""901327da-764b-4da2-b42b-3ddbc0273413"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -408,6 +416,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""KillYourself"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""295a88bf-67d0-474e-825a-51884e197ca7"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KillAllAnimals"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -443,6 +462,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_KillYourself = m_Debug.FindAction("KillYourself", throwIfNotFound: true);
+        m_Debug_KillAllAnimals = m_Debug.FindAction("KillAllAnimals", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -730,11 +750,13 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Debug;
     private IDebugActions m_DebugActionsCallbackInterface;
     private readonly InputAction m_Debug_KillYourself;
+    private readonly InputAction m_Debug_KillAllAnimals;
     public struct DebugActions
     {
         private @PlayerControls m_Wrapper;
         public DebugActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @KillYourself => m_Wrapper.m_Debug_KillYourself;
+        public InputAction @KillAllAnimals => m_Wrapper.m_Debug_KillAllAnimals;
         public InputActionMap Get() { return m_Wrapper.m_Debug; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -747,6 +769,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @KillYourself.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnKillYourself;
                 @KillYourself.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnKillYourself;
                 @KillYourself.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnKillYourself;
+                @KillAllAnimals.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnKillAllAnimals;
+                @KillAllAnimals.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnKillAllAnimals;
+                @KillAllAnimals.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnKillAllAnimals;
             }
             m_Wrapper.m_DebugActionsCallbackInterface = instance;
             if (instance != null)
@@ -754,6 +779,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @KillYourself.started += instance.OnKillYourself;
                 @KillYourself.performed += instance.OnKillYourself;
                 @KillYourself.canceled += instance.OnKillYourself;
+                @KillAllAnimals.started += instance.OnKillAllAnimals;
+                @KillAllAnimals.performed += instance.OnKillAllAnimals;
+                @KillAllAnimals.canceled += instance.OnKillAllAnimals;
             }
         }
     }
@@ -790,5 +818,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IDebugActions
     {
         void OnKillYourself(InputAction.CallbackContext context);
+        void OnKillAllAnimals(InputAction.CallbackContext context);
     }
 }

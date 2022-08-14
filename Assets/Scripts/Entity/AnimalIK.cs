@@ -71,8 +71,11 @@ public class AnimalIK : MonoBehaviour
 
     private void LateUpdate()
     {
-        UpdateLegBones();
-        SolveLegIK();
+        if (animal.IsAlive)
+        {
+            UpdateLegBones();
+            SolveLegIK();
+        }
     }
 
 

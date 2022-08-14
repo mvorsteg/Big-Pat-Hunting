@@ -13,6 +13,8 @@ public class PlayerInput : MonoBehaviour
     public bool paused = false;
     public bool aiming = false;
 
+    public bool isDebug = false;
+
     private UnityAction onLevelStart;
     private UnityAction onLevelEnd;
     private UnityAction onBulletTimeStart;
@@ -55,7 +57,8 @@ public class PlayerInput : MonoBehaviour
 
         controls.AnyKey.AnyKey.performed += ctx => AnyKeyPressed();
 
-        controls.Debug.KillYourself.performed += ctx => player.TakeDamage(FallDamage.CalculateHit(player, -1000));
+        controls.Debug.KillYourself.performed += ctx => DebugCommands.KillPlayer();
+        controls.Debug.KillAllAnimals.performed += ctx => DebugCommands.KillAnimals();
 
         controls.PauseMenu.Pause.performed += ctx => TogglePause();
        
@@ -74,6 +77,10 @@ public class PlayerInput : MonoBehaviour
         controls.Movement.Enable();
         controls.PauseMenu.Enable();
         controls.AnyKey.Enable();
+        if (isDebug)
+        {
+            controls.Debug.Enable();
+        }
 
         Messenger.Subscribe(MessageIDs.LevelStart, onLevelStart);
         Messenger.Subscribe(MessageIDs.LevelEnd, onLevelEnd);
@@ -87,6 +94,7 @@ public class PlayerInput : MonoBehaviour
         controls.Movement.Disable();
         controls.PauseMenu.Disable();
         controls.AnyKey.Disable();
+        controls.Debug.Disable();
 
         Messenger.Unsubscribe(MessageIDs.LevelStart, onLevelStart);
         Messenger.Unsubscribe(MessageIDs.LevelEnd, onLevelEnd);

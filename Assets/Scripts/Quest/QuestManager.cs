@@ -209,6 +209,7 @@ public class QuestManager : MonoBehaviour
     /// <returns>If the shot will end the day</returns>
     public static bool IsGoingToBeLastShot(Entity entity, float damage)
     {
+        return false;
         if (instance.quests.Count == 1)
         {
             if (instance.quests[0] is KillQuest)

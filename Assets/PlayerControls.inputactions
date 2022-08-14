@@ -384,6 +384,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "KillAllAnimals",
+                    "type": "Button",
+                    "id": "901327da-764b-4da2-b42b-3ddbc0273413",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -395,6 +403,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "KillYourself",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "295a88bf-67d0-474e-825a-51884e197ca7",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KillAllAnimals",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
