@@ -18,6 +18,7 @@
 /[Aa]ssets/**/Gaia Pro Sample
 /[Aa]ssets/**/NatureManufacture Assets/
 /[Aa]ssets/**/Procedural Worlds/
+/[Aa]ssets/**/Skye_Modular_Cliff_Pack_1/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta

@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
                 HitInfo info = FallDamage.CalculateHit(GetComponent<Player>(), prevVelocityY);
                 //HitInfo info = new HitInfo(fallDamageVelocity - prevVelocityY, FallDamage.CalculateDamage(), 0, Vector3.down, FallDamage.instance);
                 GetComponent<Player>().TakeDamage(info);
-                Debug.Log("Falldmaage " + prevVelocityY);
+                Debug.Log("Player fell from " + info.distance + " and took " + info.damage + " damage");
                 //player
             }
 

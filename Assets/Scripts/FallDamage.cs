@@ -7,6 +7,9 @@ public class FallDamage : MonoBehaviour, IDamageSource
     public static FallDamage instance;
     public static float minVelocity = -18f;
 
+    public float safeHeight = 3f;
+    public float killHeight = 10f;
+
     private static float minDamage;
     private static float maxDamage;
 
@@ -21,16 +24,26 @@ public class FallDamage : MonoBehaviour, IDamageSource
     {
         maxDamage = inMaxHealth;
         minDamage = maxDamage / 3;    
+
+        // safeVelocity = instance.safeHeight * -9.81f;
+        // killVelocity = instance.killHeight * -9.81f; 
     }
 
     public static HitInfo CalculateHit(Entity entity, float velocity)
     {
         instance.hitPositon = entity.transform;
         
-        float distance = (velocity * velocity) / (2 * -9.81f);
-        float damage = -4f * (velocity - minVelocity);
-        damage = Mathf.Clamp(damage, minDamage, maxDamage);
-        HitInfo info = new HitInfo(damage, distance, 0f, Vector3.down, instance);
+        float velocityAdjusted = velocity + 2f;
+        float height = Mathf.Abs((velocityAdjusted * velocityAdjusted) / (2f * -9.81f));
+        // float damage = -4f * (velocity - minVelocity);
+        // damage = Mathf.Clamp(damage, minDamage, maxDamage);
+        float damage = 0;
+        if (height > instance.safeHeight)
+        {
+            float heightNormalized = height / instance.killHeight;
+            damage = Mathf.Lerp(minDamage, maxDamage, heightNormalized);
+        }
+        HitInfo info = new HitInfo(damage, height, 0f, Vector3.down, instance);
         return info;
     }
 

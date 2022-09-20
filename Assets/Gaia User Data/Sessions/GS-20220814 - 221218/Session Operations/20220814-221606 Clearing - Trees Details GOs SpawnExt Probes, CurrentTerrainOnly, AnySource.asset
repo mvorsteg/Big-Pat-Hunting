@@ -1,0 +1,1852 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c6e2812e73b674b85b77fb46a715b8, type: 3}
+  m_Name: 20220814-221606 Clearing - Trees Details GOs SpawnExt Probes, CurrentTerrainOnly,
+    AnySource
+  m_EditorClassIdentifier: 
+  m_clearTrees: 1
+  m_clearTerrainDetails: 1
+  m_clearGameObjects: 1
+  m_clearSpawnExtensions: 1
+  m_clearProbes: 1
+  m_clearStamps: 0
+  m_clearSpawnFrom: 0
+  m_clearSpawnFor: 0
+  m_spawnerSettings: {fileID: 2859247717243675313}
+--- !u!114 &2859247717243675313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d61257710f55f478816040e1d1dfc9, type: 3}
+  m_Name: GR_Biome Biome Combined(Clone)
+  m_EditorClassIdentifier: 
+  m_resources:
+    m_resourcesID: ee4c5c85-795d-4aa5-9eef-14523f096ad4
+    m_name: Gaia Resource
+    m_beachHeight: 5
+    m_terrainHeight: 1000
+    m_texturePrototypes:
+    - m_name: T_Ground_Sand_02_A_Sm
+      m_texture: {fileID: 2800000, guid: ae548727ed0abc645ad76b70534ca74f, type: 3}
+      m_textureFileName: 
+      m_normal: {fileID: 2800000, guid: 78e598f8d69ec7e4cb840837fea58ed0, type: 3}
+      m_maskmap: {fileID: 2800000, guid: 6b731a1af70a6ae489f89086bd22b7c8, type: 3}
+      m_CTSSmoothnessMap: {fileID: 0}
+      m_CTSRoughnessMap: {fileID: 0}
+      m_CTSHeightMap: {fileID: 0}
+      m_CTSAmbientOcclusionMap: {fileID: 0}
+      m_normalFileName: 
+      m_sizeX: 8
+      m_sizeY: 8
+      m_offsetX: 0
+      m_offsetY: 0
+      m_metallic: 0.2
+      m_smoothness: 0.5
+      m_spawnCriteria: []
+      m_LayerGUID: ac4623bdf5c2dd64f9f99fe78d5f3386
+      m_normalScale: 1.2
+      m_diffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_diffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_maskMapRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_maskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_specularColor: {r: 0, g: 0, b: 0, a: 0}
+      m_channelRemapFoldedOut: 0
+    - m_name: T_ground_grass_01_A_SM
+      m_texture: {fileID: 2800000, guid: f9201c5f8c4e7b542b1eafa168ed4560, type: 3}
+      m_textureFileName: 
+      m_normal: {fileID: 2800000, guid: 7c5817f41e3535a409132646f777d88f, type: 3}
+      m_maskmap: {fileID: 2800000, guid: 278dc5a6f3c1f504d9bb12ddf85fc69b, type: 3}
+      m_CTSSmoothnessMap: {fileID: 0}
+      m_CTSRoughnessMap: {fileID: 0}
+      m_CTSHeightMap: {fileID: 0}
+      m_CTSAmbientOcclusionMap: {fileID: 0}
+      m_normalFileName: 
+      m_sizeX: 2
+      m_sizeY: 2
+      m_offsetX: 0
+      m_offsetY: 0
+      m_metallic: 0.1
+      m_smoothness: 0.1
+      m_spawnCriteria: []
+      m_LayerGUID: 10798c678e65b1f4b897a7a4401510ef
+      m_normalScale: 1
+      m_diffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_diffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_maskMapRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_maskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_specularColor: {r: 0, g: 0, b: 0, a: 0}
+      m_channelRemapFoldedOut: 0
+    - m_name: T_ground_rock_02_A_SM
+      m_texture: {fileID: 2800000, guid: 8a7099f7a8c2b164c98d85452d5c6437, type: 3}
+      m_textureFileName: 
+      m_normal: {fileID: 2800000, guid: b7845ca166ee0064abf1cc670193440f, type: 3}
+      m_maskmap: {fileID: 2800000, guid: d3ab87e2f1c77a7419fbc9f89b4c0252, type: 3}
+      m_CTSSmoothnessMap: {fileID: 0}
+      m_CTSRoughnessMap: {fileID: 0}
+      m_CTSHeightMap: {fileID: 0}
+      m_CTSAmbientOcclusionMap: {fileID: 0}
+      m_normalFileName: 
+      m_sizeX: 8
+      m_sizeY: 8
+      m_offsetX: 0
+      m_offsetY: 0
+      m_metallic: 0.5
+      m_smoothness: 0.2
+      m_spawnCriteria: []
+      m_LayerGUID: aba0aedf0622fd446a580d328430d023
+      m_normalScale: 1
+      m_diffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_diffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_maskMapRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_maskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_specularColor: {r: 0, g: 0, b: 0, a: 0}
+      m_channelRemapFoldedOut: 0
+    - m_name: T_ground_rock_01_A_SM
+      m_texture: {fileID: 2800000, guid: 576d0f813a04b4241b8b4cc2cd4a802b, type: 3}
+      m_textureFileName: 
+      m_normal: {fileID: 2800000, guid: cc9e8612e46995f48b855e16d7a4b3e4, type: 3}
+      m_maskmap: {fileID: 2800000, guid: 11f4af343d3f55f46a53cdb58d385557, type: 3}
+      m_CTSSmoothnessMap: {fileID: 0}
+      m_CTSRoughnessMap: {fileID: 0}
+      m_CTSHeightMap: {fileID: 0}
+      m_CTSAmbientOcclusionMap: {fileID: 0}
+      m_normalFileName: 
+      m_sizeX: 8
+      m_sizeY: 8
+      m_offsetX: 0
+      m_offsetY: 0
+      m_metallic: 0.5
+      m_smoothness: 0.2
+      m_spawnCriteria: []
+      m_LayerGUID: 47c0b616de538e24694567ec9011ff17
+      m_normalScale: 1
+      m_diffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_diffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_maskMapRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_maskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_specularColor: {r: 0, g: 0, b: 0, a: 0}
+      m_channelRemapFoldedOut: 0
+    - m_name: T_ground_beech_forest_soil_01_BC_SM
+      m_texture: {fileID: 2800000, guid: 2d286ecf643e7314989e0c27af290aad, type: 3}
+      m_textureFileName: 
+      m_normal: {fileID: 2800000, guid: 352e3ca834b69d440b37ab66433b63e4, type: 3}
+      m_maskmap: {fileID: 2800000, guid: 165496e557f7fc1408a617095c6f5613, type: 3}
+      m_CTSSmoothnessMap: {fileID: 0}
+      m_CTSRoughnessMap: {fileID: 0}
+      m_CTSHeightMap: {fileID: 0}
+      m_CTSAmbientOcclusionMap: {fileID: 0}
+      m_normalFileName: 
+      m_sizeX: 8
+      m_sizeY: 8
+      m_offsetX: 0
+      m_offsetY: 0
+      m_metallic: 0
+      m_smoothness: 0
+      m_spawnCriteria: []
+      m_LayerGUID: bd11db359c969144eba1d69905b014b2
+      m_normalScale: 1
+      m_diffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_diffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_maskMapRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_maskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_specularColor: {r: 0, g: 0, b: 0, a: 0}
+      m_channelRemapFoldedOut: 0
+    - m_name: T_ground_beech_forest_leaves_01_BC_SM
+      m_texture: {fileID: 2800000, guid: 5af05d805d74c974286984104e05ccd9, type: 3}
+      m_textureFileName: 
+      m_normal: {fileID: 2800000, guid: 3905e92499e0b194587776e8f6cd4c75, type: 3}
+      m_maskmap: {fileID: 2800000, guid: 09741e4705fa89b4e92c8135aea63d5e, type: 3}
+      m_CTSSmoothnessMap: {fileID: 0}
+      m_CTSRoughnessMap: {fileID: 0}
+      m_CTSHeightMap: {fileID: 0}
+      m_CTSAmbientOcclusionMap: {fileID: 0}
+      m_normalFileName: 
+      m_sizeX: 8
+      m_sizeY: 8
+      m_offsetX: 0
+      m_offsetY: 0
+      m_metallic: 0
+      m_smoothness: 0
+      m_spawnCriteria: []
+      m_LayerGUID: 84ca9197c57da504f86d819ddfccd7e2
+      m_normalScale: 1
+      m_diffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_diffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_maskMapRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_maskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_specularColor: {r: 0, g: 0, b: 0, a: 0}
+      m_channelRemapFoldedOut: 0
+    - m_name: T_ground_beech_forest_leaves_01_BC_SM (1)
+      m_texture: {fileID: 2800000, guid: 5af05d805d74c974286984104e05ccd9, type: 3}
+      m_textureFileName: 
+      m_normal: {fileID: 2800000, guid: 3905e92499e0b194587776e8f6cd4c75, type: 3}
+      m_maskmap: {fileID: 2800000, guid: 09741e4705fa89b4e92c8135aea63d5e, type: 3}
+      m_CTSSmoothnessMap: {fileID: 0}
+      m_CTSRoughnessMap: {fileID: 0}
+      m_CTSHeightMap: {fileID: 0}
+      m_CTSAmbientOcclusionMap: {fileID: 0}
+      m_normalFileName: 
+      m_sizeX: 8
+      m_sizeY: 8
+      m_offsetX: 0
+      m_offsetY: 0
+      m_metallic: 0
+      m_smoothness: 0
+      m_spawnCriteria: []
+      m_LayerGUID: 
+      m_normalScale: 1
+      m_diffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_diffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_maskMapRemapMax: {x: 1, y: 1, z: 1, w: 1}
+      m_maskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
+      m_specularColor: {r: 0, g: 0, b: 0, a: 0}
+      m_channelRemapFoldedOut: 0
+    m_detailPrototypes:
+    - m_name: GRASS2
+      m_renderMode: 2
+      m_useInstancing: 0
+      m_detailProtoype: {fileID: 0}
+      m_detailPrototypeFileName: 
+      m_detailTexture: {fileID: 2800000, guid: 03a2f1bce960681489c3692bcf5a8113, type: 3}
+      m_detailTextureFileName: 
+      m_minWidth: 1
+      m_maxWidth: 2
+      m_minHeight: 0.5
+      m_maxHeight: 1
+      m_noiseSpread: 3
+      m_healthyColour: {r: 1, g: 1, b: 1, a: 1}
+      m_dryColour: {r: 1, g: 1, b: 1, a: 1}
+      m_useFlora: 0
+      m_floraLODs:
+      - m_index: 0
+        m_foldedOut: 0
+        m_spawnerResourceType: 1
+        m_name: PW_Grass_Patch_03
+        m_detailerSettingsObjectAssetGUID: 73049ac12c97b4c4d8547330a2b13c8b
+        m_detailerSettingsObjectInstanceID: -721062
+      - m_index: 1
+        m_foldedOut: 0
+        m_spawnerResourceType: 1
+        m_name: PW_Grass_Patch_03
+        m_detailerSettingsObjectAssetGUID: 73049ac12c97b4c4d8547330a2b13c8b
+        m_detailerSettingsObjectInstanceID: -721064
+      m_dna:
+        m_boundsRadius: 1
+        m_scaleMultiplier: 1
+        m_extParam: 
+        m_protoIdx: 0
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_dnaFoldedOut: 0
+    - m_name: New Terrain Detail 1
+      m_renderMode: 2
+      m_useInstancing: 0
+      m_detailProtoype: {fileID: 0}
+      m_detailPrototypeFileName: 
+      m_detailTexture: {fileID: 0}
+      m_detailTextureFileName: 
+      m_minWidth: 1
+      m_maxWidth: 2
+      m_minHeight: 1
+      m_maxHeight: 2
+      m_noiseSpread: 0.3
+      m_healthyColour: {r: 1, g: 1, b: 1, a: 1}
+      m_dryColour: {r: 1, g: 1, b: 1, a: 1}
+      m_useFlora: 0
+      m_floraLODs: []
+      m_dna:
+        m_boundsRadius: 1
+        m_scaleMultiplier: 1
+        m_extParam: 
+        m_protoIdx: 0
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_dnaFoldedOut: 0
+    - m_name: prefab_Unity_Terrain_grass_01_4
+      m_renderMode: 2
+      m_useInstancing: 0
+      m_detailProtoype: {fileID: 5571927646685958188, guid: 50d47680821dd7f46b6b013490e6e52e, type: 3}
+      m_detailPrototypeFileName: 
+      m_detailTexture: {fileID: 0}
+      m_detailTextureFileName: 
+      m_minWidth: 11.568207
+      m_maxWidth: 13.968206
+      m_minHeight: 11.793686
+      m_maxHeight: 13.793686
+      m_noiseSpread: 0.3
+      m_healthyColour: {r: 1, g: 1, b: 1, a: 1}
+      m_dryColour: {r: 1, g: 1, b: 1, a: 1}
+      m_useFlora: 0
+      m_floraLODs: []
+      m_dna:
+        m_boundsRadius: 1
+        m_scaleMultiplier: 1
+        m_extParam: 
+        m_protoIdx: 0
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_dnaFoldedOut: 0
+    - m_name: GRASS2
+      m_renderMode: 2
+      m_useInstancing: 0
+      m_detailProtoype: {fileID: 0}
+      m_detailPrototypeFileName: 
+      m_detailTexture: {fileID: 2800000, guid: 03a2f1bce960681489c3692bcf5a8113, type: 3}
+      m_detailTextureFileName: 
+      m_minWidth: 1.5
+      m_maxWidth: 2
+      m_minHeight: 0.5
+      m_maxHeight: 1
+      m_noiseSpread: 3
+      m_healthyColour: {r: 1, g: 1, b: 1, a: 1}
+      m_dryColour: {r: 1, g: 1, b: 1, a: 1}
+      m_useFlora: 0
+      m_floraLODs:
+      - m_index: 0
+        m_foldedOut: 0
+        m_spawnerResourceType: 1
+        m_name: PW_Grass_Patch_03
+        m_detailerSettingsObjectAssetGUID: 73049ac12c97b4c4d8547330a2b13c8b
+        m_detailerSettingsObjectInstanceID: -721062
+      - m_index: 1
+        m_foldedOut: 0
+        m_spawnerResourceType: 1
+        m_name: PW_Grass_Patch_03
+        m_detailerSettingsObjectAssetGUID: 73049ac12c97b4c4d8547330a2b13c8b
+        m_detailerSettingsObjectInstanceID: -721064
+      m_dna:
+        m_boundsRadius: 1
+        m_scaleMultiplier: 1
+        m_extParam: 
+        m_protoIdx: 0
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_dnaFoldedOut: 0
+    m_treePrototypes:
+    - m_name: prefab_beech_tree_01
+      m_desktopPrefab: {fileID: 7078907134251479745, guid: 915b43792ae342d4ba5fa425e86cc6f4, type: 3}
+      m_desktopPrefabFileName: 
+      m_mobilePrefabFileName: 
+      m_bendFactor: 21.1
+      m_healthyColour: {r: 1, g: 1, b: 1, a: 1}
+      m_dryColour: {r: 1, g: 1, b: 1, a: 1}
+      m_snapToTerrain: 1
+      m_customOffset: 0
+      m_minYOffset: -2
+      m_maxYOffset: 2
+      m_yOffsetBasedOn: 0
+      m_spawnScale: 3
+      m_minWidth: 0.75
+      m_maxWidth: 1.5
+      m_minHeight: 0.75
+      m_maxHeight: 1.5
+      m_widthRandomPercentage: 0.5
+      m_heightRandomPercentage: 0.5
+      m_lastUsedSpawnScale: 3
+      m_lastUsedMinWidth: 0.75
+      m_lastUsedMaxWidth: 1.5
+      m_lastUsedMinHeight: 0.75
+      m_lastUsedMaxHeight: 1.5
+      m_lastUsedWidthRandomPercentage: 0.5
+      m_lastUsedHeightRandomPercentage: 0.5
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_instancesFoldOut: 0
+      m_dnaFoldedOut: 0
+      m_useFlora: 0
+      m_floraLODs: []
+      m_detailerSettingsObjectAssetGUID: 
+      m_detailerSettingsObjectInstanceID: 0
+    - m_name: prefab_beech_tree_02
+      m_desktopPrefab: {fileID: 2639178135799527569, guid: 2c71f3bb1758e824494c5a4a16c89015, type: 3}
+      m_desktopPrefabFileName: 
+      m_mobilePrefabFileName: 
+      m_bendFactor: 21.1
+      m_healthyColour: {r: 1, g: 1, b: 1, a: 1}
+      m_dryColour: {r: 1, g: 1, b: 1, a: 1}
+      m_snapToTerrain: 1
+      m_customOffset: 0
+      m_minYOffset: -2
+      m_maxYOffset: 2
+      m_yOffsetBasedOn: 0
+      m_spawnScale: 3
+      m_minWidth: 0.75
+      m_maxWidth: 1.5
+      m_minHeight: 0.75
+      m_maxHeight: 1.5
+      m_widthRandomPercentage: 0.5
+      m_heightRandomPercentage: 0.5
+      m_lastUsedSpawnScale: 3
+      m_lastUsedMinWidth: 0.75
+      m_lastUsedMaxWidth: 1.5
+      m_lastUsedMinHeight: 0.75
+      m_lastUsedMaxHeight: 1.5
+      m_lastUsedWidthRandomPercentage: 0.5
+      m_lastUsedHeightRandomPercentage: 0.5
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_instancesFoldOut: 0
+      m_dnaFoldedOut: 0
+      m_useFlora: 0
+      m_floraLODs: []
+      m_detailerSettingsObjectAssetGUID: 
+      m_detailerSettingsObjectInstanceID: 0
+    - m_name: prefab_beech_tree_03
+      m_desktopPrefab: {fileID: 1358054364387221446, guid: 016dad81e5bfd3e49a340179fb4e1150, type: 3}
+      m_desktopPrefabFileName: 
+      m_mobilePrefabFileName: 
+      m_bendFactor: 21.1
+      m_healthyColour: {r: 1, g: 1, b: 1, a: 1}
+      m_dryColour: {r: 1, g: 1, b: 1, a: 1}
+      m_snapToTerrain: 0
+      m_customOffset: 0
+      m_minYOffset: -2
+      m_maxYOffset: -2
+      m_yOffsetBasedOn: 0
+      m_spawnScale: 3
+      m_minWidth: 0.75
+      m_maxWidth: 1.5
+      m_minHeight: 0.75
+      m_maxHeight: 1.5
+      m_widthRandomPercentage: 0.5
+      m_heightRandomPercentage: 0.5
+      m_lastUsedSpawnScale: 3
+      m_lastUsedMinWidth: 0.75
+      m_lastUsedMaxWidth: 1.5
+      m_lastUsedMinHeight: 0.75
+      m_lastUsedMaxHeight: 1.5
+      m_lastUsedWidthRandomPercentage: 0.5
+      m_lastUsedHeightRandomPercentage: 0.5
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_instancesFoldOut: 0
+      m_dnaFoldedOut: 0
+      m_useFlora: 0
+      m_floraLODs: []
+      m_detailerSettingsObjectAssetGUID: 
+      m_detailerSettingsObjectInstanceID: 0
+    - m_name: prefab_beech_tree_04
+      m_desktopPrefab: {fileID: 5556296651694026700, guid: 19df7a28074cb284a8aa8562718310f5, type: 3}
+      m_desktopPrefabFileName: 
+      m_mobilePrefabFileName: 
+      m_bendFactor: 21.1
+      m_healthyColour: {r: 1, g: 1, b: 1, a: 1}
+      m_dryColour: {r: 1, g: 1, b: 1, a: 1}
+      m_snapToTerrain: 1
+      m_customOffset: 0
+      m_minYOffset: -2
+      m_maxYOffset: 2
+      m_yOffsetBasedOn: 0
+      m_spawnScale: 3
+      m_minWidth: 0.75
+      m_maxWidth: 1.5
+      m_minHeight: 0.75
+      m_maxHeight: 1.5
+      m_widthRandomPercentage: 0.5
+      m_heightRandomPercentage: 0.5
+      m_lastUsedSpawnScale: 3
+      m_lastUsedMinWidth: 0.75
+      m_lastUsedMaxWidth: 1.5
+      m_lastUsedMinHeight: 0.75
+      m_lastUsedMaxHeight: 1.5
+      m_lastUsedWidthRandomPercentage: 0.5
+      m_lastUsedHeightRandomPercentage: 0.5
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_instancesFoldOut: 0
+      m_dnaFoldedOut: 0
+      m_useFlora: 0
+      m_floraLODs: []
+      m_detailerSettingsObjectAssetGUID: 
+      m_detailerSettingsObjectInstanceID: 0
+    - m_name: prefab_beech_tree_05
+      m_desktopPrefab: {fileID: 5541041778127469509, guid: 4bc7a3a4d2ed6974abae4e0cba00575a, type: 3}
+      m_desktopPrefabFileName: 
+      m_mobilePrefabFileName: 
+      m_bendFactor: 21.1
+      m_healthyColour: {r: 1, g: 1, b: 1, a: 1}
+      m_dryColour: {r: 1, g: 1, b: 1, a: 1}
+      m_snapToTerrain: 1
+      m_customOffset: 0
+      m_minYOffset: -2
+      m_maxYOffset: 2
+      m_yOffsetBasedOn: 0
+      m_spawnScale: 3
+      m_minWidth: 0.75
+      m_maxWidth: 1.5
+      m_minHeight: 0.75
+      m_maxHeight: 1.5
+      m_widthRandomPercentage: 0.5
+      m_heightRandomPercentage: 0.5
+      m_lastUsedSpawnScale: 3
+      m_lastUsedMinWidth: 0.75
+      m_lastUsedMaxWidth: 1.5
+      m_lastUsedMinHeight: 0.75
+      m_lastUsedMaxHeight: 1.5
+      m_lastUsedWidthRandomPercentage: 0.5
+      m_lastUsedHeightRandomPercentage: 0.5
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_instancesFoldOut: 0
+      m_dnaFoldedOut: 0
+      m_useFlora: 0
+      m_floraLODs: []
+      m_detailerSettingsObjectAssetGUID: 
+      m_detailerSettingsObjectInstanceID: 0
+    m_gameObjectPrototypes:
+    - m_name: Grass
+      m_instances:
+      - m_name: grass_beech_1_1
+        m_desktopPrefab: {fileID: 100000, guid: 0fa07d932dfb84c4b8d3fba76793e5c1, type: 3}
+        m_desktopPrefabFileName: 
+        m_minInstances: 7
+        m_maxInstances: 15
+        m_failureRate: 0.5
+        m_minSpawnOffsetX: -2.5
+        m_maxSpawnOffsetX: 2.5
+        m_minSpawnOffsetY: -0.1
+        m_maxSpawnOffsetY: 0
+        m_minSpawnOffsetZ: -2.5
+        m_maxSpawnOffsetZ: 2.5
+        m_rotateToSlope: 0
+        m_alignForwardVectorToSlope: 0
+        m_yOffsetToSlope: 0
+        m_minRotationOffsetX: 0
+        m_maxRotationOffsetX: 0
+        m_minRotationOffsetY: 0
+        m_maxRotationOffsetY: 360
+        m_minRotationOffsetZ: 0
+        m_maxRotationOffsetZ: 0
+        m_minScale: 2
+        m_maxScale: 4
+        m_scaleByDistance:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_localBounds: 5
+        m_virginTerrain: 1
+        m_extParam: 
+        m_spawnScale: 3
+        m_commonScale: 1
+        m_minXYZScale: {x: 0.75, y: 0.75, z: 0.75}
+        m_maxXYZScale: {x: 1.5, y: 1.5, z: 1.5}
+        m_scaleRandomPercentage: 0.317
+        m_XYZScaleRandomPercentage: {x: 0.5, y: 0.5, z: 0.5}
+        m_foldedOut: 1
+        m_yOffsetBasedOn: 0
+        m_customOffset: 0
+      - m_name: grass_beech_1_2
+        m_desktopPrefab: {fileID: 100000, guid: ba54c1401f1ebd3409aa51649e84c4d8, type: 3}
+        m_desktopPrefabFileName: 
+        m_minInstances: 5
+        m_maxInstances: 9
+        m_failureRate: 0.5
+        m_minSpawnOffsetX: -2.1
+        m_maxSpawnOffsetX: 2.1
+        m_minSpawnOffsetY: -0.2
+        m_maxSpawnOffsetY: -0.1
+        m_minSpawnOffsetZ: -2.1
+        m_maxSpawnOffsetZ: 2.1
+        m_rotateToSlope: 0
+        m_alignForwardVectorToSlope: 0
+        m_yOffsetToSlope: 0
+        m_minRotationOffsetX: 0
+        m_maxRotationOffsetX: 0
+        m_minRotationOffsetY: 0
+        m_maxRotationOffsetY: 360
+        m_minRotationOffsetZ: 0
+        m_maxRotationOffsetZ: 0
+        m_minScale: 2
+        m_maxScale: 3
+        m_scaleByDistance:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_localBounds: 5
+        m_virginTerrain: 1
+        m_extParam: 
+        m_spawnScale: 3
+        m_commonScale: 1
+        m_minXYZScale: {x: 0.75, y: 0.75, z: 0.75}
+        m_maxXYZScale: {x: 1.5, y: 1.5, z: 1.5}
+        m_scaleRandomPercentage: 0.5
+        m_XYZScaleRandomPercentage: {x: 0.5, y: 0.5, z: 0.5}
+        m_foldedOut: 0
+        m_yOffsetBasedOn: 0
+        m_customOffset: 0
+      m_dna:
+        m_boundsRadius: 1
+        m_scaleMultiplier: 1
+        m_extParam: 
+        m_protoIdx: 0
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_canSpawnAsTree: 0
+      m_instancesFoldOut: 1
+      m_dnaFoldedOut: 0
+    - m_name: New Game Object 1
+      m_instances: []
+      m_dna:
+        m_boundsRadius: 1
+        m_scaleMultiplier: 1
+        m_extParam: 
+        m_protoIdx: 0
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_canSpawnAsTree: 0
+      m_instancesFoldOut: 0
+      m_dnaFoldedOut: 0
+    - m_name: Grass (1)
+      m_instances:
+      - m_name: grass_beech_1_1
+        m_desktopPrefab: {fileID: 100000, guid: 0fa07d932dfb84c4b8d3fba76793e5c1, type: 3}
+        m_desktopPrefabFileName: 
+        m_minInstances: 7
+        m_maxInstances: 15
+        m_failureRate: 0.5
+        m_minSpawnOffsetX: -2.5
+        m_maxSpawnOffsetX: 2.5
+        m_minSpawnOffsetY: -0.1
+        m_maxSpawnOffsetY: 0
+        m_minSpawnOffsetZ: -2.5
+        m_maxSpawnOffsetZ: 2.5
+        m_rotateToSlope: 0
+        m_alignForwardVectorToSlope: 0
+        m_yOffsetToSlope: 0
+        m_minRotationOffsetX: 0
+        m_maxRotationOffsetX: 0
+        m_minRotationOffsetY: 0
+        m_maxRotationOffsetY: 360
+        m_minRotationOffsetZ: 0
+        m_maxRotationOffsetZ: 0
+        m_minScale: 2
+        m_maxScale: 4
+        m_scaleByDistance:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_localBounds: 5
+        m_virginTerrain: 1
+        m_extParam: 
+        m_spawnScale: 3
+        m_commonScale: 1
+        m_minXYZScale: {x: 0.75, y: 0.75, z: 0.75}
+        m_maxXYZScale: {x: 1.5, y: 1.5, z: 1.5}
+        m_scaleRandomPercentage: 0.317
+        m_XYZScaleRandomPercentage: {x: 0.5, y: 0.5, z: 0.5}
+        m_foldedOut: 0
+        m_yOffsetBasedOn: 0
+        m_customOffset: 0
+      - m_name: grass_beech_1_2
+        m_desktopPrefab: {fileID: 100000, guid: ba54c1401f1ebd3409aa51649e84c4d8, type: 3}
+        m_desktopPrefabFileName: 
+        m_minInstances: 5
+        m_maxInstances: 9
+        m_failureRate: 0.5
+        m_minSpawnOffsetX: -2.1
+        m_maxSpawnOffsetX: 2.1
+        m_minSpawnOffsetY: -0.2
+        m_maxSpawnOffsetY: -0.1
+        m_minSpawnOffsetZ: -2.1
+        m_maxSpawnOffsetZ: 2.1
+        m_rotateToSlope: 0
+        m_alignForwardVectorToSlope: 0
+        m_yOffsetToSlope: 0
+        m_minRotationOffsetX: 0
+        m_maxRotationOffsetX: 0
+        m_minRotationOffsetY: 0
+        m_maxRotationOffsetY: 360
+        m_minRotationOffsetZ: 0
+        m_maxRotationOffsetZ: 0
+        m_minScale: 2
+        m_maxScale: 3
+        m_scaleByDistance:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_localBounds: 5
+        m_virginTerrain: 1
+        m_extParam: 
+        m_spawnScale: 3
+        m_commonScale: 1
+        m_minXYZScale: {x: 0.75, y: 0.75, z: 0.75}
+        m_maxXYZScale: {x: 1.5, y: 1.5, z: 1.5}
+        m_scaleRandomPercentage: 0.5
+        m_XYZScaleRandomPercentage: {x: 0.5, y: 0.5, z: 0.5}
+        m_foldedOut: 0
+        m_yOffsetBasedOn: 0
+        m_customOffset: 0
+      m_dna:
+        m_boundsRadius: 1
+        m_scaleMultiplier: 1
+        m_extParam: 
+        m_protoIdx: 0
+      m_spawnCriteria: []
+      m_spawnExtensions: []
+      m_canSpawnAsTree: 0
+      m_instancesFoldOut: 1
+      m_dnaFoldedOut: 0
+    - m_name: PW_Stone_01
+      m_instances:
+      - m_name: PW_Stone_01
+        m_desktopPrefab: {fileID: 3242204568188846338, guid: 35348ac853f10584a9e52b978af197f9, type: 3}
+        m_desktopPrefabFileName: 
+        m_minInstances: 1
+        m_maxInstances: 1
+        m_failureRate: 0
+        m_minSpawnOffsetX: -0.11879045
+        m_maxSpawnOffsetX: 0
+        m_minSpawnOffsetY: -0.25
+        m_maxSpawnOffsetY: -0.24
+        m_minSpawnOffsetZ: -0.17217243
+        m_maxSpawnOffsetZ: 0
+        m_rotateToSlope: 1
+        m_alignForwardVectorToSlope: 0
+        m_yOffsetToSlope: 0
+        m_minRotationOffsetX: -0
+        m_maxRotationOffsetX: -0
+        m_minRotationOffsetY: 0
+        m_maxRotationOffsetY: 0
+        m_minRotationOffsetZ: 0
+        m_maxRotationOffsetZ: 0
+        m_minScale: 1
+        m_maxScale: 3
+        m_scaleByDistance:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_localBounds: 1.7718587
+        m_virginTerrain: 0
+        m_extParam: 
+        m_spawnScale: 2
+        m_commonScale: 1
+        m_minXYZScale: {x: 1, y: 1, z: 1}
+        m_maxXYZScale: {x: 1, y: 1, z: 1}
+        m_scaleRandomPercentage: 0.5
+        m_XYZScaleRandomPercentage: {x: 0.5, y: 0.5, z: 0.5}
+        m_foldedOut: 1
+        m_yOffsetBasedOn: 0
+        m_customOffset: 0
+      m_dna:
+        m_boundsRadius: 1.7718587
+        m_scaleMultiplier: 1
+        m_extParam: 
+        m_protoIdx: 0
+      m_spawnCriteria:
+      - m_name: 
+        m_checkType: 1
+        m_virginTerrain: 1
+        m_checkHeight: 1
+        m_minHeight: 0
+        m_maxHeight: 950
+        m_heightFitness:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_checkSlope: 1
+        m_minSlope: 0
+        m_maxSlope: 7.6371098
+        m_slopeFitness:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_checkProximity: 0
+        m_proximityTag: 
+        m_minProximity: 0
+        m_maxProximity: 100
+        m_proximityFitness:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.3
+            value: 0.2
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_checkTexture: 0
+        m_matchingTextures: '!3'
+        m_isActive: 1
+      m_spawnExtensions: []
+      m_canSpawnAsTree: 0
+      m_instancesFoldOut: 1
+      m_dnaFoldedOut: 1
+    m_spawnExtensionPrototypes: []
+    m_stampDistributionPrototypes: []
+    m_worldBiomeMaskPrototypes: []
+    m_probePrototypes: []
+    m_terrainModifierStampPrototypes: []
+  m_x: 0
+  m_y: 50
+  m_z: 0
+  m_width: 10
+  m_height: 10
+  m_rotation: 0
+  m_isWorldmapSpawner: 0
+  m_spawnRange: 500
+  m_generateRandomSeed: 0
+  m_randomSeed: 0
+  m_spawnDensity: 1
+  m_resourcesPath: 
+  m_spawnerRules:
+  - m_name: Sand
+    m_guid: 6787d703-e059-4042-adc9-3ab1c2f52d95
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 0
+    m_resourceIdx: 0
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: Grass
+    m_guid: 9e034ee1-4d42-449d-bda9-8078b2359409
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 0
+    m_resourceIdx: 1
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: Stone Cover
+    m_guid: b5502842-34c2-41cd-be78-dd83a8441345
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 0
+    m_resourceIdx: 2
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: Stone Slope
+    m_guid: 5e0b141b-d72d-4ead-85c1-0606e43e928b
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 0
+    m_resourceIdx: 3
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: beech_tree_01
+    m_guid: ef7778b3-c58a-4c0d-bb49-2f7147939251
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 2
+    m_resourceIdx: 0
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: beech_tree_02
+    m_guid: 3a5d8d8d-db5a-4d08-9158-0b65e8d14839
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 2
+    m_resourceIdx: 1
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: beech_tree_03
+    m_guid: a318c612-6b2d-4aa2-b0e5-11c58b46a6c8
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 2
+    m_resourceIdx: 2
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: beech_tree_04
+    m_guid: 915e6f69-6487-4474-bd84-326c1a2c9c99
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 2
+    m_resourceIdx: 3
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: beech_tree_05
+    m_guid: ac35cf14-baba-4cc1-a78e-748e710c0ed3
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 2
+    m_resourceIdx: 4
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: Dirt
+    m_guid: 2e907f4d-1d87-403b-a077-07fb74d15207
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 0
+    m_resourceIdx: 4
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: Leaves
+    m_guid: c5682a15-4c53-436b-b19d-b83197a708cb
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 0
+    m_resourceIdx: 5
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: Mound
+    m_guid: d5e8e0b9-4c0a-472a-8e25-47814b7e76de
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 8
+    m_resourceIdx: 0
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: Grass Obj
+    m_guid: a8de8727-0cfd-43e2-84cc-a0efe0b013ba
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 3
+    m_resourceIdx: 0
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: Grass Obj (1)
+    m_guid: 12220ce3-847d-44b2-b5e2-9737c301ef3b
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 1
+    m_resourceIdx: 2
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: Grass Terrain
+    m_guid: 35bf9e61-588b-4605-8d82-0ee06ee1d2b1
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 1
+    m_resourceIdx: 0
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: Grass Terrain
+    m_guid: 91bc89ed-3080-40c7-8623-61cea466a832
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 1
+    m_resourceIdx: 3
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  - m_name: PW_Stone_01
+    m_guid: 8d225517-7c5e-4aa4-84da-5002ee1ce4b3
+    m_useExtendedSpawn: 0
+    m_minRequiredFitness: 0.25
+    m_minInstanceRequiredFitness: 0
+    m_failureRate: 0
+    m_maxInstances: 40000000
+    m_ignoreMaxInstances: 0
+    m_minDirection: 0
+    m_maxDirection: 359.9
+    m_locationIncrementMin: 25
+    m_locationIncrementMax: 45
+    m_jitterPercent: 1
+    m_boundsCheckQuality: 25
+    m_resourceType: 3
+    m_resourceIdx: 3
+    m_imageMasks: []
+    m_visualisationColor: {r: 1, g: 0.9849656, b: 0.7688679, a: 0}
+    m_noiseMask: 0
+    m_noiseMaskSeed: 0
+    m_noiseMaskOctaves: 8
+    m_noiseMaskPersistence: 0.25
+    m_noiseMaskFrequency: 1
+    m_noiseMaskLacunarity: 1.5
+    m_noiseZoom: 50
+    m_noiseStrength: 1
+    m_noiseInvert: 0
+    m_isActive: 1
+    m_isFoldedOut: 0
+    m_currInstanceCnt: 0
+    m_activeInstanceCnt: 0
+    m_inactiveInstanceCnt: 0
+    m_resourceSettingsFoldedOut: 0
+    m_isHelpActive: 0
+    m_spawnedInstances: 0
+    m_goSpawnTargetMode: 0
+    m_goSpawnTarget: {fileID: 0}
+    m_terrainGOSpawnTargetName: Gaia Game Object Spawns
+    m_terrainDetailDensity: 15
+    m_terrainDetailMinFitness: 0.5
+    m_terrainDetailFitnessBeginFadeOut: 0.6
+    m_createdBiomeController: {fileID: 0}
+    m_visibleInSceneHierarchy: 1
+    m_usesBoxStandIn: 0
+    m_boundsCollisionCheck: 0
+    m_changesHeightmap: 0
+    m_startOffsetX: 0
+    m_startOffsetZ: 0
+    m_collisionLayersToClear:
+      serializedVersion: 2
+      m_Bits: 0
+  m_showGizmos: 1
+  m_showDebug: 0
+  m_showTerrainHelper: 1
+  m_spawnMode: 0
+  imageMasks: []
+  m_clearSpawnsToggleTrees: 0
+  m_clearSpawnsToggleDetails: 0
+  m_clearSpawnsToggleGOs: 0
+  m_clearSpawnsToggleSpawnExtensions: 0
+  m_clearSpawnsToggleProbes: 0
+  m_clearSpawnsFor: 1
+  m_clearSpawnsFrom: 0
+  m_lastGUIDSaved: 
+  m_stampDensity: 0
+  m_stampJitter: 0.25
+  m_stampWidth: 100
+  m_stampHeight: 100

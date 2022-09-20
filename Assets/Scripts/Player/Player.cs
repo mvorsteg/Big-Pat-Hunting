@@ -146,22 +146,19 @@ public class Player : Entity
     public override void TakeDamage(HitInfo info)
     {
         base.TakeDamage(info);
+
+        audioSource.PlayOneShot(fallDamageSound);
+        if (!(info.source is FallDamage))
+        {
+            DamageSystem.CreateIndicator(info.source.GetTransform());
+
+        }
+        DamageSystem.SetVignette(1 - health / maxHealth);
+        StopCoroutine("HealthRegen");
         if (isAlive)
         {
-
-            audioSource.PlayOneShot(fallDamageSound);
-            if (!(info.source is FallDamage))
-            {
-                DamageSystem.CreateIndicator(info.source.GetTransform());
-
-            }
-            DamageSystem.SetVignette(1 - health / maxHealth);
-            StopCoroutine("HealthRegen");
-            if (isAlive)
-            {
-                // using string name because we need that to interrupt
-                StartCoroutine("HealthRegen");
-            }
+            // using string name because we need that to interrupt
+            StartCoroutine("HealthRegen");
         }
     }
 
